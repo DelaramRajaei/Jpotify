@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class Core {
-    File songsFile;
-    FileWriter fileWriter;
+    static File songsFile;
+    static FileWriter fileWriter;
 
     public Core() {
         songsFile = new File("Songs.txt");
     }
 
-    public void addSong(String directory, ArrayList<Music> musics) {
+    public static void addSong(String directory, ArrayList<Music> musics) {
         try {
 
             fileWriter = new FileWriter(songsFile);
@@ -27,7 +27,7 @@ public class Core {
         }
     }
 
-    public ArrayList<Music> uptodateList(ArrayList<Music> musics,Music newMusic) {
+    public static ArrayList<Music> uptodateList(ArrayList<Music> musics,Music newMusic) {
         musics.add(newMusic);
         return musics;
     }
