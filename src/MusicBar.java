@@ -4,7 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import javaz
+
 
 public class MusicBar extends JPanel implements ActionListener  {
     private JButton pause;
@@ -15,9 +15,12 @@ public class MusicBar extends JPanel implements ActionListener  {
     private JButton shuffle;
     Thread t;
 
+
+    ImageIcon playIcon = new ImageIcon(this.getClass().getResource("images/play2.png"));
+
     public MusicBar(){
         super();
-        play=new JButton("play");
+        play=new JButton(playIcon);
         pause=new JButton("pause");
         previous=new JButton("previous");
         next=new JButton("next");
@@ -29,12 +32,12 @@ public class MusicBar extends JPanel implements ActionListener  {
 
                 t=new Thread();
 
-        play.setBounds(200,25,50,25);
-        pause.setBounds(250,25,50,25);
-        next.setBounds(300,25,50,25);
-        previous.setBounds(150,25,50,25);
-        musicSlider.setBounds(200,55,150,25);
-        previous.setBounds(150,25,50,25);
+        play.setBounds(200,25,50,50);
+        pause.setBounds(250,25,50,50);
+        next.setBounds(300,25,50,50);
+        previous.setBounds(150,25,50,50);
+        musicSlider.setBounds(200,80,200,25);
+        previous.setBounds(150,25,50,50);
 
         play.addActionListener(this);
         previous.addActionListener(this);
@@ -74,7 +77,7 @@ public class MusicBar extends JPanel implements ActionListener  {
          }
     }
 
-        public void run(){
+       /* public void run(){
             FileInputStream fis;
             try{
                 fis=new FileInputStream("03. Smooth Criminal");
@@ -84,7 +87,7 @@ public class MusicBar extends JPanel implements ActionListener  {
                 e.printStackTrace();
             }
 
-        }
+        }*/
 
 
 }
