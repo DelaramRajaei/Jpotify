@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import javaz
 
 public class MusicBar extends JPanel implements ActionListener  {
     private JButton pause;
@@ -73,7 +74,7 @@ public class MusicBar extends JPanel implements ActionListener  {
          }
     }
 
-        /*public void run(){
+        public void run(){
             FileInputStream fis;
             try{
                 fis=new FileInputStream("03. Smooth Criminal");
@@ -83,7 +84,7 @@ public class MusicBar extends JPanel implements ActionListener  {
                 e.printStackTrace();
             }
 
-        }*/
+        }
 
 
 }
