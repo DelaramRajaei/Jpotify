@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class MusicBar extends JPanel implements ActionListener  {
+public class MusicBar extends JPanel implements ActionListener {
     private JButton pause;
     private JButton play;
     private JButton next;
@@ -14,26 +14,24 @@ public class MusicBar extends JPanel implements ActionListener  {
     private JButton shuffle;
     Thread t;
 
-    public MusicBar(){
+    public MusicBar() {
         super();
-        play=new JButton("play");
-        pause=new JButton("pause");
-        previous=new JButton("previous");
-        next=new JButton("next");
-        shuffle=new JButton();
-        musicSlider=new JSlider();
+        play = new JButton("play");
+        pause = new JButton("pause");
+        previous = new JButton("previous");
+        next = new JButton("next");
+        shuffle = new JButton();
+        musicSlider = new JSlider();
 
 
+        t = new Thread();
 
-
-                t=new Thread();
-
-        play.setBounds(200,25,50,25);
-        pause.setBounds(250,25,50,25);
-        next.setBounds(300,25,50,25);
-        previous.setBounds(150,25,50,25);
-        musicSlider.setBounds(200,55,150,25);
-        previous.setBounds(150,25,50,25);
+        play.setBounds(200, 25, 50, 25);
+        pause.setBounds(250, 25, 50, 25);
+        next.setBounds(300, 25, 50, 25);
+        previous.setBounds(150, 25, 50, 25);
+        musicSlider.setBounds(200, 55, 150, 25);
+        previous.setBounds(150, 25, 50, 25);
 
         play.addActionListener(this);
         previous.addActionListener(this);
@@ -49,28 +47,26 @@ public class MusicBar extends JPanel implements ActionListener  {
         add(musicSlider);
 
 
-
         setVisible(true);
         setLayout(null);
-        setSize(500,70);
+        setSize(500, 70);
 
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource()==play){
+        if (e.getSource() == play) {
             t.start();
-        }
-        else  if(e.getSource()==pause){
-                t.suspend();
-        }else if(e.getSource()==next){
-                t.stop();
-        }else if(e.getSource()==previous){
-                t.stop();
-        }else if(e.getSource()==shuffle){
+        } else if (e.getSource() == pause) {
+            t.suspend();
+        } else if (e.getSource() == next) {
+            t.stop();
+        } else if (e.getSource() == previous) {
+            t.stop();
+        } else if (e.getSource() == shuffle) {
 
-         }
+        }
     }
 
      /*   public void run(){
