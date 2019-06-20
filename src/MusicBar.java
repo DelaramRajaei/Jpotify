@@ -15,13 +15,18 @@ public class MusicBar extends JPanel implements ActionListener  {
     Thread t;
 
     public MusicBar(){
+        super();
         play=new JButton("play");
         pause=new JButton("pause");
         previous=new JButton("previous");
         next=new JButton("next");
         shuffle=new JButton();
         musicSlider=new JSlider();
-        t=new Thread();
+
+
+
+
+                t=new Thread();
 
         play.setBounds(200,25,50,25);
         pause.setBounds(250,25,50,25);
@@ -42,6 +47,8 @@ public class MusicBar extends JPanel implements ActionListener  {
         add(next);
         add(shuffle);
         add(musicSlider);
+
+
 
         setVisible(true);
         setLayout(null);
