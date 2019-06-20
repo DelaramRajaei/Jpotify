@@ -19,6 +19,8 @@ public class MusicBar extends JPanel implements ActionListener  {
         pause=new JButton("pause");
         previous=new JButton("previous");
         next=new JButton("next");
+        shuffle=new JButton();
+        musicSlider=new JSlider();
         t=new Thread();
 
         play.setBounds(200,25,50,25);
@@ -64,7 +66,7 @@ public class MusicBar extends JPanel implements ActionListener  {
          }
     }
 
-        public void run(){
+        /*public void run(){
             FileInputStream fis;
             try{
                 fis=new FileInputStream("03. Smooth Criminal");
@@ -74,7 +76,7 @@ public class MusicBar extends JPanel implements ActionListener  {
                 e.printStackTrace();
             }
 
-        }
+        }*/
 
 
 }
