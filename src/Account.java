@@ -3,36 +3,39 @@ import java.util.ArrayList;
 public class Account {
     private String name;
     private int lastActivity;
+    private int IP;
 
-    private ArrayList<Music>musics;
+    private ArrayList<Music> musics;
+    private ArrayList<PlayList> playLists;
     private PlayList favoritePlayList;
     private PlayList sharedPlayList;
-    private ArrayList<PlayList> playLists;
 
 
-    public Account(String name){
-        this.name=name;
+    public Account(String name) {
+        this.name = name;
 
 
-        favoritePlayList=new PlayList();
-        sharedPlayList=new PlayList();
-        musics=new ArrayList<>();
-        playLists=new ArrayList<PlayList>();
+        favoritePlayList = new PlayList();
+        sharedPlayList = new PlayList();
+        musics = new ArrayList<>();
+        playLists = new ArrayList<PlayList>();
 
 
     }
-    public Void addMusic(Music m){
-        musics.add(m);
+
+    public Void addMusic() {
+        Core.addSong();
     }
-    public Void addPlayList(PlayList p){
-        playLists.add(p);
+
+    public Void addPlayList(PlayList p) {
+        Core.createPlaylist();
     }
 
     public String getName() {
         return name;
     }
 
-    public ArrayList<Music> getSharedPlayList() {
+    public PlayList getSharedPlayList() {
         return sharedPlayList;
     }
 
@@ -44,7 +47,7 @@ public class Account {
         this.lastActivity = lastActivity;
     }
 
-    public void setSharedPlayList(ArrayList<Music> sharedPlayList) {
+    public void setSharedPlayList(PlayList sharedPlayList) {
         this.sharedPlayList = sharedPlayList;
     }
 

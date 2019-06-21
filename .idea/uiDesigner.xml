@@ -121,4 +121,10 @@
       </item>
     </group>
   </component>
+<<<<<<< Updated upstream
+=======
+  <component name="uidesigner-configuration">
+    <option name="DEFAULT_LAYOUT_MANAGER" value="BorderLayout" />
+  </component>
+>>>>>>> Stashed changes
 </project>

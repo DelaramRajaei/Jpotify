@@ -27,6 +27,10 @@ public class Core {
             e.printStackTrace();
         }
     }
+    public static void createPlaylist(ArrayList<Music> musics){
+
+    }
+
 
     public static void initialLoad(ArrayList<Music> musics) {
         FileReader input=null;
