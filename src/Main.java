@@ -13,7 +13,7 @@ public class Main {
             ArrayList<Music> musics = new ArrayList<Music>();
             Core.initialLoad(musics);
             RootPanel rootPanel = new RootPanel();
-            Music m = new Music("E:\\Codes\\Java\\Project\\Jpotify\\src\\m.mp3");
+            Core.addSong("E:\\Codes\\Java\\Project\\Jpotify\\src\\m.mp3",musics);
         } catch(Exception e){
         }
     }
