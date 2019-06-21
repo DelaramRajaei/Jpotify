@@ -1,7 +1,8 @@
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
-import javazoom.jl.player.advanced.AdvancedPlayer;
+
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,20 @@ import java.io.FileNotFoundException;
 
 
 public class MusicBar extends JPanel implements ActionListener   {
+
+    private AudioPlayer player=new AudioPlayer();
+    private Thread playbackThread;
+    private PlayingTimer timer;
+
+    private boolean isPlaying = false;
+    private boolean isPause = false;
+
+    private String audioFilePath;
+    private String lastOpenPath;
+
+
+
+
     private static final int WIDTH = 750, HEIGHT = 300;
 
     private JButton pause;
