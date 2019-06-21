@@ -4,7 +4,8 @@ import java.util.ArrayList;
 public class Core {
     static File songsFile;
     static FileWriter fileWriter;
-    private static final String fileName = "Song.txt";
+    private static final String fileNameOfSongs = "Song.txt";
+    private static final String fileNameOfPlayLists= "PlayList.txt";
 
     /**
      * Add a song to list of songs save it on the file and make an object of Music from it.
@@ -27,8 +28,11 @@ public class Core {
             e.printStackTrace();
         }
     }
-    public static void createPlaylist(ArrayList<Music> musics){
-
+    public static void createPlaylist(ArrayList<PlayList> playLists){
+          try{
+              fileWriter =new FileWriter(fileNameOfPlayLists);
+              fileWriter.write();
+          }catch(Exception e){}
     }
 
 
@@ -37,7 +41,7 @@ public class Core {
         BufferedReader reader=null;
         String line;
         try {
-            songsFile = new File(fileName);
+            songsFile = new File(fileNameOfSongs);
             if (!songsFile.createNewFile()) {
                 input = new FileReader(songsFile);
                 reader = new BufferedReader(input);

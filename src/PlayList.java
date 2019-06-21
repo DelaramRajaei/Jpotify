@@ -1,2 +1,3 @@
-public class PlayList {
+public  class  Abstract PlayList {
+
 }

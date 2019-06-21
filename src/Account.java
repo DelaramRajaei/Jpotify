@@ -23,12 +23,12 @@ public class Account {
 
     }
 
-    public Void addMusic() {
-        Core.addSong();
+    public void addMusic(String directory) {
+        Core.addSong(directory,musics);
     }
 
-    public Void addPlayList(PlayList p) {
-        Core.createPlaylist();
+    public void addPlayList() {
+        Core.createPlaylist(playLists);
     }
 
     public String getName() {
