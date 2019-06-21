@@ -35,7 +35,12 @@ public class Core {
           }catch(Exception e){}
     }
 
-
+    /**
+     * When you start the program this methode will run and if you saved a song before this methode will bring
+     * it back!
+     * @param musics Arraylist of songs that each account has.
+     * @param playLists Arraylist of Playlists that each account has.
+     */
     public static void initialLoad(ArrayList<Music> musics,ArrayList<PlayList> playLists) {
         FileReader input=null;
         BufferedReader reader=null;
@@ -47,7 +52,7 @@ public class Core {
                 reader = new BufferedReader(input);
                 while((line=reader.readLine())!= null){
                     Music music=new Music(line);
-                    musics.add(music);
+                    updateList(musics,music);
                 }
             }
         } catch (Exception e) {
@@ -59,12 +64,23 @@ public class Core {
 
     }
 
+    /**
+     * This method will close the Readers you opened earlier
+     * @param reader
+     */
     private static void closeReader(Reader reader){
         try {
             if (reader!=null)reader.close();
         }catch(Exception e){}
     }
 
+    /**
+     * This will add musics to your Arraylist of songs
+     * With this method you will update your list.
+     * @param musics Your Arraylist of songs.
+     * @param newMusic New music you wanted to add.
+     * @return
+     */
     public static ArrayList<Music> updateList(ArrayList<Music> musics, Music newMusic) {
         musics.add(newMusic);
         return musics;
