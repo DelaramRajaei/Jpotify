@@ -22,8 +22,10 @@ public class RootPanel extends JFrame {
         this.add(leftPanel,BorderLayout.EAST);
 
         this.setContentPane(musicBar);
-        //this.setContentPane(leftPanel);  <<<<====>>>>>     // age ino az commenti dar biary hichi neshon nmide :(
+
+       // this.setContentPane(leftPanel); // <<<<====>>>>>     // age ino az commenti dar biary hichi neshon nmide :(
         this.pack();
+        //setResizable(false);
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setSize(WIDTH, HEIGHT);
