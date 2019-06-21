@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class MusicBar extends JPanel implements ActionListener  {
+public class MusicBarPanel extends JPanel implements ActionListener  {
     private static final int WIDTH = 750, HEIGHT = 300;
 
 
@@ -58,7 +58,7 @@ public class MusicBar extends JPanel implements ActionListener  {
         private ImageIcon playIcon = new ImageIcon(this.getClass().getResource("images/play2.png"));
         private ImageIcon pauseIcon = new ImageIcon(this.getClass().getResource("images/paus.png"));
 
-        public MusicBar() {
+        public MusicBarPanel() {
             super();
 
 
