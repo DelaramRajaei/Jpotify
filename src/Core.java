@@ -20,14 +20,14 @@ public class Core {
             fileWriter.close();
 
             Music newMusic = new Music(directory);
-            musics = uptodateList(musics,newMusic);
+            musics = updateList(musics,newMusic);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static ArrayList<Music> uptodateList(ArrayList<Music> musics,Music newMusic) {
+    public static ArrayList<Music> updateList(ArrayList<Music> musics, Music newMusic) {
         musics.add(newMusic);
         return musics;
     }
