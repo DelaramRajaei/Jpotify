@@ -19,8 +19,6 @@ public class Music {
             File file = new File(directory);
             FileInputStream fileStream = new FileInputStream(new File(directory));
             byte[] bytes = new byte[128];
-            long i = file.length();
-            //fileStream.read(bytes,(int)file.length()-128,bytes.length);
             fileStream.skip(file.length()-128);
             fileStream.read(bytes);
             fileStream.close();

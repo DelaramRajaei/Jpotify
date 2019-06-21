@@ -11,6 +11,13 @@ public class Core {
         songsFile = new File("Songs.txt");
     }
 
+    /**
+     * Add a song to list of songs save it on the file and make an object of Music from it.
+     *
+     * @param directory Path of the file
+     * @param musics Arraylist of musics
+     *
+     */
     public static void addSong(String directory, ArrayList<Music> musics) {
         try {
 
