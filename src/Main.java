@@ -10,8 +10,9 @@ public class Main {
 
     public static void main(String[] args) {
 
+        Account account=new Account("D");
         ArrayList<Music> musics = new ArrayList<Music>();
-        Core.initialLoad(musics);
+        Core.initialLoad(account.getMusics(),account.getPlayLists());
         //RootPanel rootPanel = new RootPanel();
 
 

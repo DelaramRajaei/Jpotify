@@ -36,7 +36,7 @@ public class Core {
     }
 
 
-    public static void initialLoad(ArrayList<Music> musics) {
+    public static void initialLoad(ArrayList<Music> musics,ArrayList<PlayList> playLists) {
         FileReader input=null;
         BufferedReader reader=null;
         String line;

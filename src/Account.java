@@ -6,65 +6,66 @@ public class Account {
     private int IP;
 
     private ArrayList<Music> musics;
+    private ArrayList<ClientPlayList> clientPlayLists;
+    private FavoriteSongs favoriteSongs;
+    private SharedPlayList sharedPlayList;
     private ArrayList<PlayList> playLists;
-    private PlayList favoritePlayList;
-    private PlayList sharedPlayList;
 
 
     public Account(String name) {
         this.name = name;
 
+        favoriteSongs = new FavoriteSongs();
+        sharedPlayList = new SharedPlayList();
+        musics = new ArrayList<Music>();
+        clientPlayLists = new ArrayList<ClientPlayList>();
 
-        favoritePlayList = new PlayList();
-        sharedPlayList = new PlayList();
-        musics = new ArrayList<>();
-        playLists = new ArrayList<PlayList>();
-
-
+        playLists.add(sharedPlayList);
+        playLists.add(favoriteSongs);
+        if (clientPlayLists != null) {
+            for (ClientPlayList eachOne : clientPlayLists) {
+                playLists.add(eachOne);
+            }
+        }
     }
 
     public void addMusic(String directory) {
-        Core.addSong(directory,musics);
+        Core.addSong(directory, musics);
     }
 
     public void addPlayList() {
         Core.createPlaylist(playLists);
     }
 
+    public void addSongToPlayList(ArrayList<Music> selectedMusics, String name) {
+        boolean flag = false;
+        PlayList selectedList = null;
+        if (sharedPlayList.getName().equals(name))
+            selectedList = sharedPlayList;
+        else if (favoriteSongs.getName().equals(name)) {
+            selectedList = favoriteSongs;
+        } else {
+            for (ClientPlayList eachPlayList : clientPlayLists) {
+                while (!flag) {
+                    if (eachPlayList.getName().equals(name)) {
+                        selectedList = eachPlayList;
+                        flag = true;
+                    }
+                }
+            }
+        }
+        selectedList.addSong(selectedMusics);
+    }
+
     public String getName() {
         return name;
     }
 
-    public PlayList getSharedPlayList() {
-        return sharedPlayList;
-    }
-
-    public int getLastActivity() {
-        return lastActivity;
-    }
-
-    public void setLastActivity(int lastActivity) {
-        this.lastActivity = lastActivity;
-    }
-
-    public void setSharedPlayList(PlayList sharedPlayList) {
-        this.sharedPlayList = sharedPlayList;
-    }
-
-
-    public PlayList getFavoritePlayList() {
-        return favoritePlayList;
-    }
-
-    public void setFavoritePlayList(PlayList favoritePlayList) {
-        this.favoritePlayList = favoritePlayList;
+    public ArrayList<Music> getMusics() {
+        return musics;
     }
 
     public ArrayList<PlayList> getPlayLists() {
         return playLists;
-    }
-
-    public void setPlayLists(ArrayList<PlayList> playLists) {
-        this.playLists = playLists;
     }
 }

@@ -1,8 +1,9 @@
-public class SharedPlayList extends Lists{
+public class SharedPlayList extends PlayList {
 
-    public SharedPlayList(){
-        name ="Shared Playlist";
-        editable=false;
+    public SharedPlayList() {
+
+        name = "Shared Playlist";
+        editable = false;
 
     }
 }
