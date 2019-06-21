@@ -1,18 +1,21 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.TreeMap;
 
 public class RootPanel extends JFrame {
-
+    private Account account;
+    private ArrayList<Account> accounts;
     private MusicBar musicBar;
     private LeftPanel leftPanel;
     private static final int WIDTH = 1000, HEIGHT = 1050;
 
-    public RootPanel(){
+    public RootPanel(Account account,ArrayList<Account> accounts){
         super();
-
+        this.account=account;//````````
+        this.accounts=accounts;//````
         musicBar=new MusicBar();
         leftPanel=new LeftPanel();
         setLayout(new BorderLayout());
