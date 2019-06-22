@@ -23,7 +23,7 @@ import java.io.IOException;
 
 public class MusicBarPanel extends JPanel implements ActionListener {
 
-
+//TODO debbuging
 
 
 
@@ -61,7 +61,7 @@ public class MusicBarPanel extends JPanel implements ActionListener {
         private JButton buttonOpen;
 
 
-         private Thread t;
+         //private Thread t;
 
 
         private ImageIcon playIcon = new ImageIcon(this.getClass().getResource("images/play2.png"));
@@ -160,22 +160,7 @@ public class MusicBarPanel extends JPanel implements ActionListener {
 
             this.setVisible(true);
 
-            t=new Thread(this::run);
-
-//            play.setBounds(200,700,50,50);
-//            pause.setBounds(250,700,50,50);
-//            next.setBounds(300,700,50,50);
-//            previous.setBounds(150,700,50,50);
-//            musicSlider.setBounds(200,755,200,25);
-//            previous.setBounds(150,700,50,50);
-//            //buttonsPanel.setBounds(200,200,50,50);
-//            buttonOpen.setBounds(100,100,100,100);
-//            play.setBounds(200, 700, 50, 50);
-//            pause.setBounds(250, 700, 50, 50);
-//            next.setBounds(300, 700, 50, 50);
-//            previous.setBounds(150, 700, 50, 50);
-//            musicSlider.setBounds(200, 755, 200, 25);
-//            previous.setBounds(150, 700, 50, 50);
+           // t=new Thread(this::run);
 
         }
 
@@ -223,27 +208,12 @@ public class MusicBarPanel extends JPanel implements ActionListener {
                 fileChooser = new JFileChooser();
             }
 
-//            FileFilter wavFilter = new FileFilter() {
-//                @Override
-//                public String getDescription() {
-//                    return "Sound file (*.WAV)";
-//                }
-//
-//                @Override
-//                public boolean accept(File file) {
-//                    if (file.isDirectory()) {
-//                        return true;
-//                    } else {
-//                        return file.getName().toLowerCase().endsWith(".AWV");
-//                    }
-//                }
-//            };
             FileFilter filter = new FileNameExtensionFilter("MP3 File","mp3");
             fileChooser.setFileFilter(filter);
             //fileChooser.showOpenDialog(frame);
             File file = fileChooser.getSelectedFile();
 
-            //fileChooser.setFileFilter(wavFilter);
+
             //fileChooser.setFileFilter(mp3Filter);
             fileChooser.setDialogTitle("Open Audio File");
             fileChooser.setAcceptAllFileFilterUsed(false);
@@ -262,7 +232,7 @@ public class MusicBarPanel extends JPanel implements ActionListener {
                         }
                     }
                 }
-                //playBack();
+                playBack();
             }
 
             System.out.println(audioFilePath);
@@ -329,38 +299,38 @@ public class MusicBarPanel extends JPanel implements ActionListener {
 
 
 
-        public void run() {
-            playMusic();
-
-            FileInputStream fis;
-            try{
-                fis=new FileInputStream(audioFilePath);
-                AdvancedPlayer player=new AdvancedPlayer(fis);
-                player.play();
-            }catch (FileNotFoundException e){
-                e.printStackTrace();
-            } catch (JavaLayerException e) {
-                e.printStackTrace();
-            }
-        }
-
-
-
-        public void playMusic() {
-            System.out.println("music playing");
-            try {
-                FileInputStream fileInputStream = new FileInputStream("G:\\uni\\project\\New folder\\Jpotify\\src\\m.mp3");
-                Player player = new Player(fileInputStream);
-                System.out.println("Song is playing...");
-                player.play();
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (JavaLayerException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
+//        public void run() {
+//            playMusic();
+//
+//            FileInputStream fis;
+//            try{
+//                fis=new FileInputStream(audioFilePath);
+//                AdvancedPlayer player=new AdvancedPlayer(fis);
+//                player.play();
+//            }catch (FileNotFoundException e){
+//                e.printStackTrace();
+//            } catch (JavaLayerException e) {
+//                e.printStackTrace();
+//            }
+//        }
+//
+//
+//
+//        public void playMusic() {
+//            System.out.println("music playing");
+//            try {
+//                FileInputStream fileInputStream = new FileInputStream("G:\\uni\\project\\New folder\\Jpotify\\src\\m.mp3");
+//                Player player = new Player(fileInputStream);
+//                System.out.println("Song is playing...");
+//                player.play();
+//            } catch (FileNotFoundException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            } catch (JavaLayerException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//        }
         private void stopPlaying() {
             isPause = false;
             // pause.setText("Pause");
