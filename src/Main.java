@@ -14,7 +14,7 @@ public class Main {
         ArrayList<Music> musics = new ArrayList<Music>();
         Core.initialLoad(account.getMusics(),account.getPlayLists());
         RootPanel rootPanel = new RootPanel();
-
+//TODO adding album class
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

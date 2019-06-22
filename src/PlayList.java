@@ -1,5 +1,5 @@
 import java.util.ArrayList;
-
+import java.util.Iterator;
 
 
 public abstract class PlayList {
@@ -12,7 +12,28 @@ public abstract class PlayList {
             music.add(eachMusic);
         }
     }
-    public String getName(){
+
+    /**
+     * Removing a song from a playlist.
+     * Find the song in arraylist of the playlist then remove it.
+     * @param selectedMusics
+     * @param name
+     */
+
+    public void removeSong(ArrayList<Music> selectedMusics, String name) {
+        boolean flag = false;
+        while (!flag) {
+            Iterator<Music> eachMusic = selectedMusics.iterator();
+            while (eachMusic.hasNext()) {
+                if (eachMusic.next().getName().equals(name)) {
+                    eachMusic.remove();
+                }
+            }
+
+        }
+    }
+
+    public String getName() {
         return name;
     }
 

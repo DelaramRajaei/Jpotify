@@ -20,8 +20,8 @@ public class Account {
         musics = new ArrayList<Music>();
         clientPlayLists = new ArrayList<ClientPlayList>();
 
-//        playLists.add(sharedPlayList);
- //       playLists.add(favoriteSongs);
+        playLists.add(sharedPlayList);
+        playLists.add(favoriteSongs);
         if (clientPlayLists != null) {
             for (ClientPlayList eachOne : clientPlayLists) {
                 playLists.add(eachOne);
@@ -55,7 +55,22 @@ public class Account {
             }
         }
         selectedList.addSong(selectedMusics);
-    }//TODO remove song
+    }
+
+    /**
+     * Removing a song from a selected Playlist
+     * First it would find the playlist then call the removeSong method.
+     * @param music music that you selected to remove
+     * @param name name of the playlist
+     */
+
+    public void removeSong(Music music,String name){
+        for (PlayList eachPlayList:playLists) {
+            if (eachPlayList.getName().equals(name)){
+                eachPlayList.removeSong(eachPlayList.music,music.getName());
+            }
+        }
+    }
 
     public String getName() {
         return name;
