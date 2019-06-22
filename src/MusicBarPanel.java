@@ -1,21 +1,29 @@
 
 
 
+import javazoom.jl.player.Player;
+
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 
-public class MusicBarPanel extends JPanel implements ActionListener  {
-    private static final int WIDTH = 750, HEIGHT = 300;
+public class MusicBarPanel extends JPanel implements ActionListener {
+
+
+
+
 
 
     private Music playingSong;
@@ -60,12 +68,13 @@ public class MusicBarPanel extends JPanel implements ActionListener  {
 
         public MusicBarPanel() {
             super();
+            play=new JButton("temp");
 
 
 
             this.setLayout(new GridBagLayout());
             GridBagConstraints constraints = new GridBagConstraints();
-            constraints.insets = new Insets(5, 5, 5, 5);
+           // constraints.insets = new Insets(5, 5, 5, 5);
             constraints.anchor = GridBagConstraints.WEST;
 
 
@@ -73,7 +82,7 @@ public class MusicBarPanel extends JPanel implements ActionListener  {
 
 
                     musicSlider=new JSlider();
-            musicSlider.setPreferredSize(new Dimension(400, 20));
+           // musicSlider.setPreferredSize(new Dimension(400, 20));
             //musicSlider.setEnabled(false);
             musicSlider.setValue(0);
 
@@ -102,29 +111,29 @@ public class MusicBarPanel extends JPanel implements ActionListener  {
             labelDuration.setFont(new Font("Sans", Font.BOLD, 12));
 
 
-            play = new JButton(playIcon);
-            pause = new JButton(pauseIcon);
-            previous = new JButton("previous");
-            next = new JButton("next");
-            shuffle = new JButton();
-            musicSlider = new JSlider();
+//            play = new JButton(playIcon);
+//            pause = new JButton(pauseIcon);
+//            previous = new JButton("previous");
+//            next = new JButton("next");
+//            shuffle = new JButton();
+//            musicSlider = new JSlider();
 
-            constraints.gridx = 0;
-            constraints.gridy = 0;
-            constraints.gridwidth = 3;
-            add(labelFileName, constraints);
-
-
-            constraints.anchor = GridBagConstraints.CENTER;
-            constraints.gridy = 1;
-            constraints.gridwidth = 1;
-            add(labelTimeCounter, constraints);
-
-            constraints.gridx = 1;
-            add(musicSlider, constraints);
-
-            constraints.gridx = 2;
-            add(labelDuration, constraints);
+//            constraints.gridx = 0;
+//            constraints.gridy = 0;
+//            constraints.gridwidth = 3;
+//            add(labelFileName, constraints);
+//
+//
+//            constraints.anchor = GridBagConstraints.CENTER;
+//            constraints.gridy = 1;
+//            constraints.gridwidth = 1;
+//            add(labelTimeCounter, constraints);
+//
+//            constraints.gridx = 1;
+//            add(musicSlider, constraints);
+//
+//            constraints.gridx = 2;
+//            add(labelDuration, constraints);
 
 
             this.add(buttonOpen);
@@ -151,24 +160,24 @@ public class MusicBarPanel extends JPanel implements ActionListener  {
 
             //t=new Thread(this::run);
 
-            play.setBounds(200,700,50,50);
-            pause.setBounds(250,700,50,50);
-            next.setBounds(300,700,50,50);
-            previous.setBounds(150,700,50,50);
-            musicSlider.setBounds(200,755,200,25);
-            previous.setBounds(150,700,50,50);
-            //buttonsPanel.setBounds(200,200,50,50);
-            buttonOpen.setBounds(100,100,100,100);
+//            play.setBounds(200,700,50,50);
+//            pause.setBounds(250,700,50,50);
+//            next.setBounds(300,700,50,50);
+//            previous.setBounds(150,700,50,50);
+//            musicSlider.setBounds(200,755,200,25);
+//            previous.setBounds(150,700,50,50);
+//            //buttonsPanel.setBounds(200,200,50,50);
+//            buttonOpen.setBounds(100,100,100,100);
 
 
             //t = new Thread(this::run);
 
-            play.setBounds(200, 700, 50, 50);
-            pause.setBounds(250, 700, 50, 50);
-            next.setBounds(300, 700, 50, 50);
-            previous.setBounds(150, 700, 50, 50);
-            musicSlider.setBounds(200, 755, 200, 25);
-            previous.setBounds(150, 700, 50, 50);
+//            play.setBounds(200, 700, 50, 50);
+//            pause.setBounds(250, 700, 50, 50);
+//            next.setBounds(300, 700, 50, 50);
+//            previous.setBounds(150, 700, 50, 50);
+//            musicSlider.setBounds(200, 755, 200, 25);
+//            previous.setBounds(150, 700, 50, 50);
 
 
 
@@ -177,10 +186,11 @@ public class MusicBarPanel extends JPanel implements ActionListener  {
             add(musicSlider);
             setVisible(true);
             setLayout(null);
-            this.setSize(WIDTH, HEIGHT);
+            //this.setSize(WIDTH, HEIGHT);*/
 
 
         }
+
         @Override
         public void actionPerformed(ActionEvent event) {
             Object source = event.getSource();
@@ -224,23 +234,28 @@ public class MusicBarPanel extends JPanel implements ActionListener  {
                 fileChooser = new JFileChooser();
             }
 
-            FileFilter wavFilter = new FileFilter() {
-                @Override
-                public String getDescription() {
-                    return "Sound file (*.WAV)";
-                }
+//            FileFilter wavFilter = new FileFilter() {
+//                @Override
+//                public String getDescription() {
+//                    return "Sound file (*.WAV)";
+//                }
+//
+//                @Override
+//                public boolean accept(File file) {
+//                    if (file.isDirectory()) {
+//                        return true;
+//                    } else {
+//                        return file.getName().toLowerCase().endsWith(".AWV");
+//                    }
+//                }
+//            };
+            FileFilter filter = new FileNameExtensionFilter("MP3 File","mp3");
+            fileChooser.setFileFilter(filter);
+            //fileChooser.showOpenDialog(frame);
+            File file = fileChooser.getSelectedFile();
 
-                @Override
-                public boolean accept(File file) {
-                    if (file.isDirectory()) {
-                        return true;
-                    } else {
-                        return file.getName().toLowerCase().endsWith(".AWV");
-                    }
-                }
-            };
-
-            fileChooser.setFileFilter(wavFilter);
+            //fileChooser.setFileFilter(wavFilter);
+            //fileChooser.setFileFilter(mp3Filter);
             fileChooser.setDialogTitle("Open Audio File");
             fileChooser.setAcceptAllFileFilterUsed(false);
 
@@ -296,8 +311,8 @@ public class MusicBarPanel extends JPanel implements ActionListener  {
                         resetControls();
 
                     } catch (UnsupportedAudioFileException ex) {
-                        //  JOptionPane.showMessageDialog(SwingAudioPlayer.this,
-                        //          "The audio format is unsupported!", "Error", JOptionPane.ERROR_MESSAGE);
+                       //  JOptionPane.showMessageDialog(SwingAudioPlayer.this,
+                       //          "The audio format is unsupported!", "Error", JOptionPane.ERROR_MESSAGE);
                         resetControls();
                         ex.printStackTrace();
                     } catch (LineUnavailableException ex) {
@@ -324,8 +339,8 @@ public class MusicBarPanel extends JPanel implements ActionListener  {
 
 
 
-  /*      public void run() {
-            playMusic();
+        public void run() {
+            //playMusic();
 
 //            FileInputStream fis;
 //            try{
@@ -341,22 +356,21 @@ public class MusicBarPanel extends JPanel implements ActionListener  {
 
 
 
-        public void playMusic() {
-            System.out.println("music playing");
-            try {
-                FileInputStream fileInputStream = new FileInputStream("G:\\uni\\project\\New folder\\Jpotify\\src\\m.mp3");
-                Player player = new Player(fileInputStream);
-                System.out.println("Song is playing...");
-                player.play();
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            } catch (JavaLayerException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-*/
+//        public void playMusic() {
+//            System.out.println("music playing");
+//            try {
+//                FileInputStream fileInputStream = new FileInputStream("G:\\uni\\project\\New folder\\Jpotify\\src\\m.mp3");
+//                Player player = new Player(fileInputStream);
+//                System.out.println("Song is playing...");
+//                player.play();
+//            } catch (FileNotFoundException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            } catch (JavaLayerException e) {
+//                // TODO Auto-generated catch block
+//                e.printStackTrace();
+//            }
+//        }
         private void stopPlaying() {
             isPause = false;
             // pause.setText("Pause");
@@ -397,5 +411,4 @@ public class MusicBarPanel extends JPanel implements ActionListener  {
 
 
 
-
-    }
+}

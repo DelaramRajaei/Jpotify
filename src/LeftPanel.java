@@ -14,7 +14,9 @@ public class LeftPanel extends JPanel {
 
     public LeftPanel(){
         super();
-        this.setBackground(Color.YELLOW);
+        newMusic=new JButton("new");
+        this.add(newMusic);
+        /*this.setBackground(Color.YELLOW);
         menuPanel=new JPanel();
         menuPanel.setBackground(Color.DARK_GRAY);
         currentMusicPanel=new JPanel();
@@ -46,7 +48,7 @@ public class LeftPanel extends JPanel {
         setLayout(null);
         this.setSize(WIDTH, HEIGHT);
 
-
+*/
     }
 
 }

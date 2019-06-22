@@ -32,7 +32,7 @@ public class Core {
     public static void createPlaylist(ArrayList<PlayList> playLists) {
         try {
             fileWriter = new FileWriter(fileNameOfPlayLists);
-            fileWriter.write();
+            //fileWriter.write();
         } catch (Exception e) {
         }
     }
@@ -64,7 +64,7 @@ public class Core {
             closeReader(input);
             closeReader(reader);
         }
-         //TODO initial playlist
+        //TODO initial playlist
     }
 
     /**

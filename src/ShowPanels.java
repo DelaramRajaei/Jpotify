@@ -3,10 +3,15 @@ import java.util.ArrayList;
 
 public class ShowPanels extends JPanel{
     private ArrayList<JPanel>panels;
+    private JButton temp;
 
 
     public ShowPanels(){
-        panels=new ArrayList<>();
+        //panels=new ArrayList<>();
+        temp=new JButton("emptySh");
+        this.add(temp);
+
+
 
     }
 

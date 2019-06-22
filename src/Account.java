@@ -20,8 +20,8 @@ public class Account {
         musics = new ArrayList<Music>();
         clientPlayLists = new ArrayList<ClientPlayList>();
 
-        playLists.add(sharedPlayList);
-        playLists.add(favoriteSongs);
+//        playLists.add(sharedPlayList);
+ //       playLists.add(favoriteSongs);
         if (clientPlayLists != null) {
             for (ClientPlayList eachOne : clientPlayLists) {
                 playLists.add(eachOne);
@@ -55,7 +55,7 @@ public class Account {
             }
         }
         selectedList.addSong(selectedMusics);
-    }
+    }//TODO remove song
 
     public String getName() {
         return name;

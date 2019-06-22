@@ -13,7 +13,7 @@ public class Main {
         Account account=new Account("D");
         ArrayList<Music> musics = new ArrayList<Music>();
         Core.initialLoad(account.getMusics(),account.getPlayLists());
-        //RootPanel rootPanel = new RootPanel();
+        RootPanel rootPanel = new RootPanel();
 
 
         try {
