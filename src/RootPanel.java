@@ -16,6 +16,7 @@ public class RootPanel extends JFrame {
 
 
 
+
     private static final int WIDTH = 1000, HEIGHT = 1050;
 
    // public RootPanel(Account account,ArrayList<Account> accounts){
