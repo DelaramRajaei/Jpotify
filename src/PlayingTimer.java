@@ -47,7 +47,7 @@ public class PlayingTimer extends Thread {
                 ex.printStackTrace();
                 if (isReset) {
                     slider.setValue(0);
-                    labelRecordTime.setText("00:00:00");
+                    labelRecordTime.setText("00:00");
                     isRunning = false;
                     break;
                 }

@@ -1,6 +1,7 @@
 import javax.swing.*;
 
-public class ToolBarPanel extends JPanel {
+public class
+ToolBarPanel extends JPanel {
     private JButton temp;
     public ToolBarPanel(){
         temp=new JButton("emptyT");
