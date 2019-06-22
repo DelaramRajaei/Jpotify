@@ -76,12 +76,12 @@ public class AudioPlayer implements LineListener {
 
         System.out.println(seconds);
 
-        if (seconds >= SECONDS_IN_HOUR) {
-            hour = seconds / SECONDS_IN_HOUR;
-            length = String.format("%02d:", hour);
-        } else {
-            length += "00:";
-        }
+//        if (seconds >= SECONDS_IN_HOUR) {
+//            hour = seconds / SECONDS_IN_HOUR;
+//            length = String.format("%02d:", hour);
+//        } else {
+//            length += "00:";
+//        }
 
         minute = seconds - hour * SECONDS_IN_HOUR;
         if (minute >= SECONDS_IN_MINUTE) {
