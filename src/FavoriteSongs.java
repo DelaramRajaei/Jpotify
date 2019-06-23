@@ -4,5 +4,6 @@ public class FavoriteSongs extends PlayList {
         super();
         name = "Favorite Songs";
         editable = false;
+        fileName="Favorite Songs.txt";
     }
 }

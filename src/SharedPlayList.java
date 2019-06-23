@@ -4,6 +4,6 @@ public class SharedPlayList extends PlayList {
         super();
         name = "Shared Playlist";
         editable = false;
-
+        fileName="Shared Playlist.txt";
     }
 }

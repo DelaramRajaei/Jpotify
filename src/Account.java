@@ -49,7 +49,7 @@ public class Account {
         ClientPlayList newPlaylist = new ClientPlayList(name);
         clientPlayLists.add(newPlaylist);
         playLists.add(newPlaylist);
-        Core.createPlaylist(newPlaylist,playLists);
+        Core.createPlaylist(newPlaylist, playLists);
     }
 
     /**
@@ -59,7 +59,7 @@ public class Account {
      * @param selectedMusics Arraylist of musics which was selected.
      * @param playList       The playlist which was selected.
      */
-    public void addSongToPlayList( Music selectedMusics, PlayList playList) {
+    public void addSongToPlayList(Music selectedMusics, PlayList playList) {
         playList.addSong(selectedMusics);
         selectedMusics.addPlayList(playList);
     }
@@ -74,6 +74,10 @@ public class Account {
 
     public void removeSong(Music music, PlayList playList) {
         playList.removeSong(music);
+    }
+
+    public void removePlaylist(PlayList playList) {
+        Core.removePlaylist();
     }
 
     public String getName() {
@@ -99,7 +103,8 @@ public class Account {
     public ArrayList<PlayList> getPlayLists() {
         return playLists;
     }
-    public ArrayList<Album> getAlbums(){
+
+    public ArrayList<Album> getAlbums() {
         return albums;
     }
 }

@@ -1,5 +1,5 @@
 public class ClientPlayList extends PlayList {
-    private String fileName;
+
 
     public ClientPlayList(String name) {
         super();
@@ -15,8 +15,4 @@ public class ClientPlayList extends PlayList {
         fileName = name;
     }
 
-
-    public String getFileName() {
-        return fileName;
-    }
 }

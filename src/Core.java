@@ -5,6 +5,7 @@ public class Core {
     static File songsFile;
     static File playListFile;
     static FileWriter fileWriter;
+    private static ArrayList<String> file_client_playlists;
     private static final String FILE_PATH_OF_SONGS = "Song.txt";
     private static final String SHARED_PLAYLIST_FILE = "SharedPlayList.txt";
     private static final String FAVORITE_PLAYLIST_FILE = "FavoriteList.txt";
@@ -17,7 +18,6 @@ public class Core {
      */
     public static void addSong(String directory, ArrayList<Music> musics, ArrayList<Album> albums) {
         try {
-
             fileWriter = new FileWriter(songsFile);
             fileWriter.write(directory);
             fileWriter.flush();
@@ -25,22 +25,62 @@ public class Core {
 
             Music newMusic = new Music(directory);
             musics.add(newMusic);
-            updateAlbum(newMusic, albums);
+            initialAlbum(newMusic, albums);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+   /* public static void removeSong(ArrayList<Music> musics) {
+        if (songsFile.delete()) {
+            for (Music music:musics) {
+                fileWriter = new FileWriter(songsFile);
+                fileWriter.write(directory);
+                fileWriter.flush();
+                fileWriter.close();
+            }
+        }//TODO remove a song
+    }*/
+
+    public static void removeSongFromPlaylist(PlayList playList, ArrayList<Music> musics, ArrayList<Album> albums) {
+        try {
+            removeSong(musics, albums);
+            File file = new File(playList.getFileName());
+            for (Music eachMusic : playList.getMusic())
+                if (file.delete())
+                    addSongToPlayList(playList, eachMusic);
+        } catch (
+                Exception e) {
+        }
+    }
+
+    public static void removePlaylist(PlayList playList, Music music) {
+        boolean flag = false;
+        File playlistFile=new File(playList.getFileName());
+        if (playListFile.delete()) {
+            System.out.println("Playlist removed successfully!");
+        }
+    }
+
     public static void createPlaylist(ClientPlayList newClientPlayList, ArrayList<PlayList> playLists) {
         try {
-            playListFile=
-            newClientPlayList.setFileName("P" + (playLists.size() - 2));
-            fileWriter = new FileWriter(playListFile);
-            fileWriter.write(newClientPlayList.getName() + " : " + newClientPlayList.getFileName());
-            fileWriter.flush();
-            fileWriter.close();
+            String fileName = "P" + (playLists.size() - 2);
+            newClientPlayList.setFileName(fileName);
+            file_client_playlists.add(fileName);
+        } catch (Exception e) {
+        }
+    }
 
+    public static void addSongToPlayList(PlayList playList, Music music) {
+        try {
+            for (String eachFileName : file_client_playlists) {
+                if (playList.getFileName().equals(eachFileName)) {
+                    File clientPlaylistFile = new File(eachFileName);
+                    fileWriter = new FileWriter(clientPlaylistFile);
+                    fileWriter.write(music.getName());
+                }
+            }
         } catch (Exception e) {
         }
     }
@@ -64,7 +104,7 @@ public class Core {
                 while ((line = reader.readLine()) != null) {
                     Music music = new Music(line);
                     musics.add(music);
-                    updateAlbum(music, albums);
+                    initialAlbum(music, albums);
                 }
             }
         } catch (Exception e) {
@@ -74,26 +114,29 @@ public class Core {
         }
     }
 
-    public static void initialLoadClientsPlaylist(ArrayList<PlayList> playLists) {
-        FileReader input = null;
-        BufferedReader reader = null;
-        ClientPlayList clientPlayList;
-        String readingPlaylist;
-        try {
-            playListFile = new File(PLAY_LIST_TXT);
-            input = new FileReader(playListFile);
-            reader = new BufferedReader(input);
-            if (!playListFile.createNewFile()) {
-                while ((readingPlaylist = reader.readLine()) != null) {
-                    clientPlayList = new ClientPlayList(readingPlaylist.split(":")[0]);
-                    clientPlayList.setFileName(readingPlaylist.split(":")[1]);
-                    playLists.add(clientPlayList);
+    public static void initialLoadClientsPlaylist(ArrayList<PlayList> playLists, ArrayList<Music> musics) {
+        if (file_client_playlists.size() != 0) {
+            for (String fileName : file_client_playlists) {
+                FileReader input = null;
+                BufferedReader reader = null;
+                ClientPlayList clientPlayList;
+                String readingPlaylist;
+                try {
+                    playListFile = new File(fileName);
+                    input = new FileReader(playListFile);
+                    reader = new BufferedReader(input);
+                    clientPlayList = new ClientPlayList(fileName);
+                    if (!playListFile.createNewFile()) {
+                        while ((readingPlaylist = reader.readLine()) != null) {
+                            loadPlayList(clientPlayList, musics, readingPlaylist);
+                        }
+                    }
+                } catch (Exception e) {
+                } finally {
+                    closeReader(input);
+                    closeReader(reader);
                 }
             }
-        } catch (Exception e) {
-        } finally {
-            closeReader(input);
-            closeReader(reader);
         }
     }
 
@@ -110,16 +153,16 @@ public class Core {
 
         FileReader input = null;
         BufferedReader reader = null;
-        PlayList playList=null;
+        PlayList playList = null;
         String readingPlaylist;
         try {
             playListFile = new File(fileName);
             input = new FileReader(playListFile);
             reader = new BufferedReader(input);
 
-            if (fileName.equals("SharedPlayList.txt"))
+            if (fileName.equals(SHARED_PLAYLIST_FILE))
                 playList = new SharedPlayList();
-            else if (fileName.equals("FavoriteList.txt")) {
+            else if (fileName.equals(FAVORITE_PLAYLIST_FILE)) {
                 playList = new FavoriteSongs();
             }
 
@@ -142,7 +185,7 @@ public class Core {
         initialLoadSongs(musics, albums);
         initialLoadAPlaylist(playLists, musics, SHARED_PLAYLIST_FILE);
         initialLoadAPlaylist(playLists, musics, FAVORITE_PLAYLIST_FILE);
-        initialLoadClientsPlaylist(playLists);
+        initialLoadClientsPlaylist(playLists, musics);
 
     }
 
@@ -166,7 +209,7 @@ public class Core {
      * @param music  The music that we added earlier.
      * @param albums Lists of albums.
      */
-    public static void updateAlbum(Music music, ArrayList<Album> albums) {
+    public static void initialAlbum(Music music, ArrayList<Album> albums) {
         boolean flag = false;
         Album album = null;
         if (music.getAlbum() != null) {
@@ -189,4 +232,6 @@ public class Core {
         playList.addSong(music);
         music.addPlayList(playList);
     }
+
+
 }
