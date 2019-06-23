@@ -30,7 +30,7 @@ public class Account {
     }
 
     public void addMusic(String directory) {
-        Core.addSong(directory, musics);
+        Core.addSong(directory, musics );
     }
 
     public void addPlayList() {
