@@ -3,9 +3,9 @@ import java.util.ArrayList;
 
 public abstract class PlayList {
     protected String name;
-    protected String name;
     protected boolean editable;
     protected ArrayList<Music> musics;
+    protected String fileName;
 
     public void addSong(ArrayList<Music> selectedMusics) {
         for (Music eachMusic : selectedMusics) {
@@ -16,6 +16,7 @@ public abstract class PlayList {
     /**
      * Removing a song from a playlist.
      * Find the song in arraylist of the playlist then remove it.
+     *
      * @param music Selected music
      */
 
@@ -24,8 +25,11 @@ public abstract class PlayList {
     }
 
     public String getName() {
+
         return name;
     }
 
-
+    public String getFileName() {
+        return fileName;
+    }
 }

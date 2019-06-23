@@ -4,6 +4,7 @@ public class SharedPlayList extends PlayList {
 
         name = "Shared Playlist";
         editable = false;
+        fileName="P1";
 
     }
 }

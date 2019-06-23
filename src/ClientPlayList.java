@@ -9,4 +9,7 @@ public class ClientPlayList extends PlayList {
         this.name = name;
     }
 
+    public void setFileName(String name) {
+        fileName = name;
+    }
 }

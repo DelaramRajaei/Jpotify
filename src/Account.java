@@ -42,13 +42,14 @@ public class Account {
 
     /**
      * Creating a new playlist.
+     *
      * @param name Name of the new Playlist.
      */
     public void createPlayList(String name) {
         ClientPlayList newPlaylist = new ClientPlayList(name);
         clientPlayLists.add(newPlaylist);
         playLists.add(newPlaylist);
-        Core.createPlaylist(newPlaylist);
+        Core.createPlaylist(newPlaylist,playLists);
     }
 
     /**
@@ -56,11 +57,11 @@ public class Account {
      * At first it would find the selected playlist and then call the addSong method.
      *
      * @param selectedMusics Arraylist of musics which was selected.
-     * @param playList The playlist which was selected.
+     * @param playList       The playlist which was selected.
      */
     public void addSongToPlayList(ArrayList<Music> selectedMusics, PlayList playList) {
         playList.addSong(selectedMusics);
-        for (Music eachMusic:selectedMusics) {
+        for (Music eachMusic : selectedMusics) {
             eachMusic.addPlayList(playList);
         }
     }
@@ -69,7 +70,7 @@ public class Account {
      * Removing a song from a selected Playlist
      * First it would find the playlist then call the removeSong method.
      *
-     * @param music musics that you selected to remove
+     * @param music    musics that you selected to remove
      * @param playList Selected playlist
      */
 
@@ -97,4 +98,10 @@ public class Account {
         return favoriteSongs;
     }
 
+    public ArrayList<PlayList> getPlayLists() {
+        return playLists;
+    }
+    public ArrayList<Album> getAlbums(){
+        return albums;
+    }
 }

@@ -4,6 +4,6 @@ public class FavoriteSongs extends PlayList {
 
         name = "Favorite Songs";
         editable = false;
-
+        fileName = "P2";
     }
 }

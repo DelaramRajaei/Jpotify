@@ -14,7 +14,7 @@ public class Core {
      * @param directory Path of the file
      * @param musics    Arraylist of musics
      */
-    public static void addSong(String directory, ArrayList<Music> musics,ArrayList<Album> albums) {
+    public static void addSong(String directory, ArrayList<Music> musics, ArrayList<Album> albums) {
         try {
 
             fileWriter = new FileWriter(songsFile);
@@ -24,19 +24,22 @@ public class Core {
 
             Music newMusic = new Music(directory);
             musics = updateList(musics, newMusic);
-            updateAlbum(newMusic,albums);
+            updateAlbum(newMusic, albums);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public static void createPlaylist(ClientPlayList newClientPlayList) {
+    public static void createPlaylist(ClientPlayList newClientPlayList, ArrayList<PlayList> playLists) {
         try {
+            newClientPlayList.setFileName("P" + playLists.size());
+            fileWriter = new FileWriter(playListFile);
+            fileWriter.write(newClientPlayList.getName() + " : " + newClientPlayList.getFileName());
+            fileWriter.flush();
+            fileWriter.close();
 
-
-        } catch (Exception e) {
-        }
+        } catch (Exception e) { }
     }
 
     /**
@@ -46,19 +49,20 @@ public class Core {
      * @param musics    Arraylist of songs that each account has.
      * @param playLists Arraylist of play lists that each account has.
      */
-    public static void initialLoad(ArrayList<Music> musics, ArrayList<PlayList> playLists,ArrayList<Album> albums) {
+    public static void initialLoad(ArrayList<Music> musics, ArrayList<PlayList> playLists, ArrayList<Album> albums) {
         FileReader input = null;
         BufferedReader reader = null;
         String line;
         try {
             songsFile = new File(filePathOfSongs);
+            playListFile = new File(filePathOfPlayLists);
             if (!songsFile.createNewFile()) {
                 input = new FileReader(songsFile);
                 reader = new BufferedReader(input);
                 while ((line = reader.readLine()) != null) {
                     Music music = new Music(line);
                     updateList(musics, music);
-                    updateAlbum(music,albums);
+                    updateAlbum(music, albums);
                 }
             }
         } catch (Exception e) {
