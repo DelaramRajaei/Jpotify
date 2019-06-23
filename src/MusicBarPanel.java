@@ -64,8 +64,8 @@ public class MusicBarPanel extends JPanel implements ActionListener {
          //private Thread t;
 
 
-        private ImageIcon playIcon = new ImageIcon(this.getClass().getResource("images/play2.png"));
-        private ImageIcon pauseIcon = new ImageIcon(this.getClass().getResource("images/paus.png"));
+       // private ImageIcon playIcon = new ImageIcon(this.getClass().getResource("E:\\Codes\\Java\\Project\\Jpotify\\src\\Images\\playIcon.png"));
+        //private ImageIcon pauseIcon = new ImageIcon(this.getClass().getResource("pauseIcon.png"));
 
         public MusicBarPanel() {
             super();
@@ -83,12 +83,12 @@ public class MusicBarPanel extends JPanel implements ActionListener {
             musicSlider.setEnabled(false);
             musicSlider.setValue(0);
 
-            play=new JButton(playIcon);
+           // play=new JButton(playIcon);
             play.setFont(new Font("Sans", Font.BOLD, 14));
             //play.setIcon(playIcon);
             //play.setEnabled(false);
 
-            pause=new JButton(pauseIcon);
+           // pause=new JButton(pauseIcon);
             pause.setFont(new Font("sans",Font.BOLD,14));
             //pause.setIcon(pauseIcon);
             //pause.setEnabled(false);
@@ -171,9 +171,9 @@ public class MusicBarPanel extends JPanel implements ActionListener {
 
             if(event.getSource()==play){
                 if (!isPlaying) {
-                    t.start();
+                   // t.start();
                 } else {
-                    t.suspend();
+                    //t.suspend();
                 }
             }
 
@@ -254,7 +254,7 @@ public class MusicBarPanel extends JPanel implements ActionListener {
                     try {
 
                         //play.setText("Stop");
-                         play.setIcon(pauseIcon);
+                        // play.setIcon(pauseIcon);
                         // play.setEnabled(true);
 
                         // pause.setText("Pause");

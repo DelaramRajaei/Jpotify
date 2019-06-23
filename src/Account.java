@@ -6,6 +6,7 @@ public class Account {
     private int IP;
 
     private ArrayList<Music> musics;
+    private ArrayList<Album> albums;
     private ArrayList<ClientPlayList> clientPlayLists;
     private FavoriteSongs favoriteSongs;
     private SharedPlayList sharedPlayList;
@@ -20,8 +21,8 @@ public class Account {
         musics = new ArrayList<Music>();
         clientPlayLists = new ArrayList<ClientPlayList>();
 
-//        playLists.add(sharedPlayList);
-//        playLists.add(favoriteSongs);
+        playLists.add(sharedPlayList);
+        playLists.add(favoriteSongs);
         if (clientPlayLists != null) {
             for (ClientPlayList eachOne : clientPlayLists) {
                 playLists.add(eachOne);
@@ -30,13 +31,19 @@ public class Account {
     }
 
     public void addMusic(String directory) {
-        Core.addSong(directory, musics );
+        Core.addSong(directory, musics);
     }
 
     public void addPlayList() {
         Core.createPlaylist(playLists);
     }
 
+    /**
+     * Add a song to a playlist.
+     * At first it would find the selected playlist and then call the addSong method.
+     * @param selectedMusics Arraylist of musics which was selected.
+     * @param name Name of the selected playlist.
+     */
     public void addSongToPlayList(ArrayList<Music> selectedMusics, String name) {
         boolean flag = false;
         PlayList selectedList = null;
@@ -60,14 +67,15 @@ public class Account {
     /**
      * Removing a song from a selected Playlist
      * First it would find the playlist then call the removeSong method.
+     *
      * @param music music that you selected to remove
-     * @param name name of the playlist
+     * @param name  name of the playlist
      */
 
-    public void removeSong(Music music,String name){
-        for (PlayList eachPlayList:playLists) {
-            if (eachPlayList.getName().equals(name)){
-                eachPlayList.removeSong(eachPlayList.music,music.getName());
+    public void removeSong(Music music, String name) {
+        for (PlayList eachPlayList : playLists) {
+            if (eachPlayList.getName().equals(name)) {
+                eachPlayList.removeSong(eachPlayList.music, music.getName());
             }
         }
     }

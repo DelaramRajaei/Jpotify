@@ -91,4 +91,16 @@ public class Core {
         musics.add(newMusic);
         return musics;
     }
+    public void updateAlbum(Music music,ArrayList<Album> albums){
+        boolean flag=false;
+        if (albums!=null)
+            while (!flag) {
+                for (Album eachAlbum : albums) {
+                    if (eachAlbum.getAlbumName().equals(music.getAlbum())) {
+                        eachAlbum.addSong(music);
+                        flag=true;
+                    }
+                }
+            }
+    }
 }
