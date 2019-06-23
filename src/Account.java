@@ -22,8 +22,8 @@ public class Account {
         clientPlayLists = new ArrayList<ClientPlayList>();
         albums = new ArrayList<Album>();
 
-        playLists.add(sharedPlayList);
-        playLists.add(favoriteSongs);
+//        playLists.add(sharedPlayList);
+//        playLists.add(favoriteSongs);
         if (clientPlayLists != null) {
             for (ClientPlayList eachOne : clientPlayLists) {
                 playLists.add(eachOne);

@@ -12,7 +12,12 @@ public class Main {
 
         Account account=new Account("D");
         ArrayList<Music> musics = new ArrayList<Music>();
-        Core.initialLoad(account.getMusics(),account.getPlayLists());
+
+
+        //Core.initialLoad(account.getMusics(),account.getPlayLists());
+        // mn Darya in khat bala ro commit kardam ta run she .<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+
         RootPanel rootPanel = new RootPanel();
 //TODO adding album class
 

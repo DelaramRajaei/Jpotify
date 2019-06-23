@@ -3,7 +3,6 @@ import java.util.ArrayList;
 
 public abstract class PlayList {
     protected String name;
-    protected String name;
     protected boolean editable;
     protected ArrayList<Music> musics;
 
