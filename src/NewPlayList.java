@@ -3,15 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package desighnpotify;
+
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 
 /**
  *
  * @author Darya
  */
-public class NewPlayList extends javax.swing.JFrame {
+public class NewPlayList extends javax.swing.JFrame implements ActionListener{
+
+    private String playlistName;
 
     /**
      * Creates new form NewPlayList
@@ -20,6 +25,7 @@ public class NewPlayList extends javax.swing.JFrame {
         initComponents();
         this.setBackground(new Color(51,51,51));
         this.setForeground(new Color(0,0,0));
+        jButton1.addActionListener( this);
     }
 
     /**
@@ -114,7 +120,7 @@ public class NewPlayList extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
@@ -147,5 +153,19 @@ public class NewPlayList extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField jTextField1;
+
+    public String getPlaylistName() {
+        return playlistName;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(jTextField1.getText()!=null){
+            playlistName=jTextField1.getText();
+            //this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
+            //setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
+            setVisible(false);
+        }
+    }
     // End of variables declaration//GEN-END:variables
 }
