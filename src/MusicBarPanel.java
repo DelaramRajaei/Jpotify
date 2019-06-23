@@ -20,197 +20,218 @@ public class MusicBarPanel extends JPanel implements ActionListener {
 
 
 
-        private Music playingSong;
+    private Music playingSong;
 
 
 
-        private AudioPlayer player = new AudioPlayer();
-        private Thread playbackThread;
-        private PlayingTimer timer;
+    private AudioPlayer player = new AudioPlayer();
+    private Thread playbackThread;
+    private PlayingTimer timer;
 
-        private boolean isPlaying = false;
-        private boolean isReplay = false;
-        private boolean isShuffle = false;
-
-
-        private String audioFilePath;
-        private String lastOpenPath;
-
-        private JLabel labelFileName = new JLabel("Playing File:");
-        private JLabel labelTimeCounter = new JLabel("00:00:00");
-        private JLabel labelDuration = new JLabel("00:00:00");
+    private boolean isPlaying = false;
+    private boolean isReplay = false;
+    private boolean isShuffle = false;
 
 
+    private String audioFilePath;
+    private String lastOpenPath;
 
-        private JSlider musicSlider;
-
-        private JPanel buttonsPanel = new JPanel(new GridBagLayout());
-        private JPanel currentMusic = new JPanel(new GridBagLayout());
+    private JLabel labelFileName = new JLabel("Playing File:");
+    private JLabel labelTimeCounter = new JLabel("00:00:00");
+    private JLabel labelDuration = new JLabel("00:00:00");
 
 
 
-        //private JButton pause;
-        private JButton play;
-        private JButton next;
-        private JButton previous;
-        private JButton shuffle;
-        private JButton buttonOpen;
-        private JButton rePlay;
+    private JSlider musicSlider;
 
+    private JPanel buttonsPanel = new JPanel(new GridBagLayout());
+    private JPanel sliderPanel= new JPanel(new GridBagLayout());
 
-         //private Thread t;
+    private JPanel currentMusic = new JPanel(new GridBagLayout());
 
+    private JPanel vasatPanel = new JPanel(new GridBagLayout());
 
-        private ImageIcon playIcon = new ImageIcon(this.getClass().getResource("images/play.png"));
-        private ImageIcon pauseIcon = new ImageIcon(this.getClass().getResource("images/paus.png"));
-        private ImageIcon nextIcon = new ImageIcon(this.getClass().getResource("images/next.png"));
-        private ImageIcon previousIcon = new ImageIcon(this.getClass().getResource("images/previous.png"));
-        private ImageIcon shuffleoff = new ImageIcon(this.getClass().getResource("images/shuffleOff.png"));
-        private ImageIcon shuffleOn = new ImageIcon(this.getClass().getResource("images/shuffleOn.png"));
-        private ImageIcon replayOn = new ImageIcon(this.getClass().getResource("images/replayOn.png"));
-        private ImageIcon replayOff = new ImageIcon(this.getClass().getResource("images/replayOff.png"));
-
-
-
-        public MusicBarPanel() {
-            super();
-            this.setLayout(new GridBagLayout());
-            GridBagConstraints constraints = new GridBagConstraints();
-            constraints.insets = new Insets(5, 5, 5, 5);
-            constraints.anchor = GridBagConstraints.WEST;
+    private JPanel powerPanel = new JPanel(new GridBagLayout());
+    private JPanel vasatPain = new JPanel(new GridBagLayout());
+    private JPanel rot = new JPanel(new GridBagLayout());
 
 
 
 
-            buttonsPanel.setBackground(new Color(51, 51, 51));
-            currentMusic.setBackground(new Color(132, 255, 248));
-            this.setBackground(Color.gray);
+    //private JButton pause;
+    private JButton play;
+    private JButton next;
+    private JButton previous;
+    private JButton shuffle;
+    private JButton buttonOpen;
+    private JButton rePlay;
 
 
-            JButton temp=new JButton("temp");
-            temp.setBackground(new Color(216, 222, 174));
-            currentMusic.add(temp,constraints);
-
-            musicSlider=new JSlider();
-            musicSlider.setPreferredSize(new Dimension(400, 20));
-            musicSlider.setEnabled(false);
-            musicSlider.setValue(0);
-
-            play=new JButton(playIcon);
-            play.setFont(new Font("Sans", Font.BOLD, 14));
-            play.setBackground(new Color(51,51,51));
-            play.setIcon(playIcon);
-            play.setBorder(null);
+    //private Thread t;
 
 
-            rePlay=new JButton();
-            rePlay.setFont(new Font("sans",Font.BOLD,14));
-            rePlay.setBackground(new Color(51,51,51));
-            rePlay.setIcon(replayOff);
-            rePlay.setBorder(null);
-
-
-            previous=new JButton();
-            previous.setFont(new Font("sans",Font.BOLD,14));
-            previous.setBackground(new Color(51,51,51));
-            previous.setIcon(previousIcon);
-            previous.setBorder(null);
-
-            next=new JButton();
-            next.setFont(new Font("sans",Font.BOLD,14));
-            next.setBackground(new Color(51,51,51));
-            next.setIcon(nextIcon);
-            next.setBorder(null);
-
-            shuffle=new JButton();
-            shuffle.setFont(new Font("sans",Font.BOLD,14));
-            shuffle.setBackground(new Color(51,51,51));
-            shuffle.setIcon(shuffleoff);
-
-            buttonOpen = new JButton("Open");
-            buttonOpen.setFont(new Font("sans",Font.BOLD,14));
+    private ImageIcon playIcon = new ImageIcon(this.getClass().getResource("images/play.png"));
+    private ImageIcon pauseIcon = new ImageIcon(this.getClass().getResource("images/paus.png"));
+    private ImageIcon nextIcon = new ImageIcon(this.getClass().getResource("images/next.png"));
+    private ImageIcon previousIcon = new ImageIcon(this.getClass().getResource("images/previous.png"));
+    private ImageIcon shuffleoff = new ImageIcon(this.getClass().getResource("images/shuffleOff.png"));
+    private ImageIcon shuffleOn = new ImageIcon(this.getClass().getResource("images/shuffleOn.png"));
+    private ImageIcon replayOn = new ImageIcon(this.getClass().getResource("images/replayOn.png"));
+    private ImageIcon replayOff = new ImageIcon(this.getClass().getResource("images/replayOff.png"));
 
 
 
-            labelTimeCounter.setFont(new Font("Sans", Font.BOLD, 12));
+    public MusicBarPanel() {
+        super();
 
-            labelDuration.setFont(new Font("Sans", Font.BOLD, 12));
-
-
-            constraints.anchor = GridBagConstraints.WEST;
-            constraints.insets = new Insets(0, 0, 0, 10);
-
-            currentMusic.setVisible(true);
-            constraints.gridx=0;
-            constraints.gridy=0;
-            this.add(currentMusic,constraints);
+        this.setLayout(new GridBagLayout());
+        GridBagConstraints constraints = new GridBagConstraints();
+        constraints.insets = new Insets(5, 5, 5, 5);
+        constraints.anchor = GridBagConstraints.CENTER;
 
 
-            constraints.insets = new Insets(5, 5, 5, 5);
+        vasatPanel.setLayout(new GridLayout(2,1));
+        sliderPanel.setLayout(new GridBagLayout());
 
 
-            constraints.gridx=0;
-            buttonsPanel.add(shuffle,constraints);
-            shuffle.setFocusPainted(false);
-            shuffle.setBorder(null);
-
-            constraints.gridx=1;
-            buttonsPanel.add(previous,constraints);
-            //previous.setFocusPainted(false);
-            previous.setBorder(null);
-
-            constraints.gridx=2;
-            buttonsPanel.add(play,constraints);
-
-            constraints.gridx=3;
-            buttonsPanel.add(next,constraints);
-            constraints.gridx=4;
-            buttonsPanel.add(rePlay,constraints);
-
-            constraints.anchor = GridBagConstraints.CENTER;
-            constraints.gridx = 1;
-            constraints.gridy = 0;
-            add(buttonsPanel);
-
-            labelFileName.setForeground(new Color(234, 251, 255));
-            constraints.gridx = 4;
-            constraints.gridy = 1;
-            constraints.gridwidth = 1;
-            add(labelFileName, constraints);
 
 
-            constraints.anchor = GridBagConstraints.CENTER;
-            constraints.gridx=3;
-            constraints.gridy = 1;
-            constraints.gridwidth = 1;
-            add(labelTimeCounter, constraints);
-            labelTimeCounter.setForeground(new Color(234, 251, 255));
 
-            constraints.gridx = 1;
-            constraints.gridy = 1;
-            add(musicSlider, constraints);
-
-            constraints.gridx = 0;
-            constraints.gridy = 1;
-            add(labelDuration, constraints);
-            labelDuration.setForeground(new Color(234, 251, 255));
+        buttonsPanel.setBackground(new Color(51, 51, 51));
+        currentMusic.setBackground(new Color(132, 255, 248));
+        this.setBackground(Color.gray);
 
 
-            this.setBackground(new Color(51,51,51));
-            musicSlider.setBackground(new Color(51,51,51));
+        JButton temp=new JButton("temp");
+        temp.setBackground(new Color(216, 222, 174));
+        currentMusic.add(temp,constraints);
 
-            //*
-            //**action listeners:
-            play.addActionListener(this);
-            previous.addActionListener(this);
-            rePlay.addActionListener(this);
-            next.addActionListener(this);
-            shuffle.addActionListener(this);
-            buttonOpen.addActionListener(this);
+        musicSlider=new JSlider();
+        musicSlider.setPreferredSize(new Dimension(400, 20));
+        musicSlider.setEnabled(false);
+        musicSlider.setValue(0);
 
-            this.setVisible(true);
+        play=new JButton(playIcon);
+        play.setFont(new Font("Sans", Font.BOLD, 14));
+        play.setBackground(new Color(51,51,51));
+        play.setIcon(playIcon);
+        play.setBorder(null);
 
-           // t=new Thread(this::run);
+
+        rePlay=new JButton();
+        rePlay.setFont(new Font("sans",Font.BOLD,14));
+        rePlay.setBackground(new Color(51,51,51));
+        rePlay.setIcon(replayOff);
+        rePlay.setBorder(null);
+
+
+        previous=new JButton();
+        previous.setFont(new Font("sans",Font.BOLD,14));
+        previous.setBackground(new Color(51,51,51));
+        previous.setIcon(previousIcon);
+        previous.setBorder(null);
+
+        next=new JButton();
+        next.setFont(new Font("sans",Font.BOLD,14));
+        next.setBackground(new Color(51,51,51));
+        next.setIcon(nextIcon);
+        next.setBorder(null);
+
+        shuffle=new JButton();
+        shuffle.setFont(new Font("sans",Font.BOLD,14));
+        shuffle.setBackground(new Color(51,51,51));
+        shuffle.setIcon(shuffleoff);
+
+        buttonOpen = new JButton("Open");
+        buttonOpen.setFont(new Font("sans",Font.BOLD,14));
+
+
+
+        labelTimeCounter.setFont(new Font("Sans", Font.BOLD, 12));
+
+        labelDuration.setFont(new Font("Sans", Font.BOLD, 12));
+
+
+//        constraints.anchor = GridBagConstraints.WEST;
+//        constraints.insets = new Insets(0, 0, 0, 10);
+
+//        currentMusic.setVisible(true);
+//        constraints.gridx=0;
+//        constraints.gridy=0;
+        this.add(currentMusic,constraints);
+
+
+        constraints.insets = new Insets(5, 5, 5, 5);
+
+
+        constraints.gridx=0;
+        buttonsPanel.add(shuffle,constraints);
+        shuffle.setFocusPainted(false);
+        shuffle.setBorder(null);
+
+        constraints.gridx=1;
+        buttonsPanel.add(previous,constraints);
+        //previous.setFocusPainted(false);
+        previous.setBorder(null);
+
+        constraints.gridx=2;
+        buttonsPanel.add(play,constraints);
+
+        constraints.gridx=3;
+        buttonsPanel.add(next,constraints);
+        constraints.gridx=4;
+        buttonsPanel.add(rePlay,constraints);
+
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.gridx = 0;
+        constraints.gridy = 0;
+        rot.add(buttonsPanel);
+
+//        labelFileName.setForeground(new Color(234, 251, 255));
+//        constraints.gridx = 4;
+//        //constraints.gridy = 1;
+//        constraints.gridwidth = 1;
+//        vasatPain.add(labelFileName, constraints);
+
+
+        constraints.anchor = GridBagConstraints.CENTER;
+        constraints.gridx=3;
+        //constraints.gridy = 1;
+        constraints.gridwidth = 1;
+        vasatPain.add(labelTimeCounter, constraints);
+        labelTimeCounter.setForeground(new Color(234, 251, 255));
+
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.gridwidth=1;
+        vasatPain.add(musicSlider, constraints);
+
+        constraints.gridx = 0;
+        constraints.gridy = 1;
+        constraints.gridwidth=1;
+        vasatPain.add(labelDuration, constraints);
+        labelDuration.setForeground(new Color(234, 251, 255));
+
+        constraints.gridy=1;
+        rot.add(vasatPain,constraints);
+
+        this.setBackground(new Color(51,51,51));
+        musicSlider.setBackground(new Color(51,51,51));
+
+        this.add(rot);
+
+        //*
+        //**action listeners:
+        play.addActionListener(this);
+        previous.addActionListener(this);
+        rePlay.addActionListener(this);
+        next.addActionListener(this);
+        shuffle.addActionListener(this);
+        buttonOpen.addActionListener(this);
+
+        this.setVisible(true);
+
+        // t=new Thread(this::run);
 
 
 
@@ -220,159 +241,159 @@ public class MusicBarPanel extends JPanel implements ActionListener {
 //            playIcon = new ImageIcon( newimg );
 
 
-        }
+    }
 
 
-        @Override
-        public void actionPerformed(ActionEvent event) {
-            Object source = event.getSource();
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        Object source = event.getSource();
 
-            if(event.getSource()==play){
-                if (!isPlaying) {
-                   play.setIcon(pauseIcon);
-                    isPlaying=true;
-                } else {
-                    play.setIcon(playIcon);
-                    isPlaying=false;
-                }
-            }
-
-            else  if(event.getSource()==rePlay){
-                if (!isReplay) {
-                    rePlay.setIcon(replayOn);
-                    isReplay=true;
-
-                } else {
-                    rePlay.setIcon(replayOff);
-                    isReplay=false;
-
-                }
-            }else if(event.getSource()==next){
-                //t.stop();
-            }else if(event.getSource()==previous){
-                //t.stop();
-            }else if(event.getSource()==shuffle){
-                if (!isShuffle) {
-                    shuffle.setIcon(shuffleOn);
-                    isShuffle=true;
-
-                } else {
-                    shuffle.setIcon(shuffleoff);
-                    isShuffle=false;
-
-                }
-
-            }else if(event.getSource()==buttonOpen){
-                openFile();
-
-            }
-        }
-
-
-        //handling click on open file:
-
-        public void openFile(){
-            System.out.println("open pressed");
-            JFileChooser fileChooser = null;
-
-            if (lastOpenPath != null && !lastOpenPath.equals("")) {
-                fileChooser = new JFileChooser(lastOpenPath);
+        if(event.getSource()==play){
+            if (!isPlaying) {
+                play.setIcon(pauseIcon);
+                isPlaying=true;
             } else {
-                fileChooser = new JFileChooser();
+                play.setIcon(playIcon);
+                isPlaying=false;
             }
-
-            FileFilter filter = new FileNameExtensionFilter("MP3 File","mp3");
-            fileChooser.setFileFilter(filter);
-            //fileChooser.showOpenDialog(frame);
-            File file = fileChooser.getSelectedFile();
-
-
-            //fileChooser.setFileFilter(mp3Filter);
-            fileChooser.setDialogTitle("Open Audio File");
-            fileChooser.setAcceptAllFileFilterUsed(false);
-
-            int userChoice = fileChooser.showOpenDialog(this);
-            if (userChoice == JFileChooser.APPROVE_OPTION) {
-                audioFilePath = fileChooser.getSelectedFile().getAbsolutePath();
-                lastOpenPath = fileChooser.getSelectedFile().getParent();
-                if (isPlaying || isReplay) {
-                    stopPlaying();
-                    while (player.getAudioClip().isRunning()) {
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                }
-                playBack();
-            }
-
-            System.out.println(audioFilePath);
-            AccountManagement.getActiveAccount().addMusic(audioFilePath);
-
         }
 
+        else  if(event.getSource()==rePlay){
+            if (!isReplay) {
+                rePlay.setIcon(replayOn);
+                isReplay=true;
+
+            } else {
+                rePlay.setIcon(replayOff);
+                isReplay=false;
+
+            }
+        }else if(event.getSource()==next){
+            //t.stop();
+        }else if(event.getSource()==previous){
+            //t.stop();
+        }else if(event.getSource()==shuffle){
+            if (!isShuffle) {
+                shuffle.setIcon(shuffleOn);
+                isShuffle=true;
+
+            } else {
+                shuffle.setIcon(shuffleoff);
+                isShuffle=false;
+
+            }
+
+        }else if(event.getSource()==buttonOpen){
+            openFile();
+
+        }
+    }
 
 
+    //handling click on open file:
 
-        private void playBack() {
-            timer = new PlayingTimer(labelTimeCounter, musicSlider);
-            timer.start();
-            isPlaying = true;
-            playbackThread = new Thread(new Runnable() {
+    public void openFile(){
+        System.out.println("open pressed");
+        JFileChooser fileChooser = null;
 
-                @Override
-                public void run() {
+        if (lastOpenPath != null && !lastOpenPath.equals("")) {
+            fileChooser = new JFileChooser(lastOpenPath);
+        } else {
+            fileChooser = new JFileChooser();
+        }
+
+        FileFilter filter = new FileNameExtensionFilter("MP3 File","mp3");
+        fileChooser.setFileFilter(filter);
+        //fileChooser.showOpenDialog(frame);
+        File file = fileChooser.getSelectedFile();
+
+
+        //fileChooser.setFileFilter(mp3Filter);
+        fileChooser.setDialogTitle("Open Audio File");
+        fileChooser.setAcceptAllFileFilterUsed(false);
+
+        int userChoice = fileChooser.showOpenDialog(this);
+        if (userChoice == JFileChooser.APPROVE_OPTION) {
+            audioFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+            lastOpenPath = fileChooser.getSelectedFile().getParent();
+            if (isPlaying || isReplay) {
+                stopPlaying();
+                while (player.getAudioClip().isRunning()) {
                     try {
-
-                        //play.setText("Stop");
-                         play.setIcon(pauseIcon);
-                        // play.setEnabled(true);
-
-                        // pause.setText("Pause");
-                        // pause.setEnabled(true);
-
-                        player.load(audioFilePath);
-                        timer.setAudioClip(player.getAudioClip());
-                        labelFileName.setText("Playing File: " + audioFilePath);
-                        musicSlider.setMaximum((int) player.getClipSecondLength());
-
-                        labelDuration.setText(player.getClipLengthString());
-                        player.play();
-
-                        resetControls();
-
-                    } catch (UnsupportedAudioFileException ex) {
-                       //  JOptionPane.showMessageDialog(SwingAudioPlayer.this,
-                       //          "The audio format is unsupported!", "Error", JOptionPane.ERROR_MESSAGE);
-                        resetControls();
-                        ex.printStackTrace();
-                    } catch (LineUnavailableException ex) {
-                       //   JOptionPane.showMessageDialog(SwingAudioPlayer.this,
-                       //           "Could not play the audio file because line is unavailable!", "Error", JOptionPane.ERROR_MESSAGE);
-                        resetControls();
-                        ex.printStackTrace();
-                    } catch (IOException ex) {
-                      //    JOptionPane.showMessageDialog(SwingAudioPlayer.this,
-                      //            "I/O error while playing the audio file!", "Error", JOptionPane.ERROR_MESSAGE);
-                        resetControls();
+                        Thread.sleep(100);
+                    } catch (InterruptedException ex) {
                         ex.printStackTrace();
                     }
-
                 }
-            });
-
-            playbackThread.start();
+            }
+            playBack();
         }
 
+        System.out.println(audioFilePath);
+        AccountManagement.getActiveAccount().addMusic(audioFilePath);
+
+    }
+
+
+
+
+    private void playBack() {
+        timer = new PlayingTimer(labelTimeCounter, musicSlider);
+        timer.start();
+        isPlaying = true;
+        playbackThread = new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                try {
+
+                    //play.setText("Stop");
+                    play.setIcon(pauseIcon);
+                    // play.setEnabled(true);
+
+                    // pause.setText("Pause");
+                    // pause.setEnabled(true);
+
+                    player.load(audioFilePath);
+                    timer.setAudioClip(player.getAudioClip());
+                    labelFileName.setText("Playing File: " + audioFilePath);
+                    musicSlider.setMaximum((int) player.getClipSecondLength());
+
+                    labelDuration.setText(player.getClipLengthString());
+                    player.play();
+
+                    resetControls();
+
+                } catch (UnsupportedAudioFileException ex) {
+                    //  JOptionPane.showMessageDialog(SwingAudioPlayer.this,
+                    //          "The audio format is unsupported!", "Error", JOptionPane.ERROR_MESSAGE);
+                    resetControls();
+                    ex.printStackTrace();
+                } catch (LineUnavailableException ex) {
+                    //   JOptionPane.showMessageDialog(SwingAudioPlayer.this,
+                    //           "Could not play the audio file because line is unavailable!", "Error", JOptionPane.ERROR_MESSAGE);
+                    resetControls();
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    //    JOptionPane.showMessageDialog(SwingAudioPlayer.this,
+                    //            "I/O error while playing the audio file!", "Error", JOptionPane.ERROR_MESSAGE);
+                    resetControls();
+                    ex.printStackTrace();
+                }
+
+            }
+        });
+
+        playbackThread.start();
+    }
 
 
 
 
 
 
-//        public void run() {
+
+    //        public void run() {
 //            playMusic();
 //
 //            FileInputStream fis;
@@ -404,43 +425,43 @@ public class MusicBarPanel extends JPanel implements ActionListener {
 //                e.printStackTrace();
 //            }
 //        }
-        private void stopPlaying() {
-            isReplay = false;
-            // pause.setText("Pause");
-            //pause.setEnabled(false);
-            timer.reset();
-            timer.interrupt();
-            player.stop();
-            playbackThread.interrupt();
-        }
+    private void stopPlaying() {
+        isReplay = false;
+        // pause.setText("Pause");
+        //pause.setEnabled(false);
+        timer.reset();
+        timer.interrupt();
+        player.stop();
+        playbackThread.interrupt();
+    }
 
-        private void pausePlaying() {
-            // pause.setText("Resume");
-            isReplay = true;
-            player.pause();
-            timer.pauseTimer();
-            playbackThread.interrupt();
-        }
+    private void pausePlaying() {
+        // pause.setText("Resume");
+        isReplay = true;
+        player.pause();
+        timer.pauseTimer();
+        playbackThread.interrupt();
+    }
 
-        private void resumePlaying() {
-            // pause.setText("Pause");
-            isReplay = false;
-            player.resume();
-            timer.resumeTimer();
-            playbackThread.interrupt();
-        }
+    private void resumePlaying() {
+        // pause.setText("Pause");
+        isReplay = false;
+        player.resume();
+        timer.resumeTimer();
+        playbackThread.interrupt();
+    }
 
-        private void resetControls() {
-            timer.reset();
-            timer.interrupt();
+    private void resetControls() {
+        timer.reset();
+        timer.interrupt();
 
-            //play.setText("Play");
-            // play.setIcon(playIcon);
+        //play.setText("Play");
+        // play.setIcon(playIcon);
 
-            // pause.setEnabled(false);
+        // pause.setEnabled(false);
 
-            isPlaying = false;
-        }
+        isPlaying = false;
+    }
 
 
 
