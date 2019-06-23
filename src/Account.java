@@ -73,10 +73,13 @@ public class Account {
      */
 
     public void removeSong(Music music, PlayList playList) {
+        musics.remove(music);
         playList.removeSong(music);
     }
 
     public void removePlaylist(PlayList playList) {
+        playLists.remove(playList);
+      clientPlayLists.remove(playList);
         Core.removePlaylist();
     }
 
