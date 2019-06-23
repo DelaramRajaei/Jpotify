@@ -1,3 +1,5 @@
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ public class ShowPanels extends JPanel{
 
 
     public ShowPanels() {
+
         //panels=new ArrayList<>();
         temp = new JButton("emptySh");
         this.add(temp);
