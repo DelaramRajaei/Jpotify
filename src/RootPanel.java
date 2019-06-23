@@ -7,6 +7,8 @@ public class RootPanel extends JFrame {
     private Account account;
     private ArrayList<Account> accounts;
 
+    private JPanel upPanel=new JPanel();
+
 
     private MusicBarPanel musicBar;
     private LeftPanel leftPanel;
@@ -17,7 +19,7 @@ public class RootPanel extends JFrame {
 
 
 
-    private static final int WIDTH = 1000, HEIGHT = 1050;
+    private static final int WIDTH = 1000, HEIGHT = 700;
 
    // public RootPanel(Account account,ArrayList<Account> accounts){
     public RootPanel(){
@@ -33,13 +35,17 @@ public class RootPanel extends JFrame {
         toolBarPanel=new ToolBarPanel();
         showPanels=new ShowPanels();
         setLayout(new BorderLayout());
+        upPanel.setLayout(new BorderLayout());
+        upPanel.setVisible(true);
+        this.add(upPanel);
+
 
 
         this.add(musicBar,BorderLayout.SOUTH);
-        this.add(leftPanel,BorderLayout.WEST);
-        this.add(friendsPanel,BorderLayout.EAST);
-        this.add(toolBarPanel,BorderLayout.NORTH);
-        this.add(showPanels,BorderLayout.CENTER);
+        upPanel.add(leftPanel,BorderLayout.WEST);
+        upPanel.add(friendsPanel,BorderLayout.EAST);
+        upPanel.add(toolBarPanel,BorderLayout.NORTH);
+        upPanel.add(showPanels,BorderLayout.CENTER);
 
 
 

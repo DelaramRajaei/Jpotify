@@ -10,6 +10,8 @@ public class FriendsPanel extends JPanel {
     private ArrayList<Account> friends;
 
     public FriendsPanel(){
+        this.setBackground(new Color(174,225,228));
+        this.setBackground(Color.YELLOW);
 
         invite=new JButton("+ Add Friend" );
         IPCode=new JTextArea();

@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LeftPanel extends JPanel {
-    private static final int WIDTH = 250, HEIGHT = 1000;
 
     private JPanel currentMusicPanel;//make a class for this panel. have pic of song name of artist and name of song
     private JPanel menuPanel;
@@ -16,15 +15,17 @@ public class LeftPanel extends JPanel {
         super();
 //        newMusic=new JButton("new");
 //        this.add(newMusic);
-        this.setBackground(Color.YELLOW);
+        this.setLayout(new GridLayout(4,1));
         menuPanel=new JPanel();
         menuPanel.setBackground(Color.DARK_GRAY);
+        menuPanel.setLayout(new GridLayout(3,1));
         currentMusicPanel=new JPanel();
-        currentMusicPanel.setBackground(Color.DARK_GRAY);
+        currentMusicPanel.setBackground(new Color(174,225,228));
+
         newMusic=new JButton("+ New Music ");
-        newMusic.setBackground(Color.PINK);
+        newMusic.setBackground(Color.GRAY);
         createPlayList=new JButton("+ New Playlist ");
-        createPlayList.setBackground(Color.PINK);
+        createPlayList.setBackground(Color.GRAY);
         albums=new JButton("Abums");
         songs=new JButton("Songs");
         playlists=new JButton("PlayLists");

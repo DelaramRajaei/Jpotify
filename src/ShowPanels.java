@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public class ShowPanels extends JPanel{
@@ -6,14 +7,15 @@ public class ShowPanels extends JPanel{
     private JButton temp;
 
 
-    public ShowPanels(){
+    public ShowPanels() {
         //panels=new ArrayList<>();
-        temp=new JButton("emptySh");
+        temp = new JButton("emptySh");
         this.add(temp);
-
+        this.setBackground(new Color(51,51,51));
 
 
     }
+
 
 
     public void setPanels(ArrayList<JPanel> panels) {
