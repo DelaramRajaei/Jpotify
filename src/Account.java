@@ -20,6 +20,7 @@ public class Account {
         sharedPlayList = new SharedPlayList();
         musics = new ArrayList<Music>();
         clientPlayLists = new ArrayList<ClientPlayList>();
+        albums = new ArrayList<Album>();
 
         playLists.add(sharedPlayList);
         playLists.add(favoriteSongs);
@@ -30,54 +31,50 @@ public class Account {
         }
     }
 
+    /**
+     * Add a new song.
+     *
+     * @param directory Path of the new song.
+     */
     public void addMusic(String directory) {
-        Core.addSong(directory, musics);
+        Core.addSong(directory, musics, albums);
     }
 
-    public void addPlayList() {
-        Core.createPlaylist(playLists);
+    /**
+     * Creating a new playlist.
+     * @param name Name of the new Playlist.
+     */
+    public void createPlayList(String name) {
+        ClientPlayList newPlaylist = new ClientPlayList(name);
+        clientPlayLists.add(newPlaylist);
+        playLists.add(newPlaylist);
+        Core.createPlaylist(newPlaylist);
     }
 
     /**
      * Add a song to a playlist.
      * At first it would find the selected playlist and then call the addSong method.
+     *
      * @param selectedMusics Arraylist of musics which was selected.
-     * @param name Name of the selected playlist.
+     * @param playList The playlist which was selected.
      */
-    public void addSongToPlayList(ArrayList<Music> selectedMusics, String name) {
-        boolean flag = false;
-        PlayList selectedList = null;
-        if (sharedPlayList.getName().equals(name))
-            selectedList = sharedPlayList;
-        else if (favoriteSongs.getName().equals(name)) {
-            selectedList = favoriteSongs;
-        } else {
-            for (ClientPlayList eachPlayList : clientPlayLists) {
-                while (!flag) {
-                    if (eachPlayList.getName().equals(name)) {
-                        selectedList = eachPlayList;
-                        flag = true;
-                    }
-                }
-            }
+    public void addSongToPlayList(ArrayList<Music> selectedMusics, PlayList playList) {
+        playList.addSong(selectedMusics);
+        for (Music eachMusic:selectedMusics) {
+            eachMusic.addPlayList(playList);
         }
-        selectedList.addSong(selectedMusics);
     }
 
     /**
      * Removing a song from a selected Playlist
      * First it would find the playlist then call the removeSong method.
      *
-     * @param music music that you selected to remove
-     * @param name  name of the playlist
+     * @param music musics that you selected to remove
+     * @param playList Selected playlist
      */
 
-    public void removeSong(Music music, String name) {
-        for (PlayList eachPlayList : playLists) {
-            if (eachPlayList.getName().equals(name)) {
-                eachPlayList.removeSong(eachPlayList.music, music.getName());
-            }
-        }
+    public void removeSong(Music music, PlayList playList) {
+        playList.removeSong(music);
     }
 
     public String getName() {
@@ -88,7 +85,16 @@ public class Account {
         return musics;
     }
 
-    public ArrayList<PlayList> getPlayLists() {
-        return playLists;
+    public ArrayList<ClientPlayList> getClientPlayLists() {
+        return clientPlayLists;
     }
+
+    public SharedPlayList getSharedPlayLists() {
+        return sharedPlayList;
+    }
+
+    public FavoriteSongs getFavoriteSongs() {
+        return favoriteSongs;
+    }
+
 }

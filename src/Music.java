@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Base64;
 
 
@@ -12,9 +13,11 @@ public class Music {
     private String artist;
     private String album;
     private int year;
+    private ArrayList<PlayList> playLists;
 
 
     public Music(String directory) {
+        playLists =new ArrayList<PlayList>();
         try {
             File file = new File(directory);
             FileInputStream fileStream = new FileInputStream(new File(directory));
@@ -55,6 +58,9 @@ public class Music {
 
     public int getYear(){
         return year;
+    }
+    public void addPlayList(PlayList playList){
+        playLists.add(playList);
     }
 }
 

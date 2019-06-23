@@ -317,7 +317,7 @@ public class MusicBarPanel extends JPanel implements ActionListener {
 //
 //
 //        public void playMusic() {
-//            System.out.println("music playing");
+//            System.out.println("musics playing");
 //            try {
 //                FileInputStream fileInputStream = new FileInputStream("G:\\uni\\project\\New folder\\Jpotify\\src\\m.mp3");
 //                Player player = new Player(fileInputStream);
