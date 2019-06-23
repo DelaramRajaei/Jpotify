@@ -59,11 +59,9 @@ public class Account {
      * @param selectedMusics Arraylist of musics which was selected.
      * @param playList       The playlist which was selected.
      */
-    public void addSongToPlayList(ArrayList<Music> selectedMusics, PlayList playList) {
+    public void addSongToPlayList( Music selectedMusics, PlayList playList) {
         playList.addSong(selectedMusics);
-        for (Music eachMusic : selectedMusics) {
-            eachMusic.addPlayList(playList);
-        }
+        selectedMusics.addPlayList(playList);
     }
 
     /**

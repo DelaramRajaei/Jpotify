@@ -5,12 +5,9 @@ public abstract class PlayList {
     protected String name;
     protected boolean editable;
     protected ArrayList<Music> musics;
-    protected String fileName;
 
-    public void addSong(ArrayList<Music> selectedMusics) {
-        for (Music eachMusic : selectedMusics) {
-            musics.add(eachMusic);
-        }
+    public void addSong(Music selectedMusic) {
+        musics.add(selectedMusic);
     }
 
     /**
@@ -29,7 +26,4 @@ public abstract class PlayList {
         return name;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
 }
