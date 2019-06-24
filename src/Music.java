@@ -1,12 +1,18 @@
+import javafx.scene.input.DataFormat;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Date;
 
+//TODO image
+//TODO last time played
 
 public class Music {
     private String name;
@@ -15,6 +21,7 @@ public class Music {
     private String directory;
     private int year;
     private ArrayList<PlayList> playLists;
+    private int lastTimePlayed;
 
 
     public Music(String directory) {
@@ -68,6 +75,19 @@ public class Music {
 
     public String getDirectory() {
         return directory;
+    }
+
+    public int getLastTimePlayed() {
+        return lastTimePlayed;
+    }
+
+    public void setLastTimePlayed() {
+        Date date=new Date();
+        String strDateFormated="mm:ss";
+        SimpleDateFormat dataFormat=new SimpleDateFormat(strDateFormated);
+        String formattedDate=dataFormat.format(date);
+        this.lastTimePlayed = lastTimePlayed;
+
     }
 }
 

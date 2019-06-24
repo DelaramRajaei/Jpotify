@@ -6,7 +6,7 @@ public abstract class PlayList {
     protected boolean editable;
     protected ArrayList<Music> musics;
     protected String fileName;
-
+//TODO Image for playlist
     public PlayList(){
         musics=new ArrayList<Music>();
     }

@@ -18,8 +18,8 @@ public class Core {
      */
     public static void addSong(String directory, ArrayList<Music> musics, ArrayList<Album> albums) {
         try {
-            fileWriter = new BufferedWriter(new FileWriter(songsFile,true));
-            fileWriter.write(directory+"\n");
+            fileWriter = new BufferedWriter(new FileWriter(songsFile, true));
+            fileWriter.write(directory + "\n");
             fileWriter.newLine();
             fileWriter.flush();
             fileWriter.close();
@@ -45,8 +45,10 @@ public class Core {
                 removeSongFromPlaylist(eachPlayList, music);
             }
         }
-    }
+    }//TODO check files and test remove
 
+    //TODO Name account
+    //TODO search
     public static void removeLineFromFile(String file, String lineToRemove) {
 
         try {
@@ -138,7 +140,7 @@ public class Core {
             for (String eachFileName : file_client_playlists) {
                 if (playList.getFileName().equals(eachFileName)) {
                     File clientPlaylistFile = new File(eachFileName);
-                    fileWriter = new BufferedWriter(new FileWriter(eachFileName,true));
+                    fileWriter = new BufferedWriter(new FileWriter(eachFileName, true));
                     fileWriter.write(music.getName());
                     fileWriter.newLine();
                 }
