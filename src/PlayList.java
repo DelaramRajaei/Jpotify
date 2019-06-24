@@ -7,6 +7,9 @@ public abstract class PlayList {
     protected ArrayList<Music> musics;
     protected String fileName;
 
+    public PlayList(){
+        musics=new ArrayList<Music>();
+    }
     public void addSong(Music selectedMusic) {
         musics.add(selectedMusic);
         Core.addSongToPlayList(this,selectedMusic);
@@ -21,7 +24,7 @@ public abstract class PlayList {
 
     public void removeSong(Music selectedMusic) {
         musics.remove(selectedMusic);
-        Core.removeSongFromPlaylist(this);
+        Core.removeSongFromPlaylist(this,selectedMusic);
     }
 
     public String getName() {

@@ -21,9 +21,10 @@ public class Account {
         musics = new ArrayList<Music>();
         clientPlayLists = new ArrayList<ClientPlayList>();
         albums = new ArrayList<Album>();
+        playLists=new ArrayList<PlayList>();
 
-//        playLists.add(sharedPlayList);
-//        playLists.add(favoriteSongs);
+        playLists.add(sharedPlayList);
+        playLists.add(favoriteSongs);
         if (clientPlayLists != null) {
             for (ClientPlayList eachOne : clientPlayLists) {
                 playLists.add(eachOne);
@@ -59,28 +60,35 @@ public class Account {
      * @param selectedMusics Arraylist of musics which was selected.
      * @param playList       The playlist which was selected.
      */
-    public void addSongToPlayList(Music selectedMusics, PlayList playList) {
+    public void addSongToPlayList(PlayList playList,Music selectedMusics) {
         playList.addSong(selectedMusics);
         selectedMusics.addPlayList(playList);
     }
 
+
+
+    public void removeSong(Music music) {
+        musics.remove(music);
+        Core.removeSong(music);
+    }
     /**
      * Removing a song from a selected Playlist
-     * First it would find the playlist then call the removeSong method.
+     * First it would find the playlist then call the removeSongFromPlaylist method.
      *
      * @param music    musics that you selected to remove
      * @param playList Selected playlist
      */
-
-    public void removeSong(Music music, PlayList playList) {
-        musics.remove(music);
+    public void removeSongFromPlaylist(PlayList playList, Music music) {
         playList.removeSong(music);
+        Core.removeSongFromPlaylist(playList, music);
     }
 
     public void removePlaylist(PlayList playList) {
-        playLists.remove(playList);
-      clientPlayLists.remove(playList);
-        Core.removePlaylist();
+        if (playList.editable) {
+            playLists.remove(playList);
+            clientPlayLists.remove(playList);
+            Core.removePlaylist(playList);
+        }
     }
 
     public String getName() {
