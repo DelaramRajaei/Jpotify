@@ -13,7 +13,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class MusicBarPanel extends JPanel implements ActionListener {
+public class MusicBarPanel extends JPanel {
 
 //TODO debbuging
 
@@ -46,6 +46,8 @@ public class MusicBarPanel extends JPanel implements ActionListener {
 
         private JPanel buttonsPanel = new JPanel(new GridBagLayout());
         private JPanel currentMusic = new JPanel(new GridBagLayout());
+        private JPanel vasatPanel ;
+        private JPanel powerVoic ;
 
 
 
@@ -201,12 +203,12 @@ public class MusicBarPanel extends JPanel implements ActionListener {
 
             //*
             //**action listeners:
-            play.addActionListener(this);
-            previous.addActionListener(this);
-            rePlay.addActionListener(this);
-            next.addActionListener(this);
-            shuffle.addActionListener(this);
-            buttonOpen.addActionListener(this);
+//            play.addActionListener(this);
+//            previous.addActionListener(this);
+//            rePlay.addActionListener(this);
+//            next.addActionListener(this);
+//            shuffle.addActionListener(this);
+//            buttonOpen.addActionListener(this);
 
             this.setVisible(true);
 
@@ -222,96 +224,53 @@ public class MusicBarPanel extends JPanel implements ActionListener {
 
         }
 
-
-        @Override
-        public void actionPerformed(ActionEvent event) {
-            Object source = event.getSource();
-
-            if(event.getSource()==play){
-                if (!isPlaying) {
-                   play.setIcon(pauseIcon);
-                    isPlaying=true;
-                } else {
-                    play.setIcon(playIcon);
-                    isPlaying=false;
-                }
-            }
-
-            else  if(event.getSource()==rePlay){
-                if (!isReplay) {
-                    rePlay.setIcon(replayOn);
-                    isReplay=true;
-
-                } else {
-                    rePlay.setIcon(replayOff);
-                    isReplay=false;
-
-                }
-            }else if(event.getSource()==next){
-                //t.stop();
-            }else if(event.getSource()==previous){
-                //t.stop();
-            }else if(event.getSource()==shuffle){
-                if (!isShuffle) {
-                    shuffle.setIcon(shuffleOn);
-                    isShuffle=true;
-
-                } else {
-                    shuffle.setIcon(shuffleoff);
-                    isShuffle=false;
-
-                }
-
-            }else if(event.getSource()==buttonOpen){
-                openFile();
-
-            }
-        }
+//
+//        @Override
+//        public void actionPerformed(ActionEvent event) {
+//            Object source = event.getSource();
+//
+//            if(event.getSource()==play){
+//                if (!isPlaying) {
+//                   play.setIcon(pauseIcon);
+//                    isPlaying=true;
+//                } else {
+//                    play.setIcon(playIcon);
+//                    isPlaying=false;
+//                }
+//            }
+//
+//            else  if(event.getSource()==rePlay){
+//                if (!isReplay) {
+//                    rePlay.setIcon(replayOn);
+//                    isReplay=true;
+//
+//                } else {
+//                    rePlay.setIcon(replayOff);
+//                    isReplay=false;
+//
+//                }
+//            }else if(event.getSource()==next){
+//                //t.stop();
+//            }else if(event.getSource()==previous){
+//                //t.stop();
+//            }else if(event.getSource()==shuffle){
+//                if (!isShuffle) {
+//                    shuffle.setIcon(shuffleOn);
+//                    isShuffle=true;
+//
+//                } else {
+//                    shuffle.setIcon(shuffleoff);
+//                    isShuffle=false;
+//
+//                }
+//
+//            }
+//        }
 
 
         //handling click on open file:
 
-        public void openFile(){
-            System.out.println("open pressed");
-            JFileChooser fileChooser = null;
 
-            if (lastOpenPath != null && !lastOpenPath.equals("")) {
-                fileChooser = new JFileChooser(lastOpenPath);
-            } else {
-                fileChooser = new JFileChooser();
-            }
-
-            FileFilter filter = new FileNameExtensionFilter("MP3 File","mp3");
-            fileChooser.setFileFilter(filter);
-            //fileChooser.showOpenDialog(frame);
-            File file = fileChooser.getSelectedFile();
-
-
-            //fileChooser.setFileFilter(mp3Filter);
-            fileChooser.setDialogTitle("Open Audio File");
-            fileChooser.setAcceptAllFileFilterUsed(false);
-
-            int userChoice = fileChooser.showOpenDialog(this);
-            if (userChoice == JFileChooser.APPROVE_OPTION) {
-                audioFilePath = fileChooser.getSelectedFile().getAbsolutePath();
-                lastOpenPath = fileChooser.getSelectedFile().getParent();
-                if (isPlaying || isReplay) {
-                    stopPlaying();
-                    while (player.getAudioClip().isRunning()) {
-                        try {
-                            Thread.sleep(100);
-                        } catch (InterruptedException ex) {
-                            ex.printStackTrace();
-                        }
-                    }
-                }
-                playBack();
-            }
-
-            System.out.println(audioFilePath);
-            AccountManagement.getActiveAccount().addMusic(audioFilePath);
-
-        }
 
 
 

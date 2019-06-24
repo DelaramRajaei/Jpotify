@@ -5,13 +5,53 @@
  */
 
 
+
+
 import javax.swing.*;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  *
  * @author Darya
  */
-public class LeftPanel extends javax.swing.JPanel {
+public class LeftPanel extends javax.swing.JPanel implements ActionListener{
+
+
+
+
+    private String audioFilePath;
+    private String lastOpenPath;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * Creates new form LeftPanel
@@ -32,9 +72,10 @@ public class LeftPanel extends javax.swing.JPanel {
 
         songsButton = new javax.swing.JButton();
         albumsButton = new javax.swing.JButton();
-        playlistButton = new javax.swing.JButton();
         addMusic = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        addPlaylist = new javax.swing.JButton();
+        jScrollPanePlayListList = new javax.swing.JScrollPane();
+        jListPlayListList = new javax.swing.JList<>();
 
         setBackground(new java.awt.Color(51, 51, 51));
         setMinimumSize(new java.awt.Dimension(120, 500));
@@ -42,10 +83,12 @@ public class LeftPanel extends javax.swing.JPanel {
 
         songsButton.setBackground(new java.awt.Color(51, 51, 51));
         songsButton.setForeground(new java.awt.Color(255, 255, 255));
+
         ImageIcon songIcon = new ImageIcon(this.getClass().getResource("images/song.png"));
         songsButton.setIcon(songIcon); // NOI18N
         songsButton.setText("Songs");
         songsButton.setToolTipText("Show songs");
+        songsButton.setBorder(null);
         songsButton.setFocusable(false);
         songsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,7 +101,7 @@ public class LeftPanel extends javax.swing.JPanel {
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.ipadx = 8;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(65, 12, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(65, 11, 0, 0);
         add(songsButton, gridBagConstraints);
 
         albumsButton.setBackground(new java.awt.Color(51, 51, 51));
@@ -66,51 +109,80 @@ public class LeftPanel extends javax.swing.JPanel {
         ImageIcon albumIcon = new ImageIcon(this.getClass().getResource("images/album.png"));
         albumsButton.setIcon(albumIcon); // NOI18N
         albumsButton.setText("Albums");
+        albumsButton.setBorder(null);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
         gridBagConstraints.gridwidth = 3;
         gridBagConstraints.ipady = -12;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 14, 0, 8);
+        gridBagConstraints.insets = new java.awt.Insets(7, 13, 0, 25);
         add(albumsButton, gridBagConstraints);
-
-        playlistButton.setBackground(new java.awt.Color(51, 51, 51));
-        playlistButton.setForeground(new java.awt.Color(255, 255, 255));
-        ImageIcon playlistIcon = new ImageIcon(this.getClass().getResource("images/playlist.png"));
-        playlistButton.setIcon(playlistIcon); // NOI18N
-        playlistButton.setText("Playlists");
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.gridwidth = 3;
-        gridBagConstraints.ipady = -13;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(7, 12, 0, 8);
-        add(playlistButton, gridBagConstraints);
 
         addMusic.setBackground(new java.awt.Color(51, 51, 51));
         addMusic.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
         addMusic.setForeground(new java.awt.Color(255, 255, 255));
         addMusic.setText("+ MUSIC");
+        addMusic.setBorder(null);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
         gridBagConstraints.ipadx = 20;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(61, 23, 0, 0);
+        gridBagConstraints.insets = new java.awt.Insets(61, 22, 0, 0);
         add(addMusic, gridBagConstraints);
 
-        jButton1.setBackground(new java.awt.Color(51, 51, 51));
-        jButton1.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setText("+ PLAYLIST");
+        addPlaylist.setBackground(new java.awt.Color(51, 51, 51));
+        addPlaylist.setFont(new java.awt.Font("Trebuchet MS", 1, 12)); // NOI18N
+        addPlaylist.setForeground(new java.awt.Color(255, 255, 255));
+        addPlaylist.setText(" + PLAYLIST");
+        addPlaylist.setBorder(null);
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
-        gridBagConstraints.insets = new java.awt.Insets(18, 23, 182, 0);
-        add(jButton1, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(18, 22, 0, 0);
+        add(addPlaylist, gridBagConstraints);
+
+        jListPlayListList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jListPlayListList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jListPlayListList.setFocusable(false);
+        jScrollPanePlayListList.setViewportView(jListPlayListList);
+        jListPlayListList.setBackground(new Color(51,51,51));
+        jListPlayListList.setForeground(new Color(241, 254, 255));
+
+
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 5;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 70;
+        gridBagConstraints.ipady = 119;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.weightx = 1.0;
+        gridBagConstraints.weighty = 1.0;
+        gridBagConstraints.insets = new java.awt.Insets(7, 22, 13, 0);
+        add(jScrollPanePlayListList, gridBagConstraints);
+
+
+        addPlaylist.addActionListener((ActionListener) this);
+        addMusic.addActionListener(this);
+
+
+
+
+
+
+
+
+
+
+
+
     }// </editor-fold>//GEN-END:initComponents
 
     private void songsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_songsButtonActionPerformed
@@ -121,8 +193,52 @@ public class LeftPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addMusic;
     private javax.swing.JButton albumsButton;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton playlistButton;
+    private javax.swing.JButton addPlaylist;
+    private javax.swing.JList<String> jListPlayListList;
+    private javax.swing.JScrollPane jScrollPanePlayListList;
     private javax.swing.JButton songsButton;
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source=e.getSource();
+        if(source==addPlaylist){
+            System.out.println("eeee");
+            NewPlayList newPlaylist=new NewPlayList();
+            newPlaylist.setVisible(true);
+            jListPlayListList.add(newPlaylist.getPlaylistName(),new JButton());
+        }else
+
+
+
+
+            if(source==addMusic){
+                openFile();
+
+
+        }
+
+    }
+
+    public void openFile(){
+        System.out.println("open pressed");
+        JFileChooser fileChooser = new JFileChooser();
+        FileFilter filter = new FileNameExtensionFilter("MP3 File","mp3");
+        fileChooser.setFileFilter(filter);
+        fileChooser.setDialogTitle("Open Audio File");
+        int returnValue = fileChooser.showOpenDialog(null);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            audioFilePath = fileChooser.getSelectedFile().getAbsolutePath();
+            lastOpenPath = fileChooser.getSelectedFile().getParent();
+        }
+        System.out.println(audioFilePath);
+       // AccountManagement.getActiveAccount().addMusic(audioFilePath);
+
+    }
+
+
+
+
+
+
     // End of variables declaration//GEN-END:variables
 }
