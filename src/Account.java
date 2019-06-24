@@ -21,9 +21,10 @@ public class Account {
         musics = new ArrayList<Music>();
         clientPlayLists = new ArrayList<ClientPlayList>();
         albums = new ArrayList<Album>();
+        playLists=new ArrayList<PlayList>();
 
-//        playLists.add(sharedPlayList);
-//        playLists.add(favoriteSongs);
+        playLists.add(sharedPlayList);
+        playLists.add(favoriteSongs);
         if (clientPlayLists != null) {
             for (ClientPlayList eachOne : clientPlayLists) {
                 playLists.add(eachOne);
@@ -42,13 +43,14 @@ public class Account {
 
     /**
      * Creating a new playlist.
+     *
      * @param name Name of the new Playlist.
      */
     public void createPlayList(String name) {
         ClientPlayList newPlaylist = new ClientPlayList(name);
         clientPlayLists.add(newPlaylist);
         playLists.add(newPlaylist);
-        Core.createPlaylist(newPlaylist);
+        Core.createPlaylist(newPlaylist, playLists);
     }
 
     /**
@@ -56,25 +58,37 @@ public class Account {
      * At first it would find the selected playlist and then call the addSong method.
      *
      * @param selectedMusics Arraylist of musics which was selected.
-     * @param playList The playlist which was selected.
+     * @param playList       The playlist which was selected.
      */
-    public void addSongToPlayList(ArrayList<Music> selectedMusics, PlayList playList) {
+    public void addSongToPlayList(PlayList playList,Music selectedMusics) {
         playList.addSong(selectedMusics);
-        for (Music eachMusic:selectedMusics) {
-            eachMusic.addPlayList(playList);
-        }
+        selectedMusics.addPlayList(playList);
     }
 
+
+
+    public void removeSong(Music music) {
+        musics.remove(music);
+        Core.removeSong(music);
+    }
     /**
      * Removing a song from a selected Playlist
-     * First it would find the playlist then call the removeSong method.
+     * First it would find the playlist then call the removeSongFromPlaylist method.
      *
-     * @param music musics that you selected to remove
+     * @param music    musics that you selected to remove
      * @param playList Selected playlist
      */
-
-    public void removeSong(Music music, PlayList playList) {
+    public void removeSongFromPlaylist(PlayList playList, Music music) {
         playList.removeSong(music);
+        Core.removeSongFromPlaylist(playList, music);
+    }
+
+    public void removePlaylist(PlayList playList) {
+        if (playList.editable) {
+            playLists.remove(playList);
+            clientPlayLists.remove(playList);
+            Core.removePlaylist(playList);
+        }
     }
 
     public String getName() {
@@ -97,4 +111,11 @@ public class Account {
         return favoriteSongs;
     }
 
+    public ArrayList<PlayList> getPlayLists() {
+        return playLists;
+    }
+
+    public ArrayList<Album> getAlbums() {
+        return albums;
+    }
 }

@@ -5,26 +5,37 @@ public abstract class PlayList {
     protected String name;
     protected boolean editable;
     protected ArrayList<Music> musics;
+    protected String fileName;
 
-    public void addSong(ArrayList<Music> selectedMusics) {
-        for (Music eachMusic : selectedMusics) {
-            musics.add(eachMusic);
-        }
+    public PlayList(){
+        musics=new ArrayList<Music>();
+    }
+    public void addSong(Music selectedMusic) {
+        musics.add(selectedMusic);
+        Core.addSongToPlayList(this,selectedMusic);
     }
 
     /**
      * Removing a song from a playlist.
      * Find the song in arraylist of the playlist then remove it.
-     * @param music Selected music
+     *
+     * @param selectedMusic Selected music
      */
 
-    public void removeSong(Music music) {
-        musics.remove(music);
+    public void removeSong(Music selectedMusic) {
+        musics.remove(selectedMusic);
+        Core.removeSongFromPlaylist(this,selectedMusic);
     }
 
     public String getName() {
+
         return name;
     }
+    public String getFileName() {
 
-
+        return fileName;
+    }
+    public ArrayList<Music> getMusic(){
+        return musics;
+    }
 }
