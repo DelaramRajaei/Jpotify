@@ -32,37 +32,91 @@ public class Core {
         }
     }
 
-   /* public static void removeSong(ArrayList<Music> musics) {
-        if (songsFile.delete()) {
-            for (Music music:musics) {
-                fileWriter = new FileWriter(songsFile);
-                fileWriter.write(directory);
-                fileWriter.flush();
-                fileWriter.close();
-            }
-        }//TODO remove a song
-    }*/
+    /**
+     * This method will delete the selected song from file.
+     * @param music The music that we wanted to delete.
+     */
+    public static void removeSong(Music music) {
+        removeLineFromFile(FILE_PATH_OF_SONGS,music.getDirectory());
+    }
 
-    public static void removeSongFromPlaylist(PlayList playList, ArrayList<Music> musics, ArrayList<Album> albums) {
+   public static void removeLineFromFile(String file, String lineToRemove) {
+
+       try {
+
+           File inFile = new File(file);
+
+           if (!inFile.isFile()) {
+               System.out.println("Parameter is not an existing file");
+               return;
+           }
+
+           File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
+
+           BufferedReader br = new BufferedReader(new FileReader(file));
+           PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
+
+           String line = null;
+
+           while ((line = br.readLine()) != null) {
+
+               if (!line.trim().equals(lineToRemove)) {
+
+                   pw.println(line);
+                   pw.flush();
+               }
+           }
+           pw.close();
+           br.close();
+
+           if (!inFile.delete()) {
+               System.out.println("Could not delete file");
+               return;
+           }
+
+           if (!tempFile.renameTo(inFile))
+               System.out.println("Could not rename file");
+
+       }
+       catch (FileNotFoundException ex) {
+           ex.printStackTrace();
+       }
+       catch (IOException ex) {
+           ex.printStackTrace();
+       }
+   }
+
+    /**
+     * This method will remove the file of that playlist.
+     * @param playList The selected playlist which the song want to be removed from it.
+     * @param music The selected music
+     */
+    public static void removeSongFromPlaylist(PlayList playList,Music music) {
         try {
-            removeSong(musics, albums);
-            File file = new File(playList.getFileName());
-            for (Music eachMusic : playList.getMusic())
-                if (file.delete())
-                    addSongToPlayList(playList, eachMusic);
+            removeSong(music);
+            removeLineFromFile(playList.getFileName(),music.getName());
         } catch (
                 Exception e) {
         }
     }
 
-    public static void removePlaylist(PlayList playList, Music music) {
+    /**
+     * This method will remove the file of that playlist.
+     * @param playList The selected playlist which we wanted to remove.
+     */
+    public static void removePlaylist(PlayList playList) {
         boolean flag = false;
         File playlistFile=new File(playList.getFileName());
-        if (playListFile.delete()) {
-            System.out.println("Playlist removed successfully!");
+        if (playlistFile.exists()) {
+            playListFile.delete();
         }
     }
 
+    /**
+     * This method will create a new file for the playlist and set the file name of the new playlist.
+     * @param newClientPlayList The new playlist
+     * @param playLists Arraylist of all the playlists.
+     */
     public static void createPlaylist(ClientPlayList newClientPlayList, ArrayList<PlayList> playLists) {
         try {
             String fileName = "P" + (playLists.size() - 2);
@@ -140,14 +194,6 @@ public class Core {
         }
     }
 
-    public static void loadPlayList(PlayList playList, ArrayList<Music> musics, String readLine) {
-        for (Music eachMusic : musics) {
-            if (readLine.equals(eachMusic.getName())) {
-                updateList(playList, eachMusic);
-            }
-        }
-    }
-
 
     public static void initialLoadAPlaylist(ArrayList<PlayList> playLists, ArrayList<Music> musics, String fileName) {
 
@@ -181,7 +227,7 @@ public class Core {
         }
     }
 
-    public static void intialLoadAllPlaylists(ArrayList<PlayList> playLists, ArrayList<Album> albums, ArrayList<Music> musics) {
+    public static void loadPlaylists(ArrayList<PlayList> playLists, ArrayList<Album> albums, ArrayList<Music> musics) {
         initialLoadSongs(musics, albums);
         initialLoadAPlaylist(playLists, musics, SHARED_PLAYLIST_FILE);
         initialLoadAPlaylist(playLists, musics, FAVORITE_PLAYLIST_FILE);
@@ -232,6 +278,12 @@ public class Core {
         playList.addSong(music);
         music.addPlayList(playList);
     }
-
+    public static void loadPlayList(PlayList playList, ArrayList<Music> musics, String readLine) {
+        for (Music eachMusic : musics) {
+            if (readLine.equals(eachMusic.getName())) {
+                updateList(playList, eachMusic);
+            }
+        }
+    }
 
 }

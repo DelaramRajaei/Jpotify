@@ -12,6 +12,7 @@ public class Music {
     private String name;
     private String artist;
     private String album;
+    private String directory;
     private int year;
     private ArrayList<PlayList> playLists;
 
@@ -23,14 +24,14 @@ public class Music {
             FileInputStream fileStream = new FileInputStream(new File(directory));
             byte[] bytes = new byte[128];
             long i = file.length();
-            //fileStream.read(bytes,(int)file.length()-128,bytes.length);
             fileStream.skip(file.length()-128);
             fileStream.read(bytes);
             fileStream.close();
             String metaTag = new String(bytes);
+            this.directory=directory;
             if(metaTag.substring(0,3).equals("TAG"))
             {
-                this.name = metaTag.substring(3,33);
+                name = metaTag.substring(3,33);
                 artist = metaTag.substring(33,63);
                 album = metaTag.substring(63,93);
                 year = Integer.parseInt(metaTag.substring(93,97));
@@ -61,6 +62,10 @@ public class Music {
     }
     public void addPlayList(PlayList playList){
         playLists.add(playList);
+    }
+
+    public String getDirectory() {
+        return directory;
     }
 }
 
