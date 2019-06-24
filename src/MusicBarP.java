@@ -51,6 +51,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
     private JLabel musicArtist;
     private JLabel musicImage;
     private JLabel musicName;
+    private JLabel musicPublishYear;
     private JLabel musicAlbum;
     private JSlider musicSlider;
     private JButton next;
@@ -154,14 +155,16 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
         this.setVisible(true);
         songDetail=new JPanel();
-        songDetail.setLayout(new GridLayout(3,1));
+        songDetail.setLayout(new GridLayout(7,1));
         songDetail.setBackground(new Color (51,51,51));
         musicName=new JLabel("Faint");
         musicImage=new JLabel("Epica");
         musicAlbum=new JLabel("nmidnm");
+        musicPublishYear=new JLabel("nmidnm");
         songDetail.add(musicName);
         songDetail.add(musicArtist);
         songDetail.add(musicAlbum);
+        songDetail.add(musicPublishYear);
         currentMusic.setLayout(new BorderLayout());
         currentMusic.add(musicImage,BorderLayout.WEST);
 
@@ -177,9 +180,11 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         musicName.setText("Faint");
         musicArtist.setText("Epica");
         musicAlbum.setText("nmidnm");
+        musicPublishYear.setText("2016");
         musicName.setForeground(new Color(234, 251, 255));
         musicArtist.setForeground(new Color(234, 251, 255));
         musicAlbum.setForeground(new Color(234, 251, 255));
+        musicPublishYear.setForeground(new Color(234, 251, 255));
 
 
 
@@ -462,7 +467,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         public void run() {
             try {
                 //code for play button
-                fileInputStream=new FileInputStream(LeftPanel.audioFilePath);
+                fileInputStream=new FileInputStream(AccountManagement.getActiveAccount().getMusics().get(0).getDirectory());
                 bufferedInputStream=new BufferedInputStream(fileInputStream);
                 player=new Player(fileInputStream);
                 totalLength=fileInputStream.available();

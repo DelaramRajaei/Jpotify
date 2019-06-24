@@ -19,7 +19,7 @@ public class Core {
     public static void addSong(String directory, ArrayList<Music> musics, ArrayList<Album> albums) {
         try {
             fileWriter = new BufferedWriter(new FileWriter(songsFile,true));
-            fileWriter.write(directory+"\n");
+            fileWriter.write(directory);
             fileWriter.newLine();
             fileWriter.flush();
             fileWriter.close();
@@ -238,9 +238,9 @@ public class Core {
 
     public static void initialLoad(ArrayList<PlayList> playLists, ArrayList<Album> albums, ArrayList<Music> musics) {
         initialLoadSongs(musics, albums);
-        initialLoadPlaylist(playLists, musics, SHARED_PLAYLIST_FILE);
-        initialLoadPlaylist(playLists, musics, FAVORITE_PLAYLIST_FILE);
-        initialLoadClientsPlaylist(playLists, musics);
+        //initialLoadPlaylist(playLists, musics, SHARED_PLAYLIST_FILE);
+       // initialLoadPlaylist(playLists, musics, FAVORITE_PLAYLIST_FILE);
+        //initialLoadClientsPlaylist(playLists, musics);
 
     }
 

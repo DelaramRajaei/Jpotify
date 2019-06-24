@@ -202,10 +202,12 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Object source=e.getSource();
         if(source==addPlaylist){
-            System.out.println("eeee");
+
             NewPlayList newPlaylist=new NewPlayList();
             newPlaylist.setVisible(true);
             jListPlayListList.add(newPlaylist.getPlaylistName(),new JButton());
+
+            System.out.println("new Playlist: "+newPlaylist.getPlaylistName());
         }else
 
 
@@ -231,8 +233,11 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
             lastOpenPath = fileChooser.getSelectedFile().getParent();
         }
         System.out.println(audioFilePath);
-       // AccountManagement.getActiveAccount().addMusic(audioFilePath);
-
+        //Music m=new Music(audioFilePath);
+        //Account a=new Account("darya");
+        //a.addMusic(m.getDirectory());
+        AccountManagement.getActiveAccount().addMusic(audioFilePath);
+        System.out.println("file added to list of song"+AccountManagement.getActiveAccount().getName());
     }
 
 
