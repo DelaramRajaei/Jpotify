@@ -345,7 +345,7 @@ public class MusicBarPanel extends JPanel {
 //                e.printStackTrace();
 //            }
 //        }
-//
+
 //
 //
 //        public void playMusic() {

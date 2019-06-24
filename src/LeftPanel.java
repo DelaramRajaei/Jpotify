@@ -25,7 +25,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
 
 
-    private String audioFilePath;
+    public static String audioFilePath;
     private String lastOpenPath;
 
 
