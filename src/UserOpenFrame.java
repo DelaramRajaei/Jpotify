@@ -51,7 +51,7 @@ public class UserOpenFrame extends javax.swing.JFrame implements ActionListener 
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 102, 255));
-        jLabel3.setText(" How Call You :");
+        jLabel3.setText(" Your Name :");
 
         jTextField1.setBackground(new java.awt.Color(0, 0, 51));
         jTextField1.setFont(new java.awt.Font("Verdana", 2, 18)); // NOI18N

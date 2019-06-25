@@ -23,7 +23,7 @@ public abstract class PlayList {
 
     public void removeSong(Music selectedMusic) {
         musics.remove(selectedMusic);
-        Core.removeSongFromPlaylist(this,selectedMusic);
+        Core.removeSongFromPlaylist(this);
     }
 
     public String getName() {

@@ -8,15 +8,20 @@ import java.util.ArrayList;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)throws Exception {
 
-        //RootPanel rootPanel = new RootPanel();
+        //UserOpenFrame userOpenFrame = new UserOpenFrame();
+       // RootPanel rootPanel = new RootPanel();
+
         Account a = new Account("Delaram");
         Core.initialLoad(a);
         //add music
         a.addMusic("E:\\Codes\\Java\\Project\\Jpotify\\src\\Musics\\01 - Rolling In The Deep.mp3");//0
         a.addMusic("E:\\Codes\\Java\\Project\\Jpotify\\src\\Musics\\Lily Allen.fuck you.mp3");//1
         a.addMusic("E:\\Codes\\Java\\Project\\Jpotify\\src\\Musics\\m.mp3");//2
+//        MusicBarLogic m=new MusicBarLogic();
+//        m.play(a.getMusics().get(0));
+
         //add playlist
         a.createPlayList("Deli");//2
         //add song to playlist
@@ -30,6 +35,7 @@ public class Main {
         //remove playlist
         a.removePlaylist(a.getPlayLists().get(2));
 
+        Core.savePlaylistFileName();
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {

@@ -7,25 +7,23 @@ public class Core {
     static BufferedWriter fileWriter;
     private static ArrayList<String> file_client_playlists;
     private static final String FILE_PATH_OF_SONGS = "Song.txt";
+    private static final String FILE_PATH_OF_PLAYLIST = "Playlist.txt";
     private static final String SHARED_PLAYLIST_FILE = "SharedPlayList.txt";
     private static final String FAVORITE_PLAYLIST_FILE = "FavoriteList.txt";
 
     /**
      * Add a song to list of songs save it on the file and make an object of Music from it.
      *
-     * @param directory Path of the file
-     * @param musics    Arraylist of musics
+     * @param newMusic New music that added.
+     * @param albums   Array list of albums.
      */
-    public static void addSong(String directory, ArrayList<Music> musics, ArrayList<Album> albums) {
+    public static void addSong(Music newMusic, ArrayList<Album> albums) {
         try {
-            fileWriter = new BufferedWriter(new FileWriter(songsFile,true));
-            fileWriter.write(directory+"\n");
+            fileWriter = new BufferedWriter(new FileWriter(songsFile, true));
+            fileWriter.write(newMusic.getDirectory());
             fileWriter.newLine();
             fileWriter.flush();
             fileWriter.close();
-
-            Music newMusic = new Music(directory);
-            musics.add(newMusic);
             initialAlbum(newMusic, albums);
 
         } catch (IOException e) {
@@ -35,59 +33,18 @@ public class Core {
 
     /**
      * This method will delete the selected song from file.
-     *
-     * @param music The music that we wanted to delete.
      */
-    public static void removeSong(Music music) {
-        removeLineFromFile(FILE_PATH_OF_SONGS, music.getDirectory());
-        if (music.getPlaylist() != null) {
-            for (PlayList eachPlayList : music.getPlaylist()) {
-                removeSongFromPlaylist(eachPlayList, music);
-            }
+    public static void removeSong(ArrayList<PlayList> playlists, ArrayList<Music> musics, ArrayList<Album> albums) throws Exception {
+        for (Music eachMusic : musics) {
+            songsFile.delete();
+            addSong(eachMusic, albums);
         }
-    }
-
-    public static void removeLineFromFile(String file, String lineToRemove) {
-
-        try {
-
-            File inFile = new File(file);
-
-            if (!inFile.isFile()) {
-                System.out.println("Parameter is not an existing file");
-                return;
-            }
-
-            File tempFile = new File(inFile.getAbsolutePath() + ".tmp");
-
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            PrintWriter pw = new PrintWriter(new FileWriter(tempFile));
-
-            String line = null;
-
-            while ((line = br.readLine()) != null) {
-
-                if (!line.trim().equals(lineToRemove)) {
-
-                    pw.println(line);
-                    pw.flush();
-                }
-            }
-            pw.close();
-            br.close();
-
-            if (!inFile.delete()) {
-                System.out.println("Could not delete file");
-                return;
-            }
-
-            if (!tempFile.renameTo(inFile))
-                System.out.println("Could not rename file");
-
-        } catch (FileNotFoundException ex) {
-            ex.printStackTrace();
-        } catch (IOException ex) {
-            ex.printStackTrace();
+        for (PlayList eachPlayList : playlists) {
+            File file = new File(eachPlayList.getFileName());
+            file.delete();
+            file.createNewFile();
+            for (Music eachMusic : eachPlayList.getMusic())
+                addSongToPlayList(eachPlayList, eachMusic);
         }
     }
 
@@ -95,11 +52,14 @@ public class Core {
      * This method will remove the file of that playlist.
      *
      * @param playList The selected playlist which the song want to be removed from it.
-     * @param music    The selected music
      */
-    public static void removeSongFromPlaylist(PlayList playList, Music music) {
+    public static void removeSongFromPlaylist(PlayList playList) {
         try {
-            removeLineFromFile(playList.getFileName(), music.getName());
+            File file = new File(playList.getFileName());
+            file.delete();
+            file.createNewFile();
+            for (Music eachMusic : playList.getMusic())
+                addSongToPlayList(playList, eachMusic);
         } catch (
                 Exception e) {
         }
@@ -113,10 +73,12 @@ public class Core {
     public static void removePlaylist(PlayList playList) {
         boolean flag = false;
         File playlistFile = new File(playList.getFileName());
-        if (playlistFile.exists()) {
-            playListFile.delete();
+        if (playList.editable) {
+            if (playlistFile.exists()) {
+                playListFile.delete();
+            }
         }
-    }
+    }//TODO removed Favorite list :||||
 
     /**
      * This method will create a new file for the playlist and set the file name of the new playlist.
@@ -138,9 +100,11 @@ public class Core {
             for (String eachFileName : file_client_playlists) {
                 if (playList.getFileName().equals(eachFileName)) {
                     File clientPlaylistFile = new File(eachFileName);
-                    fileWriter = new BufferedWriter(new FileWriter(eachFileName,true));
+                    fileWriter = new BufferedWriter(new FileWriter(eachFileName, true));
                     fileWriter.write(music.getName());
                     fileWriter.newLine();
+                    fileWriter.flush();
+                    fileWriter.close();
                 }
             }
         } catch (Exception e) {
@@ -164,6 +128,7 @@ public class Core {
                 input = new FileReader(songsFile);
                 reader = new BufferedReader(input);
                 while ((line = reader.readLine()) != null) {
+                    if (line == "") continue;
                     Music music = new Music(line);
                     musics.add(music);
                     initialAlbum(music, albums);
@@ -177,7 +142,6 @@ public class Core {
     }
 
     public static void initialLoadClientsPlaylist(ArrayList<PlayList> playLists, ArrayList<Music> musics) {
-        file_client_playlists = new ArrayList<String>();
         if (file_client_playlists.size() != 0) {
             for (String fileName : file_client_playlists) {
                 FileReader input = null;
@@ -185,13 +149,15 @@ public class Core {
                 ClientPlayList clientPlayList;
                 String readingPlaylist;
                 try {
-                    playListFile = new File(fileName.concat(".txt"));
-                    input = new FileReader(playListFile);
-                    reader = new BufferedReader(input);
-                    clientPlayList = new ClientPlayList(fileName);
+                    playListFile = new File(fileName);
                     if (!playListFile.createNewFile()) {
-                        while ((readingPlaylist = reader.readLine()) != null) {
-                            loadPlayList(clientPlayList, musics, readingPlaylist);
+                        input = new FileReader(playListFile);
+                        reader = new BufferedReader(input);
+                        clientPlayList = new ClientPlayList(fileName);
+                        if (!playListFile.createNewFile()) {
+                            while ((readingPlaylist = reader.readLine()) != null) {
+                                loadPlayList(clientPlayList, musics, readingPlaylist);
+                            }
                         }
                     }
                 } catch (Exception e) {
@@ -204,43 +170,51 @@ public class Core {
     }
 
 
-    public static void initialLoadPlaylist(ArrayList<PlayList> playLists, ArrayList<Music> musics, String fileName) {
+    public static void initialLoadPlaylistsFileName() {
 
         FileReader input = null;
         BufferedReader reader = null;
         PlayList playList = null;
-        String readingPlaylist;
+        String line;
+        file_client_playlists=new ArrayList<String>();
         try {
-            playListFile = new File(fileName);
-            input = new FileReader(playListFile);
-            reader = new BufferedReader(input);
-
-            if (fileName.equals(SHARED_PLAYLIST_FILE))
-                playList = new SharedPlayList();
-            else if (fileName.equals(FAVORITE_PLAYLIST_FILE)) {
-                playList = new FavoriteSongs();
-            }
-
-            playLists.add(playList);
-            if (!playListFile.createNewFile()) {
-                while ((readingPlaylist = reader.readLine()) != null) {
-                    loadPlayList(playList, musics, readingPlaylist);
+            File playlists = new File(FILE_PATH_OF_PLAYLIST);
+            if (!playlists.createNewFile()) {
+                while ((line = reader.readLine()) != null) {
+                    file_client_playlists.add(line);
                 }
             }
 
 
         } catch (Exception e) {
         } finally {
+            if (file_client_playlists.size() == 0) {
+                file_client_playlists.add("Shared Playlist.txt");
+                file_client_playlists.add("Favorite Songs.txt");
+            }
             closeReader(input);
             closeReader(reader);
         }
     }
 
-    public static void initialLoad(ArrayList<PlayList> playLists, ArrayList<Album> albums, ArrayList<Music> musics) {
-        initialLoadSongs(musics, albums);
-        initialLoadPlaylist(playLists, musics, SHARED_PLAYLIST_FILE);
-        initialLoadPlaylist(playLists, musics, FAVORITE_PLAYLIST_FILE);
-        initialLoadClientsPlaylist(playLists, musics);
+    public static void savePlaylistFileName() {
+        try {
+            playListFile = new File(FILE_PATH_OF_PLAYLIST);
+            fileWriter = new BufferedWriter(new FileWriter(playListFile, true));
+            for (String fileName : file_client_playlists) {
+                fileWriter.write(fileName);
+                fileWriter.newLine();
+            }
+            fileWriter.flush();
+            fileWriter.close();
+        } catch (Exception e) {
+        }
+    }
+
+    public static void initialLoad(Account account) {
+        initialLoadSongs(account.getMusics(), account.getAlbums());
+        initialLoadPlaylistsFileName();
+        initialLoadClientsPlaylist(account.getPlayLists(), account.getMusics());
 
     }
 
@@ -267,7 +241,7 @@ public class Core {
     public static void initialAlbum(Music music, ArrayList<Album> albums) {
         boolean flag = false;
         Album album = null;
-        if (music.getAlbum().isEmpty()) {
+        if (music.getAlbum().length() != 0) {
             for (Album eachAlbum : albums) {
                 if (eachAlbum.getAlbumName().equals(music.getAlbum())) {
                     album = eachAlbum;
@@ -277,8 +251,13 @@ public class Core {
         }
         if (!flag) {
             album = new Album(music);
+            albums.add(album);
         }
-        album.addSong(music);
+        flag = false;
+        for (Music eachMusic : album.getMusics())
+            if (eachMusic == music) flag = true;
+        if (!flag)
+            album.addSong(music);
     }
 
     public static void updateList(PlayList playList, Music music) {

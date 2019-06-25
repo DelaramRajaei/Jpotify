@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,6 +16,7 @@ public class Music {
     private String directory;
     private int year;
     private ArrayList<PlayList> playLists;
+    private ImageIcon image;
 
 
     public Music(String directory) {
@@ -68,6 +70,10 @@ public class Music {
 
     public String getDirectory() {
         return directory;
+    }
+
+    public ImageIcon getImage() {
+        return image;
     }
 }
 

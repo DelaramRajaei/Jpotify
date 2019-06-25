@@ -21,7 +21,7 @@ public class Account {
         musics = new ArrayList<Music>();
         clientPlayLists = new ArrayList<ClientPlayList>();
         albums = new ArrayList<Album>();
-        playLists=new ArrayList<PlayList>();
+        playLists = new ArrayList<PlayList>();
 
         playLists.add(sharedPlayList);
         playLists.add(favoriteSongs);
@@ -38,7 +38,9 @@ public class Account {
      * @param directory Path of the new song.
      */
     public void addMusic(String directory) {
-        Core.addSong(directory, musics, albums);
+        Music music = new Music(directory);
+        musics.add(music);
+        Core.addSong(music, albums);
     }
 
     /**
@@ -60,17 +62,20 @@ public class Account {
      * @param selectedMusics Arraylist of musics which was selected.
      * @param playList       The playlist which was selected.
      */
-    public void addSongToPlayList(PlayList playList,Music selectedMusics) {
+    public void addSongToPlayList(PlayList playList, Music selectedMusics) {
         playList.addSong(selectedMusics);
         selectedMusics.addPlayList(playList);
     }
 
 
-
-    public void removeSong(Music music) {
+    public void removeSong(Music music)throws Exception {
         musics.remove(music);
-        Core.removeSong(music);
+        for (PlayList eachPlaylist : music.getPlaylist()) {
+            eachPlaylist.removeSong(music);
+        }
+        Core.removeSong(music.getPlaylist(), musics, albums);
     }
+
     /**
      * Removing a song from a selected Playlist
      * First it would find the playlist then call the removeSongFromPlaylist method.
@@ -79,12 +84,14 @@ public class Account {
      * @param playList Selected playlist
      */
     public void removeSongFromPlaylist(PlayList playList, Music music) {
+        music.getPlaylist().remove(playList);
         playList.removeSong(music);
-        Core.removeSongFromPlaylist(playList, music);
     }
 
     public void removePlaylist(PlayList playList) {
         if (playList.editable) {
+            for (Music eachMusic : playList.getMusic())
+                eachMusic.getPlaylist().remove(playList);
             playLists.remove(playList);
             clientPlayLists.remove(playList);
             Core.removePlaylist(playList);
