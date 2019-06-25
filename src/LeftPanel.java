@@ -237,7 +237,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         //Account a=new Account("darya");
         //a.addMusic(m.getDirectory());
         AccountManagement.getActiveAccount().addMusic(audioFilePath);
-        System.out.println("file added to list of song"+AccountManagement.getActiveAccount().getName());
+
     }
 
 

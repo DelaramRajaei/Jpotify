@@ -1,3 +1,5 @@
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,6 +11,7 @@ import java.util.Base64;
 
 
 public class Music {
+    private ImageIcon image;
     private String name;
     private String artist;
     private String album;
@@ -68,6 +71,10 @@ public class Music {
 
     public String getDirectory() {
         return directory;
+    }
+
+    public ImageIcon getImage() {
+        return image;
     }
 }
 

@@ -7,12 +7,14 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
  * @author Darya
  */
-public class CellShowJpanel extends JPanel {
+public class CellShowJpanel extends JPanel implements ActionListener {
 
     private JPanel imagePanel;
     private JPanel detailPanel;
@@ -30,6 +32,9 @@ public class CellShowJpanel extends JPanel {
 
 
     public CellShowJpanel() {
+        /**
+         * give Music Array List;
+         */
 
         image=new JLabel(cover);
         imagePanel=new JPanel();
@@ -63,10 +68,11 @@ public class CellShowJpanel extends JPanel {
         add(buttonsPanel,BorderLayout.SOUTH);
         this.setVisible(true);
         this.setSize(100,200);
-        //this.setBackground(new Color(10,100,100));
+        this.setBackground(new Color(0,0,0));
 
 
 
+        playButton.addActionListener(this);
 
 
 
@@ -74,5 +80,19 @@ public class CellShowJpanel extends JPanel {
 
     }
 
+    public  void displayMusic(Music song){
+        image.setIcon( song.getImage());
+        l1.setText(song.getName());
+        l2.setText("Artist : "+song.getArtist());
+        l3.setText("Album : "+song.getAlbum());
 
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Object source =e.getSource();
+        if(source==playButton){
+
+        }
+    }
 }
