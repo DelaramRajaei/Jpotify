@@ -5,26 +5,27 @@
  */
 
 
+import javax.swing.border.Border;
+import javax.swing.border.CompoundBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 
 /**
- *
  * @author Darya
  */
-public class NewPlayList extends javax.swing.JFrame implements ActionListener{
+public class NewPlayListPanel extends javax.swing.JFrame implements ActionListener{
+
 
     private String playlistName;
 
 
-    public NewPlayList() {
+    public NewPlayListPanel() {
         initComponents();
         this.setBackground(new Color(51,51,51));
-        this.setForeground(new Color(0,0,0));
-        this.setBackground(new Color(0,0,0));
         jButton1.addActionListener( this);
+
 
     }
 
@@ -124,20 +125,20 @@ public class NewPlayList extends javax.swing.JFrame implements ActionListener{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewPlayList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewPlayListPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewPlayList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewPlayListPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewPlayList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewPlayListPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewPlayList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(NewPlayListPanel.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewPlayList().setVisible(true);
+                new NewPlayListPanel().setVisible(true);
             }
         });
     }

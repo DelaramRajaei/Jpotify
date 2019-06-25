@@ -14,7 +14,7 @@ public class RootPanel extends JFrame {
 
     private MusicBarP musicBar;
     private LeftPanel leftPanel;
-    private FriendsPanel friendsPanel;
+    private FriendsActivityPanel friendsPanel;
     private ToolBarPanel toolBarPanel;
     private ShowPanels showPanels;
 
@@ -23,7 +23,7 @@ public class RootPanel extends JFrame {
 
     private static final int WIDTH = 1000, HEIGHT = 700;
 
-   // public RootPanel(Account account,ArrayList<Account> accounts){
+
     public RootPanel(){
         super();
         this.account=account;//````````
@@ -33,7 +33,7 @@ public class RootPanel extends JFrame {
       //  friendsPanel=new FriendsPanel(accounts);
         musicBar=new MusicBarP();
         leftPanel=new LeftPanel();
-        friendsPanel=new FriendsPanel();
+        friendsPanel=new FriendsActivityPanel();
         toolBarPanel=new ToolBarPanel();
         showPanels=new ShowPanels();
         setLayout(new BorderLayout());
@@ -58,6 +58,7 @@ public class RootPanel extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setSize(WIDTH, HEIGHT);
+        this.setExtendedState(this.getState()| JFrame.MAXIMIZED_BOTH);
     }
 
 

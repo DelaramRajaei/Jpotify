@@ -63,11 +63,14 @@ public class CellShowJpanel extends JPanel implements ActionListener {
         buttonsPanel.add(popupMenu);
 
         this.setLayout(new BorderLayout());
-        add(image,BorderLayout.NORTH);
+        imagePanel.setMaximumSize(new Dimension(150,150));
+        add(imagePanel,BorderLayout.NORTH);
+        detailPanel.setMaximumSize(new Dimension(150,200));
         add(detailPanel,BorderLayout.CENTER);
+        buttonsPanel.setMaximumSize(new Dimension(150,50));
         add(buttonsPanel,BorderLayout.SOUTH);
         this.setVisible(true);
-        this.setSize(100,200);
+        this.setSize(150,400);
         this.setBackground(new Color(0,0,0));
 
 
@@ -75,13 +78,15 @@ public class CellShowJpanel extends JPanel implements ActionListener {
         playButton.addActionListener(this);
 
 
-
+        this.setPreferredSize(new Dimension(1000,1000));
 
 
     }
 
     public  void displayMusic(Music song){
-        image.setIcon( song.getImage());
+        ImageIcon cover=song.getImage();
+        ImageIcon i=new ImageIcon(cover.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT));
+        image.setIcon(i);
         l1.setText(song.getName());
         l2.setText("Artist : "+song.getArtist());
         l3.setText("Album : "+song.getAlbum());

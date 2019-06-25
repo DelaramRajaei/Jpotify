@@ -23,7 +23,7 @@ public class ShowPanels extends JPanel{
         //panels=new ArrayList<>();
 
         this.setBackground(new Color(51,51,100));
-        this.setLayout(new GridLayout(2 ,3));
+        this.setLayout(new GridLayout(0 ,3));
         c1=new CellShowJpanel();
         c2=new CellShowJpanel();
         c3=new CellShowJpanel();
@@ -38,6 +38,15 @@ public class ShowPanels extends JPanel{
 
 
 
+
+    }
+
+
+    public void ShowCellsMethod (ArrayList<CellShowJpanel> cells){
+        this.removeAll();
+        for(CellShowJpanel cell : cells){
+            this.add(cell);
+        }
 
     }
 

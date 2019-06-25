@@ -1,3 +1,6 @@
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -27,6 +30,10 @@ public class Core {
             initialAlbum(newMusic, albums);
 
         } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InvalidDataException e) {
+            e.printStackTrace();
+        } catch (UnsupportedTagException e) {
             e.printStackTrace();
         }
     }

@@ -22,7 +22,6 @@ public class UserOpenFrame extends javax.swing.JFrame implements ActionListener 
 
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -116,6 +115,7 @@ public class UserOpenFrame extends javax.swing.JFrame implements ActionListener 
 
         pack();
         this.setVisible(true);
+
     }
 
 /*
@@ -158,6 +158,7 @@ public class UserOpenFrame extends javax.swing.JFrame implements ActionListener 
     private String userName;
     private int IP;
     boolean finish=false;
+    private RootPanel rootPanel;
 
 
     @Override
@@ -172,6 +173,7 @@ public class UserOpenFrame extends javax.swing.JFrame implements ActionListener 
                 finish=true;
                 ToolBarPanel.setUserlable();
                 System.out.println(AccountManagement.getActiveAccount().getName());
+
 
             }
             else{
@@ -196,5 +198,6 @@ public class UserOpenFrame extends javax.swing.JFrame implements ActionListener 
     public void setIP(int IP) {
         this.IP = IP;
     }
+
 
 }
