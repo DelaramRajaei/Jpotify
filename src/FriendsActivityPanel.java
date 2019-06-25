@@ -2,14 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class FriendsPanel extends JPanel {
+public class FriendsActivityPanel extends JPanel {
     private JButton invite;
     private JTextArea IPCode;
     private JPanel invitePanel;
     private JPanel friendsPanel;
     private ArrayList<Account> friends;
 
-    public FriendsPanel(){
+    public FriendsActivityPanel(){
         this.setBackground(new Color(174,225,228));
         this.setBackground(Color.YELLOW);
 

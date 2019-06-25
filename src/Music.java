@@ -1,29 +1,32 @@
+import com.mpatric.mp3agic.ID3v2;
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.Mp3File;
+import com.mpatric.mp3agic.UnsupportedTagException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Base64;
 
 
 public class Music {
-    private ImageIcon image;
+    private ImageIcon icon;
     private String name;
     private String artist;
     private String album;
     private String directory;
     private int year;
     private ArrayList<PlayList> playLists;
+    private File file;
 
-
-    public Music(String directory) {
+    public Music(String directory) throws InvalidDataException, IOException, UnsupportedTagException {
         playLists = new ArrayList<PlayList>();
         try {
-            File file = new File(directory);
+            file = new File(directory);
             FileInputStream fileStream = new FileInputStream(new File(directory));
             byte[] bytes = new byte[128];
             long i = file.length();
@@ -43,6 +46,10 @@ public class Music {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        this.setImage();
+
+
     }
 
     public String getAlbum() {
@@ -74,7 +81,22 @@ public class Music {
     }
 
     public ImageIcon getImage() {
-        return image;
+        return icon;
+    }
+
+    public void setImage( ) throws IOException, InvalidDataException, UnsupportedTagException {
+        Mp3File song=new Mp3File(file.getPath());
+        if (song.hasId3v2Tag()){
+            ID3v2 id3v2tag = song.getId3v2Tag();
+            byte[] imageData = id3v2tag.getAlbumImage();
+            if (imageData!=null){
+                System.out.println("debug:: imageData is not null");
+                BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageData));
+                icon=new ImageIcon(img);
+                icon.getImage().getScaledInstance(5,5,Image.SCALE_DEFAULT);
+
+            }
+        }
     }
 }
 

@@ -14,7 +14,7 @@ public class RootPanel extends JFrame {
 
     private MusicBarP musicBar;
     private LeftPanel leftPanel;
-    private FriendsPanel friendsPanel;
+    private FriendsActivityPanel friendsPanel;
     private ToolBarPanel toolBarPanel;
     private ShowPanels showPanels;
 
@@ -33,7 +33,7 @@ public class RootPanel extends JFrame {
       //  friendsPanel=new FriendsPanel(accounts);
         musicBar=new MusicBarP();
         leftPanel=new LeftPanel();
-        friendsPanel=new FriendsPanel();
+        friendsPanel=new FriendsActivityPanel();
         toolBarPanel=new ToolBarPanel();
         showPanels=new ShowPanels();
         setLayout(new BorderLayout());

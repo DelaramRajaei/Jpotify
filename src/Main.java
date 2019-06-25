@@ -13,6 +13,7 @@ public class Main {
         UserOpenFrame u=new UserOpenFrame();
         Account a=new Account(u.getUserNAme());
         AccountManagement.setActiveAccount(a);
+        System.out.println(a.getName()+"  hear");
         Core.initialLoadSongs(a.getMusics(),a.getAlbums());
         System.out.println(a.getMusics().get(0).getName());
 
@@ -20,13 +21,16 @@ public class Main {
         Core.initialLoad(account.getPlayLists(),account.getAlbums(),account.getMusics());
 
 
-        RootPanel rootPanel = new RootPanel();
+        RootPanel rootPanel =new RootPanel();
+
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+
+
 
         SwingUtilities.invokeLater(new Runnable() {
 
