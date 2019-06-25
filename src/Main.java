@@ -10,8 +10,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-        RootPanel rootPanel = new RootPanel();
+        Account a = new Account("Delaram");
+        Core.saveName(a);
+        //RootPanel rootPanel = new RootPanel();
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -23,7 +24,7 @@ public class Main {
 
             @Override
             public void run() {
-           //     new RootPanel().setVisible(true);
+                //     new RootPanel().setVisible(true);
             }
         });
 

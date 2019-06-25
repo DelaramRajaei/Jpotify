@@ -93,6 +93,18 @@ public class Core {
         }
     }
 
+    public static void saveName(Account account) {
+        try {
+            File myAccount = new File(account.getName());
+            File f2 = new File("temp.txt");
+            myAccount.mkdir();
+            f2.createNewFile();
+            System.out.println("Printed successfully!");
+
+        } catch (Exception e) {
+        }
+    }
+
     /**
      * This method will remove the file of that playlist.
      *

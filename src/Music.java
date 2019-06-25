@@ -9,10 +9,10 @@ import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Calendar;
 import java.util.Date;
 
 //TODO image
-//TODO last time played
 
 public class Music {
     private String name;
@@ -21,7 +21,10 @@ public class Music {
     private String directory;
     private int year;
     private ArrayList<PlayList> playLists;
-    private int lastTimePlayed;
+    private String delta;
+    private long lastTimePlayed;
+    private Calendar start;
+    private Calendar now;
 
 
     public Music(String directory) {
@@ -77,17 +80,21 @@ public class Music {
         return directory;
     }
 
-    public int getLastTimePlayed() {
+    public long getLastTimePlayed() {
         return lastTimePlayed;
     }
 
-    public void setLastTimePlayed() {
+    public void setLastTimePlayed(){
         Date date=new Date();
-        String strDateFormated="mm:ss";
-        SimpleDateFormat dataFormat=new SimpleDateFormat(strDateFormated);
-        String formattedDate=dataFormat.format(date);
-        this.lastTimePlayed = lastTimePlayed;
-
+        now = Calendar.getInstance();
+        start = Calendar.getInstance();
+        start.setTime (date);
+        long milliseconds1 = start.getTimeInMillis();
+        long milliseconds2 = now.getTimeInMillis();
+        long diff = milliseconds2 - milliseconds1;
+        long diffSeconds = diff / 1000;
+        long diffMinutes = diff / (60 * 1000);
+        lastTimePlayed=diffMinutes*100+diffSeconds;
     }
 }
 
