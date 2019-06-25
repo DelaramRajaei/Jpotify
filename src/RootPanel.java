@@ -23,7 +23,7 @@ public class RootPanel extends JFrame {
 
     private static final int WIDTH = 1000, HEIGHT = 700;
 
-   // public RootPanel(Account account,ArrayList<Account> accounts){
+
     public RootPanel(){
         super();
         this.account=account;//````````

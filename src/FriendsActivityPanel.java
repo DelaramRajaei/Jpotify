@@ -9,6 +9,8 @@ public class FriendsActivityPanel extends JPanel {
     private JPanel friendsPanel;
     private ArrayList<Account> friends;
 
+
+
     public FriendsActivityPanel(){
         this.setBackground(new Color(174,225,228));
         this.setBackground(Color.YELLOW);
