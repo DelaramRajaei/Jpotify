@@ -186,7 +186,6 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
     }// </editor-fold>//GEN-END:initComponents
 
     private void songsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_songsButtonActionPerformed
-        // TODO add your handling code here:
     }//GEN-LAST:event_songsButtonActionPerformed
 
 

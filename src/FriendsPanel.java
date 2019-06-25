@@ -19,9 +19,7 @@ public class FriendsPanel extends JPanel {
         friendsPanel=new JPanel();
         friends=AccountManagement.getAccounts();
 
-        //TODO friendsPanel.setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
-        //TODO this>>smalfriendPanel
-        //TODO for add smallFriendPanels
+
         invitePanel.setLayout(new BorderLayout());
         this.setLayout(new BorderLayout());
 
