@@ -58,6 +58,7 @@ public class RootPanel extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setSize(WIDTH, HEIGHT);
+        this.setExtendedState(this.getState()| JFrame.MAXIMIZED_BOTH);
     }
 
 

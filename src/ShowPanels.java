@@ -42,6 +42,15 @@ public class ShowPanels extends JPanel{
     }
 
 
+    public void ShowCellsMethod (ArrayList<CellShowJpanel> cells){
+        this.removeAll();
+        for(CellShowJpanel cell : cells){
+            this.add(cell);
+        }
+
+    }
+
+
 
 
 
