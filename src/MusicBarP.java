@@ -176,8 +176,10 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
 
 
-
-        musicImage.setIcon(AccountManagement.getActiveAccount().getMusics().get(0).getImage());
+        ImageIcon cover=AccountManagement.getActiveAccount().getMusics().get(0).getImage();
+        ImageIcon i=new ImageIcon(cover.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT));
+        musicImage.setPreferredSize(new Dimension(200,170));
+        musicImage.setIcon(i);
         musicName.setText("Faint");
         musicArtist.setText("Epica");
         musicAlbum.setText("nmidnm");

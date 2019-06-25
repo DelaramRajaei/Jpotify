@@ -10,12 +10,12 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        UserOpenFrame u=new UserOpenFrame();
-        Account a=new Account(u.getUserNAme());
+        //UserOpenFrame u=new UserOpenFrame();
+        Account a=new Account("Darya");
         AccountManagement.setActiveAccount(a);
         System.out.println(a.getName()+"  hear");
         Core.initialLoadSongs(a.getMusics(),a.getAlbums());
-        System.out.println(a.getMusics().get(0).getName());
+
 
         Account account=new Account("D");
         Core.initialLoad(account.getPlayLists(),account.getAlbums(),account.getMusics());

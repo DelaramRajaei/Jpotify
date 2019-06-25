@@ -30,6 +30,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
     public LeftPanel() {
 
         initComponents();
+        this.setPreferredSize(new Dimension(150,500));
     }
 
 

@@ -95,6 +95,7 @@ public class Music {
                 icon=new ImageIcon(img);
                 icon.getImage().getScaledInstance(5,5,Image.SCALE_DEFAULT);
 
+
             }
         }
     }
