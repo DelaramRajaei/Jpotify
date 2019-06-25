@@ -8,7 +8,7 @@ public class AccountManagement {
 
     public AccountManagement(Account active){
 
-
+        activeAccount=new Account("darya");
         activeAccount=active;
 
         //rootPanel=new RootPanel();
@@ -29,5 +29,7 @@ public class AccountManagement {
     public static Account getActiveAccount() {
         return activeAccount;
     }
-
+public static void setActiveAccount(Account a){
+        activeAccount=a;
+}
 }

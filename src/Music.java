@@ -1,18 +1,12 @@
-import javafx.scene.input.DataFormat;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Array;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Base64;
-import java.util.Calendar;
-import java.util.Date;
 
-//TODO image
 
 public class Music {
     private String name;
@@ -21,10 +15,6 @@ public class Music {
     private String directory;
     private int year;
     private ArrayList<PlayList> playLists;
-    private String delta;
-    private long lastTimePlayed;
-    private Calendar start;
-    private Calendar now;
 
 
     public Music(String directory) {
@@ -78,23 +68,6 @@ public class Music {
 
     public String getDirectory() {
         return directory;
-    }
-
-    public long getLastTimePlayed() {
-        return lastTimePlayed;
-    }
-
-    public void setLastTimePlayed(){
-        Date date=new Date();
-        now = Calendar.getInstance();
-        start = Calendar.getInstance();
-        start.setTime (date);
-        long milliseconds1 = start.getTimeInMillis();
-        long milliseconds2 = now.getTimeInMillis();
-        long diff = milliseconds2 - milliseconds1;
-        long diffSeconds = diff / 1000;
-        long diffMinutes = diff / (60 * 1000);
-        lastTimePlayed=diffMinutes*100+diffSeconds;
     }
 }
 

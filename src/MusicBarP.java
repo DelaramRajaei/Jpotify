@@ -361,9 +361,11 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
     }// </editor-fold>//GEN-END:initComponents
 
     private void rePlayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rePlayActionPerformed
+        // TODO add your handling code here:
     }//GEN-LAST:event_rePlayActionPerformed
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
+        // TODO add your handling code here:
     }//GEN-LAST:event_nextActionPerformed
 
 

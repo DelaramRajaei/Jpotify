@@ -18,8 +18,8 @@ public class Core {
      */
     public static void addSong(String directory, ArrayList<Music> musics, ArrayList<Album> albums) {
         try {
-            fileWriter = new BufferedWriter(new FileWriter(songsFile, true));
-            fileWriter.write(directory + "\n");
+            fileWriter = new BufferedWriter(new FileWriter(songsFile,true));
+            fileWriter.write(directory+"\n");
             fileWriter.newLine();
             fileWriter.flush();
             fileWriter.close();
@@ -45,22 +45,6 @@ public class Core {
                 removeSongFromPlaylist(eachPlayList, music);
             }
         }
-    }//TODO check files and test remove
-
-    /**
-     *This method will search through array list of musics by name of song or artist.
-     * @param account Account of the client.
-     * @param searchTXT The text that was searched by client.
-     * @return
-     */
-    public ArrayList<Music> search(Account account,String searchTXT){
-        ArrayList<Music> foundMusics=new ArrayList<Music>();
-        //Search by name of artist and song
-        for(Music eachMusic:account.getMusics()){
-            if (eachMusic.getArtist().equals(searchTXT))foundMusics.add(eachMusic);
-            if (eachMusic.getName().equals(searchTXT))foundMusics.add(eachMusic);
-        }
-        return foundMusics;
     }
 
     public static void removeLineFromFile(String file, String lineToRemove) {
@@ -104,14 +88,6 @@ public class Core {
             ex.printStackTrace();
         } catch (IOException ex) {
             ex.printStackTrace();
-        }
-    }
-
-    public static void saveName(Account account) {
-        try {
-            File myAccount = new File(account.getName());
-            myAccount.mkdir();
-        } catch (Exception e) {
         }
     }
 
@@ -162,7 +138,7 @@ public class Core {
             for (String eachFileName : file_client_playlists) {
                 if (playList.getFileName().equals(eachFileName)) {
                     File clientPlaylistFile = new File(eachFileName);
-                    fileWriter = new BufferedWriter(new FileWriter(eachFileName, true));
+                    fileWriter = new BufferedWriter(new FileWriter(eachFileName,true));
                     fileWriter.write(music.getName());
                     fileWriter.newLine();
                 }
@@ -250,8 +226,6 @@ public class Core {
                 while ((readingPlaylist = reader.readLine()) != null) {
                     loadPlayList(playList, musics, readingPlaylist);
                 }
-            }else{
-                playListFile.createNewFile();
             }
 
 
@@ -262,11 +236,12 @@ public class Core {
         }
     }
 
-    public static void initialLoad(Account account) {
-        initialLoadSongs(account.getMusics(), account.getAlbums());
-        initialLoadPlaylist(account.getPlayLists(), account.getMusics(), SHARED_PLAYLIST_FILE);
-        initialLoadPlaylist(account.getPlayLists(), account.getMusics(), FAVORITE_PLAYLIST_FILE);
-        initialLoadClientsPlaylist(account.getPlayLists(), account.getMusics());
+    public static void initialLoad(ArrayList<PlayList> playLists, ArrayList<Album> albums, ArrayList<Music> musics) {
+        initialLoadSongs(musics, albums);
+        initialLoadPlaylist(playLists, musics, SHARED_PLAYLIST_FILE);
+        initialLoadPlaylist(playLists, musics, FAVORITE_PLAYLIST_FILE);
+        initialLoadClientsPlaylist(playLists, musics);
+
     }
 
     /**
