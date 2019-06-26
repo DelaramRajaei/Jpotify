@@ -30,7 +30,6 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
     private ArrayList<Music> musicList;
     private int songNumber = 0;
     MusicBarLogic player;
-    //Player player;
 
     private JPanel buttonsPanel;
     private JPanel songDetail;
@@ -321,14 +320,18 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
     //endregion
 
 
-    //TODO Logic
+    //Logic
 
 
-    public void updateList(ArrayList<Music> musics) throws Exception{
+    public void updateList(ArrayList<Music> musics) throws Exception {
         musicList = musics;
         if (musicList != null) {
             if (songNumber > musics.size() || songNumber < 0) {
-            } else player.play(musicList.get(songNumber));
+            } else {
+                play.setIcon(pauseIcon);
+                isPlaying=true;
+                player.play(musicList.get(songNumber));
+            }
         }
     }
 
@@ -339,21 +342,25 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
             if (event.getSource() == play) {//Resume
                 if (!isPlaying) {
                     play.setIcon(pauseIcon);
-                    player.resume();
+                    if (musicList.size()==0){
+                        Account a =new Account("Delaram");
+                        Core.initialLoadSongs(a.getMusics(),a.getAlbums());
+                        a.addMusic("E:\\Codes\\Java\\Project\\Jpotify\\src\\Musics\\01 - Rolling In The Deep.mp3");//0
+                        updateList(a.getMusics());
+                    }
+                    else player.resume();
                     isPlaying = true;
 
                 } else {//Pause
                     play.setIcon(playIcon);
-                    player.stop();
                     isPlaying = false;
-
+                    player.pause();
                 }
             } else if (event.getSource() == rePlay) {//Replay
 
                 if (!isReplay) {
                     rePlay.setIcon(replayOn);
                     player.setRepeat(true);
-                    player.play(musicList.get(songNumber));
                     isReplay = true;
 
                 } else {
@@ -362,16 +369,18 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
                 }
             } else if (event.getSource() == next) {//Next
+                player.stop();
                 songNumber++;
                 updateList(musicList);
 
             } else if (event.getSource() == previous) {//Previous
+                player.stop();
                 songNumber--;
                 updateList(musicList);
             } else if (event.getSource() == shuffle) {//Shuffle
                 if (!isShuffle) {
                     shuffle.setIcon(shuffleOn);
-                    isShuffle = true;
+                    isShuffle = true;//TODO shuffle
 
                 } else {
                     shuffle.setIcon(shuffleoff);
@@ -383,30 +392,4 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         } catch (Exception e) {
         }
     }
-
-
-
-
-   /* Runnable runnablePlay = new Runnable() {
-        @Override
-        public void run() {
-            try {
-                //code for play button
-                fileInputStream=new FileInputStream(AccountManagement.getActiveAccount().getMusics().get(0).getDirectory());
-                bufferedInputStream=new BufferedInputStream(fileInputStream);
-                //player=new Player(fileInputStream);
-                totalLength=fileInputStream.available();
-                player.play();//starting music
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (JavaLayerException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        }
-    };
-*/
-
 }

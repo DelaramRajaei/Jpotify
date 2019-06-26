@@ -200,9 +200,6 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener {
             lastOpenPath = fileChooser.getSelectedFile().getParent();
         }
         System.out.println(audioFilePath);
-        //Music m=new Music(audioFilePath);
-        //Account a=new Account("darya");
-        //a.addMusic(m.getDirectory());
         AccountManagement.getActiveAccount().addMusic(audioFilePath);
 
     }

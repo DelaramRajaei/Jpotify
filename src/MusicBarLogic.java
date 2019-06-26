@@ -1,6 +1,7 @@
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 
@@ -13,14 +14,23 @@ public class MusicBarLogic {
     private boolean repeat;
     private boolean paused;
 
-
     public void play(Music music) throws Exception {
         currentMusic = music;
         audioInputStream = new FileInputStream(music.getDirectory());
         player = new Player(audioInputStream);
         totalLengthSize = audioInputStream.available();
-        player.play();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    player.play();
+                } catch (JavaLayerException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
         if (player.isComplete() && repeat)
+
             play(currentMusic);
     }
 
@@ -37,7 +47,16 @@ public class MusicBarLogic {
         audioInputStream = new FileInputStream(currentMusic.getDirectory());
         audioInputStream.skip(totalLengthSize - pausedLocation);
         player = new Player(audioInputStream);
-        player.play();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    player.play();
+                } catch (JavaLayerException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
 
