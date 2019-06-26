@@ -42,6 +42,6 @@ public class FriendPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         ShowPanels show =new ShowPanels();
-                show.ShowCellsMethod(musicPanels);
+                show.showCellsMethod(musicPanels);
     }
 }

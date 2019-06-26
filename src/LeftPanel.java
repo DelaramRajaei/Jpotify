@@ -8,6 +8,8 @@
 
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
@@ -42,8 +44,13 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         albumsButton = new javax.swing.JButton();
         addMusic = new javax.swing.JButton();
         addPlaylist = new javax.swing.JButton();
-        jScrollPanePlayListList = new javax.swing.JScrollPane();
-        jListPlayListList = new javax.swing.JList<>();
+        playlistMenu= new JList<String>();
+        playlistMenu.addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+
+            }
+        });
 
         setBackground(new java.awt.Color(51, 51, 51));
         setMinimumSize(new java.awt.Dimension(120, 500));
@@ -112,16 +119,11 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         gridBagConstraints.insets = new java.awt.Insets(18, 22, 0, 0);
         add(addPlaylist, gridBagConstraints);
 
-        jListPlayListList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jListPlayListList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jListPlayListList.setFocusable(false);
-        jScrollPanePlayListList.setViewportView(jListPlayListList);
-        jListPlayListList.setBackground(new Color(51,51,51));
-        jListPlayListList.setForeground(new Color(241, 254, 255));
+
+
+
+
+
 
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -134,7 +136,6 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         gridBagConstraints.weightx = 1.0;
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(7, 22, 13, 0);
-        add(jScrollPanePlayListList, gridBagConstraints);
 
 
         addPlaylist.addActionListener((ActionListener) this);
@@ -161,42 +162,35 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
     private javax.swing.JButton addMusic;
     private javax.swing.JButton albumsButton;
     private javax.swing.JButton addPlaylist;
-    private javax.swing.JList<String> jListPlayListList;
-    private javax.swing.JScrollPane jScrollPanePlayListList;
+    private JList playlistMenu;
+
     private javax.swing.JButton songsButton;
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source=e.getSource();
         if(source==addPlaylist){
-
-            NewPlayListPanel newPlaylistPanel=new NewPlayListPanel();
+            DefaultListModel DLM = new DefaultListModel();
+            NewPlayList newPlaylistPanel=new NewPlayList();
             newPlaylistPanel.setVisible(true);
             AccountManagement.getActiveAccount().createPlayList(newPlaylistPanel.getPlaylistName());
             System.out.println("new Playlist: "+newPlaylistPanel.getPlaylistName());
-
+            DefaultListModel defaultListModel = new DefaultListModel();
+            /*for(PlayList p:AccountManagement.getActiveAccount().getPlayLists()){
+                defaultListModel.addElement(p.getName());
+            }*/
 
             int len=AccountManagement.getActiveAccount().getPlayLists().size();
             String[] playlistsName=new String[len];
             int i=0;
-            for (PlayList p:AccountManagement.getActiveAccount().getPlayLists()){
-                playlistsName[i]=p.getName();
+            for (PlayList p:AccountManagement.getActiveAccount().getPlayLists()) {
+                playlistsName[i] = p.getName();
                 i++;
             }
 
-            jListPlayListList=new JList<>(playlistsName);
-
-
-
         }else
-
-
-
-
             if(source==addMusic){
                 openFile();
-
-
         }
 
     }
@@ -213,9 +207,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
             lastOpenPath = fileChooser.getSelectedFile().getParent();
         }
         System.out.println(audioFilePath);
-        //Music m=new Music(audioFilePath);
-        //Account a=new Account("darya");
-        //a.addMusic(m.getDirectory());
+
         AccountManagement.getActiveAccount().addMusic(audioFilePath);
 
     }

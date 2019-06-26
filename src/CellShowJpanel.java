@@ -28,16 +28,19 @@ public class CellShowJpanel extends JPanel implements ActionListener {
     private JButton playButton;
     private JPopupMenu popupMenu;
 
-    private ImageIcon cover = new ImageIcon(this.getClass().getResource("images/cover.png"));
-
-
     public CellShowJpanel() {
-        /**
-         * give Music Array List;
-         */
 
-        image=new JLabel(cover);
+
+
+        ImageIcon c=new ImageIcon(this.getClass().getResource("images/cover.png"));
+        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT));
+        image=new JLabel();
         imagePanel=new JPanel();
+        //image.setPreferredSize(new Dimension(150,150));
+        //imagePanel.setPreferredSize(new Dimension(150,150));
+        image.setIcon(i);
+
+
         imagePanel.setLayout(new BorderLayout());
         imagePanel.add(image,BorderLayout.CENTER);
         imagePanel.setBackground(new Color(70,50,100));
@@ -70,7 +73,7 @@ public class CellShowJpanel extends JPanel implements ActionListener {
         buttonsPanel.setMaximumSize(new Dimension(150,50));
         add(buttonsPanel,BorderLayout.SOUTH);
         this.setVisible(true);
-        this.setSize(150,400);
+        //this.setSize(150,400);
         this.setBackground(new Color(0,0,0));
 
 
@@ -78,20 +81,37 @@ public class CellShowJpanel extends JPanel implements ActionListener {
         playButton.addActionListener(this);
 
 
-        this.setPreferredSize(new Dimension(1000,1000));
-
+        //this.setPreferredSize(new Dimension(100,100));
+        //this.setMinimumSize(new Dimension(100,100));
+        //this.setMaximumSize(new Dimension(100,100));
+//        this.setMinimumSize(new Dimension(150,400));
+this.getAutoscrolls();
 
     }
 
     public  void displayMusic(Music song){
-        ImageIcon cover=song.getImage();
-        ImageIcon i=new ImageIcon(cover.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT));
+        ImageIcon c=song.getImage() ;
+        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT));
+        image.setPreferredSize(new Dimension(150,150));
+        image.setIcon(i);
+
+        //cover.setPreferredSize(new Dimension(200,170));
+        //musicImage.setIcon(i);
+
+
+        //ImageIcon cover=song.getImage();
+        //ImageIcon i=new ImageIcon(cover.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT));
         image.setIcon(i);
         l1.setText(song.getName());
         l2.setText("Artist : "+song.getArtist());
         l3.setText("Album : "+song.getAlbum());
 
+
+
     }
+
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {

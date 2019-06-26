@@ -28,7 +28,7 @@ public class RootPanel extends JFrame {
         super();
         this.account=account;//````````
         this.accounts=accounts;//````
-
+       // setMinimumSize(new Dimension(1000,1000));
       //  toolBarPanel=new ToolBarPanel(account.getName());
       //  friendsPanel=new FriendsPanel(accounts);
         musicBar=new MusicBarP();
@@ -36,10 +36,22 @@ public class RootPanel extends JFrame {
         friendsPanel=new FriendsActivityPanel();
         toolBarPanel=new ToolBarPanel();
         showPanels=new ShowPanels();
+
+        JScrollPane scrollPane=new JScrollPane(showPanels,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+        //scrollPane.setPreferredSize(new Dimension(1000,1000));
+        //scrollPane.setVisible(true);
+        this.add(scrollPane);
+
+
         setLayout(new BorderLayout());
         upPanel.setLayout(new BorderLayout());
         upPanel.setVisible(true);
-        this.add(upPanel);
+        this.add(upPanel,BorderLayout.CENTER);
+
+
+
+
 
 
 
@@ -47,7 +59,7 @@ public class RootPanel extends JFrame {
         upPanel.add(leftPanel,BorderLayout.WEST);
         upPanel.add(friendsPanel,BorderLayout.EAST);
         upPanel.add(toolBarPanel,BorderLayout.NORTH);
-        upPanel.add(showPanels,BorderLayout.CENTER);
+        upPanel.add(scrollPane,BorderLayout.CENTER);
 
 
 
@@ -58,7 +70,7 @@ public class RootPanel extends JFrame {
         this.setVisible(true);
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setSize(WIDTH, HEIGHT);
-        this.setExtendedState(this.getState()| JFrame.MAXIMIZED_BOTH);
+        //this.setExtendedState(this.getState()| JFrame.MAXIMIZED_BOTH);
     }
 
 
