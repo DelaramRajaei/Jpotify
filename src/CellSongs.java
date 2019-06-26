@@ -1,8 +1,11 @@
+import javax.security.auth.login.AccountLockedException;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class CellSongs extends CellShowJpanel {
+public class CellSongs extends CellShowJpanel implements ActionListener {
     private JButton play;
     private  JMenu addToPlaylist;
     ArrayList<JMenuItem> elementPlaylists;
@@ -10,8 +13,18 @@ public class CellSongs extends CellShowJpanel {
 
     public  CellSongs(Music song){
         super();
+        play=new JButton("play");
 
         this.song=song;
+
+        ImageIcon c=song.getImage() ;
+        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
+        image.setPreferredSize(new Dimension(150,150));
+
+        image.setIcon(i);
+        l1.setText(song.getName());
+        l2.setText("Artist : "+song.getArtist());
+        l3.setText("Album : "+song.getAlbum());
 
         addToPlaylist=new JMenu("Add to playlist");
         elementPlaylists=new ArrayList<>();
@@ -25,16 +38,20 @@ public class CellSongs extends CellShowJpanel {
         JMenuItem j=new JMenuItem("new playlist");
         elementPlaylists.add(j);
 
+        buttonsPanel.add(play);
         buttonsPanel.add(addToPlaylist);
 
         setAction();
 
     }
 
+
+
     private void setAction (){
         for(JMenuItem j : elementPlaylists){
             j.addActionListener(this);
         }
+        play.addActionListener(this);
     }
 
     @Override
@@ -42,7 +59,7 @@ public class CellSongs extends CellShowJpanel {
     {
 
         for(PlayList p : AccountManagement.getActiveAccount().getPlayLists()){
-            if(eve.getSource()==p.getName()){
+            if(eve.getSource()==p.getName()){//TODO is this line true?
                 p.addSong(song);
                 break;
             }
@@ -61,6 +78,16 @@ public class CellSongs extends CellShowJpanel {
 
 
         }
+
+
+
+        if(eve.getSource()==playButton){
+            //TODO
+            //send songs array lis and song.
+            //AccountManagement.musicBarP.
+
+
+    }
 
     }
 

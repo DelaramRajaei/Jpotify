@@ -9,7 +9,8 @@ public class ShowPanels extends JPanel{
     private ArrayList<CellShowJpanel>panels;
 
     //songs add to play list /play
-    //albums show songs of album
+
+    //albums /show songs of album/
     //songs of play list /rename playlist /show musics /order musics /play
 
 
@@ -93,6 +94,14 @@ public class ShowPanels extends JPanel{
     public void showCellsMethod (ArrayList<CellShowJpanel> cells){
         this.removeAll();
         for(CellShowJpanel cell : cells){
+            this.add(cell);
+        }
+
+    }
+
+    public void showSongCellMethod (ArrayList<CellSongs> cells){
+        this.removeAll();
+        for(CellSongs cell : cells){
             this.add(cell);
         }
 

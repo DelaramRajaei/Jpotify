@@ -4,7 +4,11 @@ public class AccountManagement {
 
     private static ArrayList<Account>accounts;
     private static Account activeAccount;
-    private RootPanel rootPanel;
+    protected static RootPanel rootPanel;
+    protected static MusicBarP musicBarP;
+    protected static LeftPanel leftPanel;
+    protected static FriendsActivityPanel friendsActivityPanel;
+    protected static ShowPanels showPanels;
 
     public AccountManagement(Account active){
 

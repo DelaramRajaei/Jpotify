@@ -1,9 +1,11 @@
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Album {
     private String albumName;
     private String artistName;
     private ArrayList<Music> musics;
+
 
     public Album(Music music) {
         musics = new ArrayList<Music>();
@@ -32,4 +34,6 @@ public class Album {
     public ArrayList<Music> getMusics() {
         return musics;
     }
+
+    public ImageIcon getAlbumCover(){return musics.get(0).getImage();}
 }

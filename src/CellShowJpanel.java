@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
  *
  * @author Darya
  */
-public class CellShowJpanel extends JPanel implements ActionListener {
+public class CellShowJpanel extends JPanel  {
 
     protected JPanel imagePanel;
     protected JPanel detailPanel;
@@ -55,12 +55,12 @@ public class CellShowJpanel extends JPanel implements ActionListener {
         detailPanel.add(l2);
         detailPanel.add(l3);
 
-        playButton=new JButton("Play");
-        playButton.setToolTipText("play");
-        buttonsPanel=new JPanel();
-        buttonsPanel.setLayout(new FlowLayout());
-        buttonsPanel.setMaximumSize(new Dimension(100,20));
-        buttonsPanel.add(playButton);
+//        playButton=new JButton("Play");
+//        playButton.setToolTipText("play");
+//        buttonsPanel=new JPanel();
+//        buttonsPanel.setLayout(new FlowLayout());
+//        buttonsPanel.setMaximumSize(new Dimension(100,20));
+//        buttonsPanel.add(playButton);
 
         this.setLayout(new BorderLayout());
         imagePanel.setMaximumSize(new Dimension(200,200));
@@ -75,41 +75,21 @@ public class CellShowJpanel extends JPanel implements ActionListener {
 
 
 
-        playButton.addActionListener(this);
+//        playButton.addActionListener(this);
         this.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 255), 4, true));
 
 
     }
 
-    public  void displayMusic(Music song){
-        ImageIcon c=song.getImage() ;
-        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT));
-        image.setPreferredSize(new Dimension(150,150));
-        image.setIcon(i);
-
-        //cover.setPreferredSize(new Dimension(200,170));
-        //musicImage.setIcon(i);
-
-
-        //ImageIcon cover=song.getImage();
-        //ImageIcon i=new ImageIcon(cover.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT));
-        image.setIcon(i);
-        l1.setText(song.getName());
-        l2.setText("Artist : "+song.getArtist());
-        l3.setText("Album : "+song.getAlbum());
 
 
 
-    }
-
-
-
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        Object source =e.getSource();
-        if(source==playButton){
-
-        }
-    }
+//
+//    @Override
+//    public void actionPerformed(ActionEvent e) {
+//        Object source =e.getSource();
+//        if(source==playButton){
+//
+//        }
+//    }
 }

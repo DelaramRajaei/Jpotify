@@ -32,10 +32,15 @@ public class RootPanel extends JFrame {
       //  toolBarPanel=new ToolBarPanel(account.getName());
       //  friendsPanel=new FriendsPanel(accounts);
         musicBar=new MusicBarP();
+        AccountManagement.musicBarP=musicBar;
         leftPanel=new LeftPanel();
+        AccountManagement.leftPanel=leftPanel;
         friendsPanel=new FriendsActivityPanel();
+        AccountManagement.friendsActivityPanel=friendsPanel;
         toolBarPanel=new ToolBarPanel();
         showPanels=new ShowPanels();
+        AccountManagement.showPanels=showPanels;
+        AccountManagement.rootPanel=this;
 
         JScrollPane scrollPane=new JScrollPane(showPanels,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
