@@ -26,7 +26,7 @@ public class ToolBarPanel extends JPanel {
         user.setBackground(new java.awt.Color(0, 0, 102));
         user.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
         user.setForeground(new java.awt.Color(153, 153, 255));
-        user.setText(AccountManagement.getActiveAccount().getName()+"Darya");
+        //user.setText(AccountManagement.getActiveAccount().getName()+"Darya");
 
         jButton1.setBackground(new java.awt.Color(25, 16, 17));
         jButton1.setForeground(new java.awt.Color(204, 204, 255));

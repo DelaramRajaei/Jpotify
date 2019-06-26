@@ -7,8 +7,16 @@ import java.util.ArrayList;
 public class ShowPanels extends JPanel{
 
     private ArrayList<CellShowJpanel>panels;
+
+    //songs add to play list /play
+    //albums show songs of album
+    //songs of play list /rename playlist /show musics /order musics /play
+
+
+
+
     private JButton temp;
-    private CellShowJpanel c1;
+    private CellSongs c1;
     private CellShowJpanel c2;
     private CellShowJpanel c3;
     private CellShowJpanel c4;
@@ -36,8 +44,8 @@ public class ShowPanels extends JPanel{
 
 
         this.setBackground(new Color(51,51,100));
-        this.setLayout(new GridLayout(0,0));
-        c1=new CellShowJpanel();
+        this.setLayout(new FlowLayout());
+        c1=new CellSongs(AccountManagement.getActiveAccount().getMusics().get(0));
         c2=new CellShowJpanel();
         c3=new CellShowJpanel();
         c4=new CellShowJpanel();

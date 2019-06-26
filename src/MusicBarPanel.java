@@ -15,7 +15,6 @@ import java.io.IOException;
 
 public class MusicBarPanel extends JPanel {
 
-//TODO debbuging
 
 
 
@@ -356,10 +355,8 @@ public class MusicBarPanel extends JPanel {
 //                System.out.println("Song is playing...");
 //                player.play();
 //            } catch (FileNotFoundException e) {
-//                // TODO Auto-generated catch block
 //                e.printStackTrace();
 //            } catch (JavaLayerException e) {
-//                // TODO Auto-generated catch block
 //                e.printStackTrace();
 //            }
 //        }

@@ -7,6 +7,9 @@
 
 
 
+import com.mpatric.mp3agic.InvalidDataException;
+import com.mpatric.mp3agic.UnsupportedTagException;
+
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -15,6 +18,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 /**
  *
@@ -170,7 +174,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Object source=e.getSource();
         if(source==addPlaylist){
-            DefaultListModel DLM = new DefaultListModel();
+            //DefaultListModel DLM = new DefaultListModel();
             NewPlayList newPlaylistPanel=new NewPlayList();
             newPlaylistPanel.setVisible(true);
             AccountManagement.getActiveAccount().createPlayList(newPlaylistPanel.getPlaylistName());
@@ -190,12 +194,20 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
         }else
             if(source==addMusic){
-                openFile();
-        }
+                try {
+                    openFile();
+                } catch (InvalidDataException ex) {
+                    ex.printStackTrace();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                } catch (UnsupportedTagException ex) {
+                    ex.printStackTrace();
+                }
+            }
 
     }
 
-    public void openFile(){
+    public void openFile() throws InvalidDataException, IOException, UnsupportedTagException {
         System.out.println("open pressed");
         JFileChooser fileChooser = new JFileChooser();
         FileFilter filter = new FileNameExtensionFilter("MP3 File","mp3");

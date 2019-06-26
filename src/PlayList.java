@@ -6,7 +6,6 @@ public abstract class PlayList {
     protected boolean editable;
     protected ArrayList<Music> musics;
     protected String fileName;
-
     public PlayList(){
         musics=new ArrayList<Music>();
     }
@@ -24,7 +23,7 @@ public abstract class PlayList {
 
     public void removeSong(Music selectedMusic) {
         musics.remove(selectedMusic);
-        Core.removeSongFromPlaylist(this,selectedMusic);
+        Core.removeSongFromPlaylist(this);
     }
 
     public String getName() {

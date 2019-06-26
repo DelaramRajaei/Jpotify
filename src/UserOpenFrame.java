@@ -75,6 +75,8 @@ public class UserOpenFrame extends JFrame implements ActionListener {
         gridBagConstraints.insets = new java.awt.Insets(54, 106, 0, 0);
         jPanel1.add(jLabel3, gridBagConstraints);
 
+        jLabel3.setText(" Your Name :");
+
         jTextField1.setBackground(new java.awt.Color(0, 0, 51));
         jTextField1.setFont(new java.awt.Font("Verdana", 2, 18)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(204, 204, 255));

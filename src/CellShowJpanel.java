@@ -6,6 +6,8 @@
 
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.plaf.BorderUIResource;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,24 +18,23 @@ import java.awt.event.ActionListener;
  */
 public class CellShowJpanel extends JPanel implements ActionListener {
 
-    private JPanel imagePanel;
-    private JPanel detailPanel;
-    private JPanel buttonsPanel;
+    protected JPanel imagePanel;
+    protected JPanel detailPanel;
+    protected JPanel buttonsPanel;
 
-    private JLabel image;
-    private JLabel l1;
-    private JLabel l2;
-    private JLabel l3;
+    protected JLabel image;
+    protected JLabel l1;
+    protected JLabel l2;
+    protected JLabel l3;
 
-    private JButton playButton;
-    private JPopupMenu popupMenu;
+    protected JButton playButton;
+    protected JMenu more;
 
     public CellShowJpanel() {
 
-
-
-        ImageIcon c=new ImageIcon(this.getClass().getResource("images/cover.png"));
-        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(150,150,Image.SCALE_DEFAULT));
+        Music song=AccountManagement.getActiveAccount().getMusics().get(0);
+        ImageIcon c=new ImageIcon(song.getImage().getImage());
+        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(250,250,Image.SCALE_DEFAULT));
         image=new JLabel();
         imagePanel=new JPanel();
         //image.setPreferredSize(new Dimension(150,150));
@@ -43,11 +44,11 @@ public class CellShowJpanel extends JPanel implements ActionListener {
 
         imagePanel.setLayout(new BorderLayout());
         imagePanel.add(image,BorderLayout.CENTER);
-        imagePanel.setBackground(new Color(70,50,100));
+        imagePanel.setBackground(new Color(0,0,0));
 
-        l1=new JLabel("Smooth Criminal");
-        l2=new JLabel("2CELLO");
-        l3=new JLabel("non Album");
+        l1=new JLabel(song.getName());
+        l2=new JLabel(song.getArtist());
+        l3=new JLabel(song.getAlbum());
         detailPanel=new JPanel();
         detailPanel.setLayout(new GridLayout(3,1));
         detailPanel.add(l1);
@@ -56,21 +57,17 @@ public class CellShowJpanel extends JPanel implements ActionListener {
 
         playButton=new JButton("Play");
         playButton.setToolTipText("play");
-        popupMenu= new JPopupMenu();
-        popupMenu.setToolTipText("add to");
-        //popupMenu.addMenuKeyListener();
         buttonsPanel=new JPanel();
-        buttonsPanel.setLayout(new GridLayout(1,2));
+        buttonsPanel.setLayout(new FlowLayout());
         buttonsPanel.setMaximumSize(new Dimension(100,20));
         buttonsPanel.add(playButton);
-        buttonsPanel.add(popupMenu);
 
         this.setLayout(new BorderLayout());
-        imagePanel.setMaximumSize(new Dimension(150,150));
+        imagePanel.setMaximumSize(new Dimension(200,200));
         add(imagePanel,BorderLayout.NORTH);
-        detailPanel.setMaximumSize(new Dimension(150,200));
+        detailPanel.setMaximumSize(new Dimension(200,300));
         add(detailPanel,BorderLayout.CENTER);
-        buttonsPanel.setMaximumSize(new Dimension(150,50));
+        buttonsPanel.setMaximumSize(new Dimension(200,50));
         add(buttonsPanel,BorderLayout.SOUTH);
         this.setVisible(true);
         //this.setSize(150,400);
@@ -79,13 +76,8 @@ public class CellShowJpanel extends JPanel implements ActionListener {
 
 
         playButton.addActionListener(this);
+        this.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(204, 204, 255), 4, true));
 
-
-        //this.setPreferredSize(new Dimension(100,100));
-        //this.setMinimumSize(new Dimension(100,100));
-        //this.setMaximumSize(new Dimension(100,100));
-//        this.setMinimumSize(new Dimension(150,400));
-this.getAutoscrolls();
 
     }
 
