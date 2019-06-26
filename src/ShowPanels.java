@@ -11,7 +11,10 @@ public class ShowPanels extends JPanel{
     //songs add to play list /play
 
     //albums /show songs of album/
+
     //songs of play list /rename playlist /show musics /order musics /play
+    //TODO a childe of this class that hase a button to renaem plaulist name
+
 
 
 
@@ -104,6 +107,19 @@ public class ShowPanels extends JPanel{
         for(CellSongs cell : cells){
             this.add(cell);
         }
+    }
+
+    public void showAlbumCellMethod (ArrayList<CallAlbums> cells){
+        this.removeAll();
+        for(CallAlbums cell : cells){
+            this.add(cell);
+        }}
+
+        public void showSongPlaylist (ArrayList<CellPlaylist> cells){
+            this.removeAll();
+            for(CellPlaylist cell : cells){
+                this.add(cell);
+            }
 
     }
 

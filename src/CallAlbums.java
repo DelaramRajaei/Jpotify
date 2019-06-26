@@ -9,7 +9,9 @@ public class CallAlbums extends CellShowJpanel implements ActionListener
 
     JButton show;
     Album album;
+
     public CallAlbums (Album album){
+        super();
         this.album=album;
         show= new JButton("show songs");
 
