@@ -2,7 +2,6 @@ import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
-import com.sun.media.sound.InvalidDataException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -24,7 +23,7 @@ public class Music {
     private ArrayList<PlayList> playLists;
     private File file;
 
-    public Music(String directory) throws InvalidDataException, IOException, UnsupportedTagException {
+    public Music(String directory) throws Exception {
         playLists = new ArrayList<PlayList>();
         try {
             file = new File(directory);
@@ -85,8 +84,8 @@ public class Music {
         return icon;
     }
 
-    public void setImage( ) throws IOException, InvalidDataException, UnsupportedTagException {
-        Mp3File song=new Mp3File(file.getPath());
+    public void setImage( ) throws Exception{
+        Mp3File song=new Mp3File(directory);
         if (song.hasId3v2Tag()){
             ID3v2 id3v2tag = song.getId3v2Tag();
             byte[] imageData = id3v2tag.getAlbumImage();

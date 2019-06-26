@@ -12,7 +12,7 @@ public class ClientPlayList extends PlayList {
     }
 
     public void setFileName(String name) {
-        fileName = name;
+        fileName = name+".txt";
     }
 
 }

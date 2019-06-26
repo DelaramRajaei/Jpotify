@@ -37,10 +37,19 @@ public class Account {
      *
      * @param directory Path of the new song.
      */
-    public void addMusic(String directory) {
-        Music music = new Music(directory);
-        musics.add(music);
-        Core.addSong(music, albums);
+    public void addMusic(String directory) throws Exception {
+        boolean flag = false;
+        for (Music eachMusic : musics) {
+            if (eachMusic.getDirectory().equals(directory)) {
+                flag = true;
+                break;
+            }
+        }
+        if (!flag) {
+            Music music = new Music(directory);
+            musics.add(music);
+            Core.addSong(music, albums);
+        }
     }
 
     /**
@@ -68,7 +77,7 @@ public class Account {
     }
 
 
-    public void removeSong(Music music)throws Exception {
+    public void removeSong(Music music) throws Exception {
         musics.remove(music);
         for (PlayList eachPlaylist : music.getPlaylist()) {
             eachPlaylist.removeSong(music);

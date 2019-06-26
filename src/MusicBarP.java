@@ -28,7 +28,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
 
     private ArrayList<Music> musicList;
-
+    private int songNumber = 0;
     MusicBarLogic player;
     //Player player;
 
@@ -324,10 +324,12 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
     //TODO Logic
 
 
-    public void updateList(ArrayList<Music> musics) throws UnsupportedAudioFileException, IOException, LineUnavailableException {
-        musicList=musics;
-        if (musicList!=null)
-        player.play(musicList.get(0));
+    public void updateList(ArrayList<Music> musics) throws Exception{
+        musicList = musics;
+        if (musicList != null) {
+            if (songNumber > musics.size() || songNumber < 0) {
+            } else player.play(musicList.get(songNumber));
+        }
     }
 
     @Override
@@ -340,7 +342,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
                     player.resume();
                     isPlaying = true;
 
-                } else {//Stop
+                } else {//Pause
                     play.setIcon(playIcon);
                     player.stop();
                     isPlaying = false;
@@ -350,7 +352,8 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
                 if (!isReplay) {
                     rePlay.setIcon(replayOn);
-                    player.restart();
+                    player.setRepeat(true);
+                    player.play(musicList.get(songNumber));
                     isReplay = true;
 
                 } else {
@@ -359,9 +362,12 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
                 }
             } else if (event.getSource() == next) {//Next
+                songNumber++;
+                updateList(musicList);
 
             } else if (event.getSource() == previous) {//Previous
-
+                songNumber--;
+                updateList(musicList);
             } else if (event.getSource() == shuffle) {//Shuffle
                 if (!isShuffle) {
                     shuffle.setIcon(shuffleOn);

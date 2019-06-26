@@ -35,8 +35,8 @@ public class Core {
      * This method will delete the selected song from file.
      */
     public static void removeSong(ArrayList<PlayList> playlists, ArrayList<Music> musics, ArrayList<Album> albums) throws Exception {
+        songsFile.delete();
         for (Music eachMusic : musics) {
-            songsFile.delete();
             addSong(eachMusic, albums);
         }
         for (PlayList eachPlayList : playlists) {
@@ -72,10 +72,11 @@ public class Core {
      */
     public static void removePlaylist(PlayList playList) {
         boolean flag = false;
-        File playlistFile = new File(playList.getFileName());
+        File file = new File(playList.getFileName());
+        file_client_playlists.remove(playList.getFileName());
         if (playList.editable) {
-            if (playlistFile.exists()) {
-                playListFile.delete();
+            if (file.exists()) {
+                file.delete();
             }
         }
     }//TODO removed Favorite list :||||
@@ -90,7 +91,7 @@ public class Core {
         try {
             String fileName = "P" + (playLists.size() - 2);
             newClientPlayList.setFileName(fileName);
-            file_client_playlists.add(fileName);
+            file_client_playlists.add(fileName+".txt");
         } catch (Exception e) {
         }
     }
@@ -176,7 +177,7 @@ public class Core {
         BufferedReader reader = null;
         PlayList playList = null;
         String line;
-        file_client_playlists=new ArrayList<String>();
+        file_client_playlists = new ArrayList<String>();
         try {
             File playlists = new File(FILE_PATH_OF_PLAYLIST);
             if (!playlists.createNewFile()) {
@@ -200,6 +201,8 @@ public class Core {
     public static void savePlaylistFileName() {
         try {
             playListFile = new File(FILE_PATH_OF_PLAYLIST);
+            playListFile.delete();
+            playListFile.createNewFile();
             fileWriter = new BufferedWriter(new FileWriter(playListFile, true));
             for (String fileName : file_client_playlists) {
                 fileWriter.write(fileName);
@@ -258,6 +261,10 @@ public class Core {
             if (eachMusic == music) flag = true;
         if (!flag)
             album.addSong(music);
+    }
+
+    public void saveFile() {
+
     }
 
     public static void updateList(PlayList playList, Music music) {

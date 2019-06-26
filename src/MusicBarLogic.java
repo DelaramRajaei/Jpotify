@@ -1,80 +1,73 @@
-import java.io.File;
-import java.io.IOException;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javazoom.jl.decoder.JavaLayerException;
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 import javazoom.jl.player.Player;
 
+
 public class MusicBarLogic {
-    Long currentFrame;
-    Clip clip;
-    String status;
-    AudioInputStream audioInputStream;
-    Music currentMusic;
+    private FileInputStream audioInputStream;
+    private Music currentMusic;
+    private Player player;
+    private long pausedLocation = 0;
+    private long totalLengthSize = 0;
+    private boolean repeat;
+    private boolean paused;
 
-    public MusicBarLogic(){
 
+    public void play(Music music) throws Exception {
+        currentMusic = music;
+        audioInputStream = new FileInputStream(music.getDirectory());
+        player = new Player(audioInputStream);
+        totalLengthSize = audioInputStream.available();
+        player.play();
+        if (player.isComplete() && repeat)
+            play(currentMusic);
     }
 
-    public void play(Music music)throws UnsupportedAudioFileException, IOException, LineUnavailableException  {
-        currentMusic=music;
-        audioInputStream = AudioSystem.getAudioInputStream(new File(music.getDirectory()).getAbsoluteFile());
-        clip = AudioSystem.getClip();
-        clip.open(audioInputStream);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);//repeat forever
-        clip.start();
-        status = "play";
-    }
-
-    public void pause() throws UnsupportedAudioFileException, IOException, LineUnavailableException  {
-        if (status.equals("paused")) {
-            return;
+    public void pause() throws Exception {
+        paused = true;
+        if (player != null) {
+            pausedLocation = audioInputStream.available();
+            player.close();
         }
-        this.currentFrame = this.clip.getMicrosecondLength();
-        clip.stop();
-        status = "paused";
     }
 
-    public void resume() throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException {
-        if (status.equals("play"))
-            return;
-        clip.close();
-        resetAudioStream();
-        clip.setMicrosecondPosition(currentFrame);
-        this.play(currentMusic);
+    public void resume() throws Exception {
+        paused = false;
+        audioInputStream = new FileInputStream(currentMusic.getDirectory());
+        audioInputStream.skip(totalLengthSize - pausedLocation);
+        player = new Player(audioInputStream);
+        player.play();
     }
 
-    public void restart() throws IOException, LineUnavailableException,
-            UnsupportedAudioFileException {
-        clip.stop();
-        clip.close();
-        resetAudioStream();
-        currentFrame = 0L;
-        clip.setMicrosecondPosition(0);
-        this.play(currentMusic);
+
+    public void stop() throws Exception {
+        paused = false;
+        if (player != null) {
+            player.close();
+            totalLengthSize = 0;
+            pausedLocation = 0;
+        }
     }
 
-    public void stop() throws UnsupportedAudioFileException,
-            IOException, LineUnavailableException {
-        currentFrame = 0L;
-        clip.stop();
-        clip.close();
+    public boolean getRepeat() {
+        return repeat;
     }
 
-    public void resetAudioStream() throws UnsupportedAudioFileException, IOException,
-            LineUnavailableException {
-        audioInputStream = AudioSystem.getAudioInputStream(
-                new File(currentMusic.getDirectory()).getAbsoluteFile());
-        clip.open(audioInputStream);
-        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    public void setRepeat(boolean repeat) {
+        this.repeat = repeat;
     }
 
     public void volume() {
 
+    }
+
+    public boolean isPaused() {
+        return paused;
+    }
+
+    public void setPaused(boolean paused) {
+        this.paused = paused;
     }
 }
 
