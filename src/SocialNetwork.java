@@ -60,10 +60,10 @@ public class SocialNetwork {
                 updateFriendMusic(IP, message);
                 break;
             case "askMusic":
-                sendMusic(IP, message);
+                sendMusic(IP);
                 break;
-            case"sendMusic":
-                getMusic();
+            case "sendMusic":
+                getMusic(IP, message);
                 break;
             case "invitation":
                 getInvitation();
@@ -71,12 +71,19 @@ public class SocialNetwork {
         }
     }
 
-    private void getMusic() {
-
+    private void getMusic(String IP, String message) throws Exception {
+        Socket client = new Socket(IP, 6666);
+        ArrayList<Music> newMusics = new ArrayList<Music>();
+        byte[] newMusic = message.getBytes();
+        File outputFile = File.createTempFile("file", "mp3");
+        outputFile.deleteOnExit();
+        FileOutputStream fileoutputstream = new FileOutputStream(tempMp3);
+        fileoutputstream.write(newMusic);
+        fileoutputstream.close();
     }
 
-    private void sendMusic(String IP, String message) throws Exception {
-       String sendMessage="sendMusic";
+    private void sendMusic(String IP) throws Exception {
+        String sendMessage = "sendMusic";
         Socket client = new Socket(IP, 6666);
         OutputStream output = client.getOutputStream();
         output.write(sendMessage.getBytes());
@@ -91,9 +98,11 @@ public class SocialNetwork {
             while ((count = input.read(buffer)) != -1) {
                 output.write(buffer, 0, count);
             }
+            output.write(-1);
+            input.close();
+            input.close();
+            output.write(sendMessage.getBytes());
             output.flush();
-            input.close();
-            input.close();
         }
     }
 
