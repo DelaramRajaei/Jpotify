@@ -135,4 +135,16 @@ public class Account {
     public void setFriends(ArrayList<Friend> friends) {
         this.friends = friends;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getIP() {
+        return IP;
+    }
+
+    public void setIP(int IP) {
+        this.IP = IP;
+    }
 }

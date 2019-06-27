@@ -13,12 +13,20 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+//TODO give ip of devic
+        UserOpenFrame UOF = new UserOpenFrame(123);
 
-        // UserOpenFrame userOpenFrame = new UserOpenFrame();
-        Account a = new Account("Delaram");
+        while (!UOF.finish){
+
+        }
+        String accountName=UOF.getUserNAme();
+
+        Account a = new Account(accountName);
+        a.setIP(UOF.getIP());
+
         AccountManagement accountManagement=new AccountManagement(a);
-        // a.addMusic("E:\\Codes\\Java\\Project\\Jpotify\\src\\Musics\\01 - Rolling In The Deep.mp3");//0
         Core.initialLoad(a);
+
 
 
 
@@ -43,9 +51,12 @@ public class Main {
 
         RootPanel rootPanel = new RootPanel();
 
+        AccountManagement.toolBarPanel.setUserUame();
+
+
         //ArrayList<Music> am=new ArrayList<>();
         //am.add(AccountManagement.getActiveAccount().getMusics().get(0));
-        AccountManagement.musicBarP.updateList(am);
+        //AccountManagement.musicBarP.updateList(am);
         Core.savePlaylistFileName();
 
 

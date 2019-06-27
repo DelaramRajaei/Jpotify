@@ -39,7 +39,7 @@ public class Music {
                 name = metaTag.substring(3, 33);
                 artist = metaTag.substring(33, 63);
                 album = metaTag.substring(63, 93);
-                year = Integer.parseInt(metaTag.substring(93, 97));
+               // year = Integer.parseInt(metaTag.substring(93, 97));
             } else {
                 throw new Exception("Not a ID3v1 TAG");
             }

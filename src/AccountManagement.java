@@ -8,11 +8,12 @@ public class AccountManagement {
     protected static LeftPanel leftPanel;
     protected static FriendsActivityPanel friendsActivityPanel;
     protected static ShowPanels showPanels;
+    protected static ToolBarPanel toolBarPanel;
 
     public AccountManagement(Account active) {
 
-        activeAccount = new Account("darya");
         activeAccount = active;
+
 
         //rootPanel=new RootPanel();
         //rootPanel=new RootPanel( activeAccount, accounts);

@@ -33,35 +33,38 @@ public class CellShowJpanel extends JPanel  {
     public CellShowJpanel() {
         buttonsPanel=new JPanel();
 
-        Music song=AccountManagement.getActiveAccount().getMusics().get(0);
-        ImageIcon c=new ImageIcon(song.getImage().getImage());
-        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(250,250,Image.SCALE_DEFAULT));
+       // Music song=AccountManagement.getActiveAccount().getMusics().get(0);
+        //ImageIcon c=new ImageIcon(song.getImage().getImage());
+       // ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(250,250,Image.SCALE_DEFAULT));
         image=new JLabel();
         imagePanel=new JPanel();
-        //image.setPreferredSize(new Dimension(150,150));
-        //imagePanel.setPreferredSize(new Dimension(150,150));
-        image.setIcon(i);
+       // image.setPreferredSize(new Dimension(150,150));
+       // imagePanel.setPreferredSize(new Dimension(150,150));
+       // image.setIcon(i);
 
 
         imagePanel.setLayout(new BorderLayout());
         imagePanel.add(image,BorderLayout.CENTER);
         imagePanel.setBackground(new Color(0,0,0));
 
-        l1=new JLabel(song.getName());
-        l2=new JLabel(song.getArtist());
-        l3=new JLabel(song.getAlbum());
+        //l1=new JLabel(song.getName());
+       // l2=new JLabel(song.getArtist());
+       // l3=new JLabel(song.getAlbum());
+        l1=new JLabel();
+        l2=new JLabel();
+        l3=new JLabel();
         detailPanel=new JPanel();
         detailPanel.setLayout(new GridLayout(3,1));
         detailPanel.add(l1);
         detailPanel.add(l2);
         detailPanel.add(l3);
 
-//        playButton=new JButton("Play");
-//        playButton.setToolTipText("play");
-//        buttonsPanel=new JPanel();
-//        buttonsPanel.setLayout(new FlowLayout());
-//        buttonsPanel.setMaximumSize(new Dimension(100,20));
-//        buttonsPanel.add(playButton);
+       // playButton=new JButton("Play");
+       // playButton.setToolTipText("play");
+       // buttonsPanel=new JPanel();
+        buttonsPanel.setLayout(new FlowLayout());
+        buttonsPanel.setMaximumSize(new Dimension(100,20));
+        //buttonsPanel.add(playButton);
 
         this.setLayout(new BorderLayout());
         imagePanel.setMaximumSize(new Dimension(200,200));
