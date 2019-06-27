@@ -16,7 +16,8 @@ public class RootPanel extends JFrame {
     private LeftPanel leftPanel;
     private FriendsActivityPanel friendsPanel;
     private ToolBarPanel toolBarPanel;
-   // private ShowPanels showPanels;
+    private ShowPanels showPanels;
+    private ToolBarPanel tolbar;
 
 
 
@@ -38,15 +39,19 @@ public class RootPanel extends JFrame {
         friendsPanel=new FriendsActivityPanel();
         AccountManagement.friendsActivityPanel=friendsPanel;
         toolBarPanel=new ToolBarPanel();
-     //   showPanels=new ShowPanels();
-       // AccountManagement.showPanels=showPanels;
+        AccountManagement.toolBarPanel=toolBarPanel;
+
+        tolbar=new ToolBarPanel();
+
+        showPanels=new ShowPanels();
+        AccountManagement.showPanels=showPanels;
         AccountManagement.rootPanel=this;
 
-       // JScrollPane scrollPane=new JScrollPane(showPanels,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+        JScrollPane scrollPane=new JScrollPane(showPanels,ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 
         //scrollPane.setPreferredSize(new Dimension(1000,1000));
         //scrollPane.setVisible(true);
-       // this.add(scrollPane);
+        this.add(scrollPane);
 
 
         setLayout(new BorderLayout());
@@ -63,8 +68,8 @@ public class RootPanel extends JFrame {
         this.add(musicBar,BorderLayout.SOUTH);
         upPanel.add(leftPanel,BorderLayout.WEST);
         upPanel.add(friendsPanel,BorderLayout.EAST);
-        upPanel.add(toolBarPanel,BorderLayout.NORTH);
-       // upPanel.add(scrollPane,BorderLayout.CENTER);
+        upPanel.add(tolbar,BorderLayout.NORTH);
+        upPanel.add(scrollPane,BorderLayout.CENTER);
 
 
 

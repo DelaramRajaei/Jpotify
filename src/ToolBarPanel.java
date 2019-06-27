@@ -1,32 +1,22 @@
 import javax.swing.*;
+import java.awt.*;
 
-/**
- *
- * @author Darya
- */
 public class ToolBarPanel extends JPanel {
-
+    private JLabel user;
+    private JButton jButton1;
+    private JTextField searchText;
 
     public ToolBarPanel() {
-        initComponents();
-
-    }
-
-
-    @SuppressWarnings("unchecked")
-
-    private void initComponents() {
-
-        user = new javax.swing.JLabel();
+        user = new javax.swing.JLabel("DElaram");
         jButton1 = new javax.swing.JButton();
-        searchText = new javax.swing.JTextField();
+        searchText = new javax.swing.JTextField("Delaram");
 
         setBackground(new java.awt.Color(25, 16, 17));
 
         user.setBackground(new java.awt.Color(0, 0, 102));
-        user.setFont(new java.awt.Font("Yu Gothic", 1, 24)); // NOI18N
+        user.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
         user.setForeground(new java.awt.Color(153, 153, 255));
-        //user.setText(AccountManagement.getActiveAccount().getName()+"Darya");
+        user.setText(AccountManagement.getActiveAccount().getName() +"/  IP  :"+ AccountManagement.getActiveAccount().getIP());
 
         jButton1.setBackground(new java.awt.Color(25, 16, 17));
         jButton1.setForeground(new java.awt.Color(204, 204, 255));
@@ -40,6 +30,8 @@ public class ToolBarPanel extends JPanel {
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
+
+        this.add(user);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -61,14 +53,29 @@ public class ToolBarPanel extends JPanel {
                                         .addComponent(user))
                                 .addContainerGap(19, Short.MAX_VALUE))
         );
-    }
-    public static void setUserlable(){
-        user.setText(AccountManagement.getActiveAccount().getName());
-
 
     }
+public void setUser(String n){
+        this.user.setText(n);
+}
 
-    private javax.swing.JButton jButton1;
-    private javax.swing.JTextField searchText;
-    private static javax.swing.JLabel user;
+
+
+    public void setUserUame( ) {
+
+        ToolBarPanel t =new ToolBarPanel();
+        t.setUser(AccountManagement.getActiveAccount().getName());
+        AccountManagement.toolBarPanel=t;
+
+//        System.out.println("setUser");
+//        this.setBackground(new Color(200,200,200));
+//        this.user.setText("dell");
+//
+//
+//
+//        this.user.setText(AccountManagement.getActiveAccount().getName());
+//        user.setVisible(false);
+//        System.out.println("SSSSSSSSSSSSSS");
+
+    }
 }

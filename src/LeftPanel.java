@@ -13,6 +13,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,6 +21,13 @@ import java.awt.event.ActionListener;
  */
 public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
+
+    private JButton addMusic;
+    private JButton albumsButton;
+    private JButton addPlaylist;
+    private JList<String> jListPlayListList;
+    private JScrollPane jScrollPanePlayListList;
+    private JButton songsButton;
 
 
 
@@ -58,11 +66,8 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         songsButton.setToolTipText("Show songs");
         songsButton.setBorder(null);
         songsButton.setFocusable(false);
-        songsButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                songsButtonActionPerformed(evt);
-            }
-        });
+        songsButton.addActionListener(this);
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -137,7 +142,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         add(jScrollPanePlayListList, gridBagConstraints);
 
 
-        addPlaylist.addActionListener((ActionListener) this);
+        addPlaylist.addActionListener( this);
         addMusic.addActionListener(this);
 
 
@@ -158,12 +163,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
     }
 
 
-    private javax.swing.JButton addMusic;
-    private javax.swing.JButton albumsButton;
-    private javax.swing.JButton addPlaylist;
-    private javax.swing.JList<String> jListPlayListList;
-    private javax.swing.JScrollPane jScrollPanePlayListList;
-    private javax.swing.JButton songsButton;
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -201,6 +201,14 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
                 }
 
 
+            }
+            else if(source==songsButton){
+                ArrayList<CellSongs> acs=new ArrayList<>();
+                for(Music m:AccountManagement.getActiveAccount().getMusics()){
+                    CellSongs cs =new CellSongs(m);
+                    acs.add(cs);
+                }
+                AccountManagement.showPanels.showSongCellMethod(acs);
             }
 
     }

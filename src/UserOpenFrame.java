@@ -14,7 +14,11 @@ import java.awt.event.ActionListener;
 public class UserOpenFrame extends JFrame implements ActionListener {
 
 
-    public UserOpenFrame() {
+    public UserOpenFrame(int IP) {
+        this.IP=IP;
+
+
+
         initComponents();
     }
 
@@ -54,7 +58,7 @@ public class UserOpenFrame extends JFrame implements ActionListener {
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 153, 255));
-        jLabel2.setText("  your IP code : 1234");
+        jLabel2.setText("  your IP code : "+ IP);
         jLabel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 255), 1, true));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -119,6 +123,9 @@ public class UserOpenFrame extends JFrame implements ActionListener {
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
+        jButton1.addActionListener(this);
+        this.setVisible(true);
+
     }
 
 
@@ -150,7 +157,7 @@ public class UserOpenFrame extends JFrame implements ActionListener {
         });
     }*/
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -183,16 +190,15 @@ public class UserOpenFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object source = new Object();
-        source=e.getSource();
-        if(source==jButton1){
-            if(jTextField1.getText()!=""){
+
+        if(e.getSource()==jButton1){
+            System.out.println("resid inja");
+            if(jTextField1.getText()!=null){
                 userName=jTextField1.getText();
                 System.out.println(jTextField1.getText());
                 this.setVisible(false);
                 finish=true;
-                ToolBarPanel.setUserlable();
-                System.out.println(AccountManagement.getActiveAccount().getName());
+
 
 
             }

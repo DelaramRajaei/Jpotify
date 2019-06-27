@@ -11,17 +11,21 @@ public class CellSongs extends CellShowJpanel implements ActionListener {
     ArrayList<JMenuItem> elementPlaylists;
     Music song;
 
-    public  CellSongs(Music song){
+    public  CellSongs(Music songi){
         super();
         play=new JButton("play");
 
-        this.song=song;
+        this.song=songi;
 
-        ImageIcon c=song.getImage() ;
-        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
-        image.setPreferredSize(new Dimension(150,150));
 
-        image.setIcon(i);
+ //       ImageIcon c=new ImageIcon();
+//        c.setImage(song.getImage().getImage().getScaledInstance(250,250,Image.SCALE_DEFAULT));
+        //ImageIcon i=new ImageIcon(song.getImage().getImage().getScaledInstance(250,250,Image.SCALE_DEFAULT));
+       // song.getImage().setImage(song.getImage().getImage().getScaledInstance(250,250,Image.SCALE_DEFAULT));
+
+//        image.setPreferredSize(new Dimension(150,150));
+
+        image.setIcon(song.getImage());
         l1.setText(song.getName());
         l2.setText("Artist : "+song.getArtist());
         l3.setText("Album : "+song.getAlbum());

@@ -13,11 +13,22 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        Account a = new Account("Delaram");
-        Core.initialLoad(a);
-        UserOpenFrame UOF = new UserOpenFrame();
+//TODO give ip of devic
+        UserOpenFrame UOF = new UserOpenFrame(123);
+
+        while (!UOF.finish){
+
+        }
         String accountName=UOF.getUserNAme();
-        a.setName(accountName);
+
+        Account a = new Account(accountName);
+        a.setIP(UOF.getIP());
+
+        AccountManagement accountManagement=new AccountManagement(a);
+        Core.initialLoad(a);
+
+
+
 
         SocialNetwork socialNetwork = new SocialNetwork(a.getFriends(),a);
         socialNetwork.startServer();
@@ -40,10 +51,12 @@ public class Main {
 
         RootPanel rootPanel = new RootPanel();
 
+        AccountManagement.toolBarPanel.setUserUame();
+
+
         //ArrayList<Music> am=new ArrayList<>();
         //am.add(AccountManagement.getActiveAccount().getMusics().get(0));
-        AccountManagement.musicBarP.updateList(a.getMusics());
-
+        //AccountManagement.musicBarP.updateList(am);
         Core.savePlaylistFileName();
 
 
