@@ -35,8 +35,6 @@ public class FriendPanel extends JPanel implements ActionListener {
 
         friendNameButton.addActionListener(this);
 
-
-
     }
 
     @Override

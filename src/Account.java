@@ -4,6 +4,7 @@ public class Account {
     private String name;
     private int lastActivity;
     private int IP;
+    private String status;
 
     private ArrayList<Music> musics;
     private ArrayList<Album> albums;
@@ -11,6 +12,7 @@ public class Account {
     private FavoriteSongs favoriteSongs;
     private SharedPlayList sharedPlayList;
     private ArrayList<PlayList> playLists;
+    private ArrayList<Friend> friends;
 
 
     public Account(String name) {
@@ -115,6 +117,15 @@ public class Account {
         return musics;
     }
 
+    public ArrayList<Friend> getFriends() {
+        return friends;
+    }
+
+    public void addFriend(Friend friend) throws Exception {
+        friends.add(friend);
+        Core.addFriend(friend);
+   }
+
     public ArrayList<ClientPlayList> getClientPlayLists() {
         return clientPlayLists;
     }
@@ -133,5 +144,13 @@ public class Account {
 
     public ArrayList<Album> getAlbums() {
         return albums;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

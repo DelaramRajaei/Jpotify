@@ -7,7 +7,7 @@ public class FriendsActivityPanel extends JPanel {
     private JTextArea IPCode;
     private JPanel invitePanel;
     private JPanel friendsPanel;
-    private ArrayList<Account> friends;
+    private ArrayList<Friend> friends;
 
 
 
@@ -19,7 +19,7 @@ public class FriendsActivityPanel extends JPanel {
         IPCode=new JTextArea();
         invitePanel=new JPanel();
         friendsPanel=new JPanel();
-        friends=AccountManagement.getAccounts();
+        friends=new ArrayList<Friend>();
 
 
         invitePanel.setLayout(new BorderLayout());
@@ -32,10 +32,12 @@ public class FriendsActivityPanel extends JPanel {
         add(friendsPanel,BorderLayout.CENTER);
 
 
-
-
-
-
+    }
+    public ArrayList<Friend> getFriends(){
+        return friends;
+    }
+    public void setFriends(ArrayList<Friend> friends){
+        this.friends=friends;
     }
 
 

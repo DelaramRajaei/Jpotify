@@ -91,7 +91,7 @@ public class Core {
         try {
             String fileName = "P" + (playLists.size() - 2);
             newClientPlayList.setFileName(fileName);
-            file_client_playlists.add(fileName+".txt");
+            file_client_playlists.add(fileName + ".txt");
         } catch (Exception e) {
         }
     }
@@ -214,10 +214,11 @@ public class Core {
         }
     }
 
-    public static void initialLoad(Account account) {
+    public static void initialLoad(Account account)throws Exception {
         initialLoadSongs(account.getMusics(), account.getAlbums());
         initialLoadPlaylistsFileName();
         initialLoadClientsPlaylist(account.getPlayLists(), account.getMusics());
+        initialFriend(account.getFriends());
 
     }
 
@@ -263,7 +264,38 @@ public class Core {
             album.addSong(music);
     }
 
-    public void saveFile() {
+    public static void addFriend(Friend friend) throws Exception {
+        File friendFile = new File("Friends.txt");
+        friendFile.delete();
+        friendFile.createNewFile();
+        fileWriter = new BufferedWriter(new FileWriter(friendFile, true));
+        fileWriter.write(friend.getIP());
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
+    public static void initialFriend(ArrayList<Friend> friends) throws Exception {
+        File friendFile = new File("Friends.txt");
+        FileReader input = null;
+        BufferedReader reader = null;
+        String line;
+        if (!friendFile.createNewFile()) {//If the file exists.
+            input = new FileReader(friendFile);
+            reader = new BufferedReader(input);
+            while ((line = reader.readLine()) != null) {
+                if (line == "") continue;
+                Friend friend = new Friend();
+                friend.setIP(line);
+                friends.add(friend);
+            }
+        }
+        closeReader(input);
+        closeReader(reader);
+    }
+
+    public void saveFile(Account a) throws Exception {
+        File file = new File(a.getName());
+        file.createNewFile();
 
     }
 
