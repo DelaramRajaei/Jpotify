@@ -25,9 +25,11 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
     private JButton addMusic;
     private JButton albumsButton;
     private JButton addPlaylist;
-    private JList<String> jListPlayListList;
+
     private JScrollPane jScrollPanePlayListList;
     private JButton songsButton;
+    private JList<PlayList> jplaylist;
+
 
 
 
@@ -36,9 +38,12 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
 
     public LeftPanel() {
+        jplaylist=new JList<>();
+        setJlistPlayList();
 
         initComponents();
         this.setPreferredSize(new Dimension(150,500));
+
     }
 
 
@@ -51,7 +56,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         addMusic = new javax.swing.JButton();
         addPlaylist = new javax.swing.JButton();
         jScrollPanePlayListList = new javax.swing.JScrollPane();
-        jListPlayListList = new javax.swing.JList<>();
+        //jListPlayListList = new javax.swing.JList<>();
 
         setBackground(new java.awt.Color(51, 51, 51));
         setMinimumSize(new java.awt.Dimension(120, 500));
@@ -117,16 +122,16 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         gridBagConstraints.insets = new java.awt.Insets(18, 22, 0, 0);
         add(addPlaylist, gridBagConstraints);
 
-        jListPlayListList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jListPlayListList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jListPlayListList.setFocusable(false);
-        jScrollPanePlayListList.setViewportView(jListPlayListList);
-        jListPlayListList.setBackground(new Color(51,51,51));
-        jListPlayListList.setForeground(new Color(241, 254, 255));
+        jplaylist.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        //jListPlayListList.setModel(new javax.swing.AbstractListModel<String>() {
+        //    String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        //    public int getSize() { return strings.length; }
+        //    public String getElementAt(int i) { return strings[i]; }
+        //});
+        //jListPlayListList.setFocusable(false);
+        jScrollPanePlayListList.setViewportView(jplaylist);
+        //jListPlayListList.setBackground(new Color(51,51,51));
+        //jListPlayListList.setForeground(new Color(241, 254, 255));
 
 
         gridBagConstraints = new java.awt.GridBagConstraints();
@@ -159,9 +164,6 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
     }
 
-    private void songsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_songsButtonActionPerformed
-        // TODO add your handling code here:
-    }
 
 
 
@@ -185,7 +187,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
                 i++;
             }
 
-            jListPlayListList=new JList<>(playlistsName);
+            //jListPlayListList=new JList<>(playlistsName);
 
 
 
@@ -242,7 +244,34 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
     }
 
+    private void setJlistPlayList(){
 
+        DefaultListModel<PlayList> model = new DefaultListModel<>();
+        jplaylist.setModel(model);
+
+        for(PlayList p:AccountManagement.getActiveAccount().getPlayLists()){
+            model.addElement(p);
+
+        }
+
+        jplaylist.getSelectionModel().addListSelectionListener(e -> {
+            PlayList p = jplaylist.getSelectedValue();
+            AccountManagement.showPanels.showSongPlaylist(actionJlistPlaylist(p),p);
+
+
+        });
+
+    }
+
+
+    private ArrayList<CellPlaylist> actionJlistPlaylist(PlayList p){
+        ArrayList<CellPlaylist>cshp=new ArrayList<>();
+        for (Music m:p.getMusic()){
+            CellPlaylist cp=new CellPlaylist(p,m);
+            cshp.add(cp);
+        }
+        return cshp;
+    }
 
 
 

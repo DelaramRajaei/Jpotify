@@ -21,7 +21,7 @@ public class FriendPanel extends JPanel implements ActionListener {
         albumName=new JLabel(friend.getAlbum());
 
         sharedPlayList=new SharedPlayList();
-        sharedPlayList=friend.getSharedPlayLists();
+       // sharedPlayList=friend.getSharedPlayLists();
         musicPanels=new ArrayList<>(sharedPlayList.musics.size());
         musicsArray=new ArrayList<>(sharedPlayList.musics.size());
 
