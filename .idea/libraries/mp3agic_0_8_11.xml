@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="mp3agic-0.8.1">
+  <library name="mp3agic-0.8.11">
     <CLASSES>
       <root url="jar://$PROJECT_DIR$/src/Libraries/mp3agic-0.8.1.jar!/" />
     </CLASSES>

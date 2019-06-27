@@ -4,7 +4,6 @@ public class Account {
     private String name;
     private int lastActivity;
     private int IP;
-    private String status;
 
     private ArrayList<Music> musics;
     private ArrayList<Album> albums;
@@ -12,7 +11,6 @@ public class Account {
     private FavoriteSongs favoriteSongs;
     private SharedPlayList sharedPlayList;
     private ArrayList<PlayList> playLists;
-    private ArrayList<Friend> friends;
 
 
     public Account(String name) {
@@ -39,19 +37,10 @@ public class Account {
      *
      * @param directory Path of the new song.
      */
-    public void addMusic(String directory) throws Exception {
-        boolean flag = false;
-        for (Music eachMusic : musics) {
-            if (eachMusic.getDirectory().equals(directory)) {
-                flag = true;
-                break;
-            }
-        }
-        if (!flag) {
-            Music music = new Music(directory);
-            musics.add(music);
-            Core.addSong(music, albums);
-        }
+    public void addMusic(String directory) {
+        Music music = new Music(directory);
+        musics.add(music);
+        Core.addSong(music, albums);
     }
 
     /**
@@ -79,7 +68,7 @@ public class Account {
     }
 
 
-    public void removeSong(Music music) throws Exception {
+    public void removeSong(Music music)throws Exception {
         musics.remove(music);
         for (PlayList eachPlaylist : music.getPlaylist()) {
             eachPlaylist.removeSong(music);
@@ -117,15 +106,6 @@ public class Account {
         return musics;
     }
 
-    public ArrayList<Friend> getFriends() {
-        return friends;
-    }
-
-    public void addFriend(Friend friend) throws Exception {
-        friends.add(friend);
-        Core.addFriend(friend);
-   }
-
     public ArrayList<ClientPlayList> getClientPlayLists() {
         return clientPlayLists;
     }
@@ -144,13 +124,5 @@ public class Account {
 
     public ArrayList<Album> getAlbums() {
         return albums;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 }

@@ -16,7 +16,8 @@
  *   License along with this program; if not, write to the Free Software
  *   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
- */
+ *//*
+
  
 package javazoom.jl.player;
 
@@ -26,29 +27,35 @@ import java.util.Properties;
 import javazoom.jl.decoder.JavaLayerException;
 import junit.framework.TestCase;
 
+*/
 /**
  * Simple player unit test.
  * It takes around 3-6% of CPU and 10MB RAM under Win2K/PIII/1GHz/JDK1.5.0
  * It takes around 10-12% of CPU and 10MB RAM under Win2K/PIII/1GHz/JDK1.4.1
  * It takes around 08-10% of CPU and 10MB RAM under Win2K/PIII/1GHz/JDK1.3.1
  * @since 0.4 
- */
+ *//*
+
 public class jlpTest extends TestCase
 {
 	private Properties props = null;
 	private String filename = null;
 	
-	/**
+	*/
+/**
 	 * Constructor for jlpTest.
 	 * @param arg0
-	 */
+	 *//*
+
 	public jlpTest(String arg0)
 	{
 		super(arg0);
 	}
-	/*
+	*/
+/*
 	 * @see TestCase#setUp()
-	 */
+	 *//*
+
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -60,9 +67,11 @@ public class jlpTest extends TestCase
 		filename = basefile + name;	
 		//out = System.out;
 	}
-	/*
+	*/
+/*
 	 * @see TestCase#tearDown()
-	 */
+	 *//*
+
 	protected void tearDown() throws Exception
 	{
 		super.tearDown();
@@ -85,3 +94,4 @@ public class jlpTest extends TestCase
 		}
 	}
 }
+*/

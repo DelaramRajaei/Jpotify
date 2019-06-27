@@ -16,7 +16,8 @@
  *   License along with this program; if not, write to the Free Software
  *   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
- */
+ *//*
+
 
 package javazoom.jl.decoder;
 
@@ -28,6 +29,7 @@ import java.util.Properties;
 
 import junit.framework.TestCase;
 
+*/
 /**
  * Bitstream unit test.
  * It matches test.mp3 properties to test.mp3.properties expected results.
@@ -35,7 +37,8 @@ import junit.framework.TestCase;
  * Uncomment out = System.out; in setUp() method to generated it on stdout from 
  * your own MP3 file.
  * @since 0.4
- */
+ *//*
+
 public class BitstreamTest extends TestCase
 {
 	private String basefile = null;
@@ -46,17 +49,21 @@ public class BitstreamTest extends TestCase
 	private FileInputStream mp3in = null;
 	private Bitstream in = null;
 	
-	/**
+	*/
+/**
 	 * Constructor for BitstreamTest.
 	 * @param arg0
-	 */
+	 *//*
+
 	public BitstreamTest(String arg0)
 	{
 		super(arg0);
 	}
-	/*
+	*/
+/*
 	 * @see TestCase#setUp()
-	 */
+	 *//*
+
 	protected void setUp() throws Exception
 	{
 		super.setUp();
@@ -70,9 +77,11 @@ public class BitstreamTest extends TestCase
 		in = new Bitstream(mp3in);
 		//out = System.out;
 	}
-	/*
+	*/
+/*
 	 * @see TestCase#tearDown()
-	 */
+	 *//*
+
 	protected void tearDown() throws Exception
 	{
 		super.tearDown();
@@ -153,3 +162,4 @@ public class BitstreamTest extends TestCase
 		}		
 	}
 }
+*/

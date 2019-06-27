@@ -15,16 +15,19 @@
  *   License along with this program; if not, write to the Free Software
  *   Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  *----------------------------------------------------------------------
- */
+ *//*
+
 
 import javazoom.jl.decoder.BitstreamTest;
 import javazoom.jl.player.jlpTest;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
+*/
 /**
  * JavaLayer test suite.
- */
+ *//*
+
 public class AllTests
 {
 	public static Test suite()
@@ -37,3 +40,4 @@ public class AllTests
 		return suite;
 	}
 }
+*/

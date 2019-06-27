@@ -29,7 +29,8 @@ public class FriendPanel extends JPanel implements ActionListener {
         int i=0;
 
        for(Music m:musicsArray){
-           musicPanels.get(i).displayMusic(m);
+           //TODO handle error
+          // musicPanels.get(i).showCellsMethod(m);
            i++;
        }
 
@@ -40,6 +41,6 @@ public class FriendPanel extends JPanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         ShowPanels show =new ShowPanels();
-                show.ShowCellsMethod(musicPanels);
+                show.showCellsMethod(musicPanels);
     }
 }

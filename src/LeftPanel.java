@@ -5,6 +5,8 @@
  */
 
 
+
+
 import javax.swing.*;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -13,9 +15,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
+ *
  * @author Darya
  */
-public class LeftPanel extends javax.swing.JPanel implements ActionListener {
+public class LeftPanel extends javax.swing.JPanel implements ActionListener{
+
+
 
 
     public static String audioFilePath;
@@ -25,7 +30,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener {
     public LeftPanel() {
 
         initComponents();
-        this.setPreferredSize(new Dimension(150, 500));
+        this.setPreferredSize(new Dimension(150,500));
     }
 
 
@@ -109,19 +114,13 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener {
 
         jListPlayListList.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jListPlayListList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = {"Item 1", "Item 2", "Item 3", "Item 4", "Item 5"};
-
-            public int getSize() {
-                return strings.length;
-            }
-
-            public String getElementAt(int i) {
-                return strings[i];
-            }
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
         });
         jListPlayListList.setFocusable(false);
         jScrollPanePlayListList.setViewportView(jListPlayListList);
-        jListPlayListList.setBackground(new Color(51, 51, 51));
+        jListPlayListList.setBackground(new Color(51,51,51));
         jListPlayListList.setForeground(new Color(241, 254, 255));
 
 
@@ -142,6 +141,16 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener {
         addMusic.addActionListener(this);
 
 
+
+
+
+
+
+
+
+
+
+
     }
 
     private void songsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_songsButtonActionPerformed
@@ -158,40 +167,44 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Object source = e.getSource();
-        if (source == addPlaylist) {
+        Object source=e.getSource();
+        if(source==addPlaylist){
 
-            NewPlayListPanel newPlaylistPanel = new NewPlayListPanel();
+            NewPlayListPanel newPlaylistPanel=new NewPlayListPanel();
             newPlaylistPanel.setVisible(true);
             AccountManagement.getActiveAccount().createPlayList(newPlaylistPanel.getPlaylistName());
-            System.out.println("new Playlist: " + newPlaylistPanel.getPlaylistName());
+            System.out.println("new Playlist: "+newPlaylistPanel.getPlaylistName());
 
 
-            int len = AccountManagement.getActiveAccount().getPlayLists().size();
-            String[] playlistsName = new String[len];
-            int i = 0;
-            for (PlayList p : AccountManagement.getActiveAccount().getPlayLists()) {
-                playlistsName[i] = p.getName();
+            int len=AccountManagement.getActiveAccount().getPlayLists().size();
+            String[] playlistsName=new String[len];
+            int i=0;
+            for (PlayList p:AccountManagement.getActiveAccount().getPlayLists()){
+                playlistsName[i]=p.getName();
                 i++;
             }
 
-            jListPlayListList = new JList<>(playlistsName);
+            jListPlayListList=new JList<>(playlistsName);
 
 
-        } else
-            try {
-                if (source == addMusic) {
-                    openFile();
-                }
 
-            } catch (Exception exception) {
-            }
+        }else
+
+
+
+
+            if(source==addMusic){
+                openFile();
+
+
+        }
+
     }
 
-    public void openFile() throws Exception {
+    public void openFile(){
         System.out.println("open pressed");
         JFileChooser fileChooser = new JFileChooser();
-        FileFilter filter = new FileNameExtensionFilter("MP3 File", "mp3");
+        FileFilter filter = new FileNameExtensionFilter("MP3 File","mp3");
         fileChooser.setFileFilter(filter);
         fileChooser.setDialogTitle("Open Audio File");
         int returnValue = fileChooser.showOpenDialog(null);
@@ -200,9 +213,16 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener {
             lastOpenPath = fileChooser.getSelectedFile().getParent();
         }
         System.out.println(audioFilePath);
+        //Music m=new Music(audioFilePath);
+        //Account a=new Account("darya");
+        //a.addMusic(m.getDirectory());
         AccountManagement.getActiveAccount().addMusic(audioFilePath);
 
     }
+
+
+
+
 
 
 }
