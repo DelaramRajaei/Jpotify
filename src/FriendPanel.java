@@ -13,12 +13,12 @@ public class FriendPanel extends JPanel implements ActionListener {
     private ArrayList<CellShowJpanel> musicPanels;
     private ArrayList<Music> musicsArray;
 
-    public FriendPanel(Account friend){
+    public FriendPanel(Friend friend){
 
         friendNameButton=new JButton(friend.getName());
-        songName=new JLabel(friend.getMusics().get(0).getName());
-        artistName=new JLabel(friend.getMusics().get(0).getArtist());
-        albumName=new JLabel(friend.getMusics().get(0).getAlbum());
+        songName=new JLabel(friend.getMusic());
+        artistName=new JLabel(friend.getArtist());
+        albumName=new JLabel(friend.getAlbum());
 
         sharedPlayList=new SharedPlayList();
         sharedPlayList=friend.getSharedPlayLists();

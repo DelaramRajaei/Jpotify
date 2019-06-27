@@ -63,27 +63,28 @@ public class SocialNetwork {
                 updateFriendMusic(IP, message);
                 break;
             case "getmusic":
+                sendMusic(message);
+                break;
+            case "sendmusic":
 
                 break;
             case "invitation":
+                invitation();
                 break;
         }
     }
 
+    private void sendMusic(String message) {
+
+    }
+
     private void updateFriendMusic(String ip, String message) throws Exception {
-        FriendsActivityPanel friendsActivityPanel = new FriendsActivityPanel();
-        ArrayList<FriendPanel> friendPanels = new ArrayList<FriendPanel>();
-        if (friendsActivityPanel.getFriends().size() != 0) {
-            friendsActivityPanel.getFriends();
-            friendPanels=friendsActivityPanel.getFriends();
-        }
-        for (Friend friend : friendsList) {
-            if (ip.equals(friend.getIP())) {
-                FriendPanel friendPanel = new FriendPanel(account);
-                friendPanels.add(friendPanel);
+        for(Friend friend:friendsList) {
+            if (friend.getIP().equals(ip)) {
+                friend.setMusic(message.split(",")[1]);
+                friend.setAlbum(message.split(",")[2]);
             }
         }
-
     }
 
     public void updateFriendStatus(String IP, String message) {
@@ -105,9 +106,9 @@ public class SocialNetwork {
     }
 
     public void sendStatusToAll(UserStatus us) {
-            for (Friend friend : friendsList) {
-                sendStatus(us, friend.getIP());
-            }
+        for (Friend friend : friendsList) {
+            sendStatus(us, friend.getIP());
+        }
     }
 
     public void sendStatus(UserStatus us, String IP) {
@@ -129,7 +130,7 @@ public class SocialNetwork {
             output.write(message.getBytes());
         } catch (Exception e) {
             for (Friend friend : friendsList) {
-                if (friend.equals(IP))
+                if (friend.getIP().equals(IP))
                     friend.setStatus(UserStatus.Offline);
             }
         }
@@ -140,16 +141,23 @@ public class SocialNetwork {
         try {
             Socket client = new Socket(IP, 6666);
             OutputStream output = client.getOutputStream();
-            String message = "ListenInto" + music.getName() + "," + music.getAlbum();
+            String message = "ListenInto" + music.getName() + ","+music.getArtist() +","+ music.getAlbum();
             output.write(message.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void getMusic() {
-
+    public void getMusic(String IP, String name) {
+        try {
+            Socket client = new Socket(IP, 6666);
+            OutputStream output = client.getOutputStream();
+            String message = "getMusic";
+            output.write(message.getBytes());
+        } catch (Exception e) {
+        }
     }
+
 
     public void invitation() {
 
