@@ -312,7 +312,7 @@ public class Core {
         UserOpenFrame UOF = null;
         accountFile = new File(FILE_PATH_OF_ACCOUNT);
         try {
-            if (!accountFile.createNewFile()) {//If the file exists.
+            if (accountFile.createNewFile()) {//If the file exists.
                 input = new FileReader(accountFile);
                 reader = new BufferedReader(input);
                 line = reader.readLine();
@@ -327,8 +327,9 @@ public class Core {
         } catch (Exception e) {
         } finally {
             account = new Account(line);
-            File accountFolder = new File(line);
-            accountFolder.createNewFile();
+            //File accountFolder = new File(line);
+            //accountFolder.mkdir();
+            //accountFolder.createNewFile();
             closeReader(input);
             closeReader(reader);
         }
