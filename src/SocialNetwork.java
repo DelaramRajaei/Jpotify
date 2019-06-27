@@ -1,7 +1,4 @@
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -62,27 +59,50 @@ public class SocialNetwork {
             case "listeninto":
                 updateFriendMusic(IP, message);
                 break;
-            case "getmusic":
-                sendMusic(message);
+            case "askMusic":
+                sendMusic(IP, message);
                 break;
-            case "sendmusic":
-
+            case"sendMusic":
+                getMusic();
                 break;
             case "invitation":
-                invitation();
+                getInvitation();
                 break;
         }
     }
 
-    private void sendMusic(String message) {
+    private void getMusic() {
 
     }
 
+    private void sendMusic(String IP, String message) throws Exception {
+       String sendMessage="sendMusic";
+        Socket client = new Socket(IP, 6666);
+        OutputStream output = client.getOutputStream();
+        output.write(sendMessage.getBytes());
+        for (Music music : account.getSharedPlayLists().getMusic()) {
+            File songFile = null;
+            FileInputStream input = null;
+            int count;
+
+            songFile = new File(music.getDirectory());
+            input = new FileInputStream(songFile);
+            byte[] buffer = new byte[2048];
+            while ((count = input.read(buffer)) != -1) {
+                output.write(buffer, 0, count);
+            }
+            output.flush();
+            input.close();
+            input.close();
+        }
+    }
+
     private void updateFriendMusic(String ip, String message) throws Exception {
-        for(Friend friend:friendsList) {
+        for (Friend friend : friendsList) {
             if (friend.getIP().equals(ip)) {
                 friend.setMusic(message.split(",")[1]);
-                friend.setAlbum(message.split(",")[2]);
+                friend.setArtist(message.split(",")[2]);
+                friend.setAlbum(message.split(",")[3]);
             }
         }
     }
@@ -141,25 +161,35 @@ public class SocialNetwork {
         try {
             Socket client = new Socket(IP, 6666);
             OutputStream output = client.getOutputStream();
-            String message = "ListenInto" + music.getName() + ","+music.getArtist() +","+ music.getAlbum();
+            String message = "ListenInto" + music.getName() + "," + music.getArtist() + "," + music.getAlbum();
             output.write(message.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void getMusic(String IP, String name) {
+    public void askForMusic(String IP, String name) {
         try {
+
             Socket client = new Socket(IP, 6666);
             OutputStream output = client.getOutputStream();
-            String message = "getMusic";
+            String message = "askMusic";
             output.write(message.getBytes());
         } catch (Exception e) {
         }
     }
 
+    public void sendInvitation(String IP) {
+        try {
+            Socket client = new Socket(IP, 6666);
+            OutputStream output = client.getOutputStream();
+            String message = "invitation";
+            output.write(message.getBytes());
+        } catch (Exception e) {
+        }
+    }
 
-    public void invitation() {
+    public void getInvitation() {
 
     }
 }

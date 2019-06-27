@@ -14,11 +14,8 @@ import java.awt.event.ActionListener;
 public class UserOpenFrame extends JFrame implements ActionListener {
 
 
-    public UserOpenFrame(int IP) {
+    public UserOpenFrame(String IP) {
         this.IP=IP;
-
-
-
         initComponents();
     }
 
@@ -166,7 +163,7 @@ public class UserOpenFrame extends JFrame implements ActionListener {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
     private String userName;
-    private int IP;
+    private String IP;
     boolean finish=false;
     private RootPanel rootPanel;
 
@@ -180,11 +177,11 @@ public class UserOpenFrame extends JFrame implements ActionListener {
         this.userName = userNAme;
     }
 
-    public int getIP() {
+    public String getIP() {
         return IP;
     }
 
-    public void setIP(int IP) {
+    public void setIP(String IP) {
         this.IP = IP;
     }
 

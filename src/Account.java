@@ -56,7 +56,10 @@ public class Account {
         playLists.add(newPlaylist);
         Core.createPlaylist(newPlaylist, playLists);
     }
-
+public void addFriend(Friend friend)throws Exception{
+        friends.add(friend);
+        Core.addFriend(friends);
+}
     /**
      * Add a song to a playlist.
      * At first it would find the selected playlist and then call the addSong method.

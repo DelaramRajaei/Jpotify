@@ -10,16 +10,15 @@ public class FriendsActivityPanel extends JPanel {
     private ArrayList<FriendPanel> friends;
 
 
-
-    public FriendsActivityPanel(){
-        this.setBackground(new Color(174,225,228));
+    public FriendsActivityPanel() {
+        this.setBackground(new Color(174, 225, 228));
         this.setBackground(Color.YELLOW);
 
-        invite=new JButton("+ Add Friend" );
-        IPCode=new JTextArea();
-        invitePanel=new JPanel();
-        friendsPanel=new JPanel();
-        friends=new ArrayList<FriendPanel>();
+        invite = new JButton("+ Add Friend");
+        IPCode = new JTextArea();
+        invitePanel = new JPanel();
+        friendsPanel = new JPanel();
+        friends = new ArrayList<FriendPanel>();
 
 
         invitePanel.setLayout(new BorderLayout());
@@ -28,16 +27,18 @@ public class FriendsActivityPanel extends JPanel {
         invitePanel.add(IPCode);
         invitePanel.add(invite);
 
-        add(invitePanel,BorderLayout.SOUTH);
-        add(friendsPanel,BorderLayout.CENTER);
+        add(invitePanel, BorderLayout.SOUTH);
+        add(friendsPanel, BorderLayout.CENTER);
 
 
     }
-    public ArrayList<FriendPanel> getFriends(){
+
+    public ArrayList<FriendPanel> getFriends() {
         return friends;
     }
-    public void setFriends(ArrayList<FriendPanel> friends){
-        this.friends=friends;
+
+    public void setFriends(ArrayList<FriendPanel> friends) {
+        this.friends = friends;
     }
 
 

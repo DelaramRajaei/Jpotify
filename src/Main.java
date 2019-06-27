@@ -13,26 +13,14 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-//TODO give ip of devic
-        UserOpenFrame UOF = new UserOpenFrame(123);
 
-        while (!UOF.finish){
+        Account account = Core.initialLoad();
 
-        }
-        String accountName=UOF.getUserNAme();
-
-        Account a = new Account(accountName);
-        a.setIP(UOF.getIP());
-
-        AccountManagement accountManagement=new AccountManagement(a);
-        Core.initialLoad(a);
-
-
-
-
-        SocialNetwork socialNetwork = new SocialNetwork(a.getFriends(),a);
+        /*AccountManagement accountManagement = new AccountManagement(account);
+        SocialNetwork socialNetwork = new SocialNetwork(account.getFriends(), account);
         socialNetwork.startServer();
         socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);
+        */
        /* new Thread(new Runnable() {
             @Override
             public void run(){
@@ -48,17 +36,18 @@ public class Main {
                 {}
             }
         }).start();*/
+/*
 
         RootPanel rootPanel = new RootPanel();
 
         AccountManagement.toolBarPanel.setUserUame();
+*/
 
 
         //ArrayList<Music> am=new ArrayList<>();
         //am.add(AccountManagement.getActiveAccount().getMusics().get(0));
         //AccountManagement.musicBarP.updateList(am);
-        Core.savePlaylistFileName();
-
+        Core.saveAll(account);
 
 
         try {

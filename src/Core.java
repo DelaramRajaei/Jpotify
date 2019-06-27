@@ -1,13 +1,16 @@
 import java.io.*;
+import java.net.InetAddress;
 import java.util.ArrayList;
 
 public class Core {
     static File songsFile;
     static File playListFile;
+    static File accountFile;
     static BufferedWriter fileWriter;
     private static ArrayList<String> file_client_playlists;
     private static final String FILE_PATH_OF_SONGS = "Song.txt";
     private static final String FILE_PATH_OF_PLAYLIST = "Playlist.txt";
+    private static final String FILE_PATH_OF_ACCOUNT = "Account.txt";
     private static final String SHARED_PLAYLIST_FILE = "SharedPlayList.txt";
     private static final String FAVORITE_PLAYLIST_FILE = "FavoriteList.txt";
 
@@ -79,7 +82,7 @@ public class Core {
                 file.delete();
             }
         }
-    }//TODO removed Favorite list :||||
+    }
 
     /**
      * This method will create a new file for the playlist and set the file name of the new playlist.
@@ -124,7 +127,7 @@ public class Core {
         BufferedReader reader = null;
         String line;
         try {
-            songsFile = new File(FILE_PATH_OF_SONGS);
+            songsFile = new File("Account\\" + FILE_PATH_OF_SONGS);
             if (!songsFile.createNewFile()) {//If the file exists.
                 input = new FileReader(songsFile);
                 reader = new BufferedReader(input);
@@ -198,6 +201,11 @@ public class Core {
         }
     }
 
+    public static void saveAll(Account account) {
+        savePlaylistFileName();
+        saveAccount(account);
+    }
+
     public static void savePlaylistFileName() {
         try {
             playListFile = new File(FILE_PATH_OF_PLAYLIST);
@@ -214,12 +222,13 @@ public class Core {
         }
     }
 
-    public static void initialLoad(Account account)throws Exception {
+    public static Account initialLoad() throws Exception {
+        Account account = loadAccount();
         initialLoadSongs(account.getMusics(), account.getAlbums());
         initialLoadPlaylistsFileName();
         initialLoadClientsPlaylist(account.getPlayLists(), account.getMusics());
         initialFriend(account.getFriends());
-
+        return account;
     }
 
     /**
@@ -264,12 +273,14 @@ public class Core {
             album.addSong(music);
     }
 
-    public static void addFriend(Friend friend) throws Exception {
+    public static void addFriend(ArrayList<Friend> friends) throws Exception {
         File friendFile = new File("Friends.txt");
         friendFile.delete();
-        friendFile.createNewFile();
-        fileWriter = new BufferedWriter(new FileWriter(friendFile, true));
-        fileWriter.write(friend.getIP());
+        for (Friend eachFriend : friends) {
+            friendFile.createNewFile();
+            fileWriter = new BufferedWriter(new FileWriter(friendFile, true));
+            fileWriter.write(eachFriend.getIP());
+        }
         fileWriter.flush();
         fileWriter.close();
     }
@@ -293,10 +304,57 @@ public class Core {
         closeReader(reader);
     }
 
-    public void saveFile(Account a) throws Exception {
-        File file = new File(a.getName());
-        file.createNewFile();
+    public static Account loadAccount() throws Exception {
+        Account account;
+        FileReader input = null;
+        BufferedReader reader = null;
+        String line = null;
+        UserOpenFrame UOF = null;
+        accountFile = new File(FILE_PATH_OF_ACCOUNT);
+        try {
+            if (!accountFile.createNewFile()) {//If the file exists.
+                input = new FileReader(accountFile);
+                reader = new BufferedReader(input);
+                line = reader.readLine();
+                if (line == null) {
+                    InetAddress IP = InetAddress.getLocalHost();
+                    UOF = new UserOpenFrame(IP.getHostAddress());
+                    while (!UOF.finish) {
+                    }
+                    line = UOF.getUserNAme();
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            account = new Account(line);
+            File accountFolder = new File(line);
+            accountFolder.createNewFile();
+            closeReader(input);
+            closeReader(reader);
+        }
+        return account;
+    }
 
+    public static void saveAccount(Account account) {
+        FileReader input = null;
+        BufferedReader reader = null;
+        String line;
+        File accountFile = new File("Account.txt");
+        try {
+            input = new FileReader(accountFile);
+            reader = new BufferedReader(input);
+            fileWriter = new BufferedWriter(new FileWriter(accountFile, true));
+            line = reader.readLine();
+            if (line == null) {
+                fileWriter.write(account.getName());
+                fileWriter.flush();
+                fileWriter.close();
+            }
+        } catch (Exception e) {
+        } finally {
+            closeReader(input);
+            closeReader(reader);
+        }
     }
 
     public static void updateList(PlayList playList, Music music) {
