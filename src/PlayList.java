@@ -37,4 +37,9 @@ public abstract class PlayList {
     public ArrayList<Music> getMusic(){
         return musics;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
