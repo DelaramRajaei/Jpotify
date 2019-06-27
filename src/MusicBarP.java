@@ -5,17 +5,14 @@
  */
 
 
-import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
-
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.*;
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Darya
@@ -34,9 +31,9 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
     private JPanel buttonsPanel;
     private JPanel songDetail;
     private JPanel currentMusic;
-    private JPanel powerVoic;
+    private JPanel powerVoice;
     private JPanel sliderPanel;
-    private JPanel vasatPanel;
+    private JPanel centerPanel;
 
     private JLabel labelDuration;
     private JLabel labelTimeCounter;
@@ -78,7 +75,15 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         initComponents();
         musicList = new ArrayList<>();
 
-        musicSlider.setValue(0);
+        musicSlider = new JSlider(0, 100, 0);
+        musicSlider.setMajorTickSpacing(5);
+        musicSlider.setPaintTicks(true);
+        musicSlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                player.musicSlider(musicSlider.getValue() / 100);
+            }
+        });
 
         play.setIcon(playIcon);
         play.setFont(new Font("Sans", Font.BOLD, 14));
@@ -116,13 +121,13 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         labelDuration.setForeground(new Color(234, 251, 255));
 
         this.setBackground(new Color(51, 51, 51));
-        powerVoic.setBackground(new Color(51, 51, 51));
+        powerVoice.setBackground(new Color(51, 51, 51));
         musicSlider.setBackground(new Color(51, 51, 51));
 
         buttonsPanel.setBackground(new Color(51, 51, 51));
         currentMusic.setBackground(new Color(51, 51, 51));
         sliderPanel.setBackground(new Color(51, 51, 51));
-        vasatPanel.setBackground(new Color(51, 51, 51));
+        centerPanel.setBackground(new Color(51, 51, 51));
 
         play.addActionListener(this);
         previous.addActionListener(this);
@@ -159,13 +164,13 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
 
         previous.setIcon(previousIcon);
-        vasatPanel.setMinimumSize(new Dimension(400, 50));
-        vasatPanel.setMaximumSize(new Dimension(400, 50));
+        centerPanel.setMinimumSize(new Dimension(400, 50));
+        centerPanel.setMaximumSize(new Dimension(400, 50));
 
         this.setLayout(new BorderLayout());
         this.add(currentMusic, BorderLayout.WEST);
-        this.add(vasatPanel, BorderLayout.CENTER);
-        this.add(powerVoic, BorderLayout.EAST);
+        this.add(centerPanel, BorderLayout.CENTER);
+        this.add(powerVoice, BorderLayout.EAST);
 
     }
 
@@ -179,7 +184,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         musicImage = new javax.swing.JLabel();
         musicArtist = new javax.swing.JLabel();
         musicName = new javax.swing.JLabel();
-        vasatPanel = new javax.swing.JPanel();
+        centerPanel = new javax.swing.JPanel();
         sliderPanel = new javax.swing.JPanel();
         labelDuration = new javax.swing.JLabel();
         musicSlider = new javax.swing.JSlider();
@@ -190,7 +195,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         play = new javax.swing.JButton();
         next = new javax.swing.JButton();
         rePlay = new javax.swing.JButton();
-        powerVoic = new javax.swing.JPanel();
+        powerVoice = new javax.swing.JPanel();
         powerVoicLable = new javax.swing.JLabel();
         powerVoicSlider = new javax.swing.JSlider();
 
@@ -277,8 +282,8 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
         buttonsPanel.add(rePlay);
 
-        javax.swing.GroupLayout vasatPanelLayout = new javax.swing.GroupLayout(vasatPanel);
-        vasatPanel.setLayout(vasatPanelLayout);
+        javax.swing.GroupLayout vasatPanelLayout = new javax.swing.GroupLayout(centerPanel);
+        centerPanel.setLayout(vasatPanelLayout);
         vasatPanelLayout.setHorizontalGroup(
                 vasatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(buttonsPanel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -300,14 +305,14 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         gridBagConstraints.ipady = 31;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(50, 7, 0, 0);
-        add(vasatPanel, gridBagConstraints);
+        add(centerPanel, gridBagConstraints);
 
-        powerVoic.setLayout(new BorderLayout());
+        powerVoice.setLayout(new BorderLayout());
 
         powerVoicLable.setText("Power Voice");
         powerVoicLable.setForeground(new Color(171, 117, 188));
-        powerVoic.add(powerVoicLable, BorderLayout.NORTH);
-        powerVoic.add(powerVoicSlider, BorderLayout.SOUTH);
+        powerVoice.add(powerVoicLable, BorderLayout.NORTH);
+        powerVoice.add(powerVoicSlider, BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -315,7 +320,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         gridBagConstraints.gridheight = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
         gridBagConstraints.insets = new java.awt.Insets(50, 7, 9, 92);
-        add(powerVoic, gridBagConstraints);
+        add(powerVoice, gridBagConstraints);
     }
     //endregion
 
@@ -326,12 +331,25 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
     public void updateList(ArrayList<Music> musics) throws Exception {
         musicList = musics;
         if (musicList != null) {
-            if (songNumber > musics.size() || songNumber < 0) {
-            } else {
-                play.setIcon(pauseIcon);
-                isPlaying=true;
-                player.play(musicList.get(songNumber));
+            if (songNumber > musics.size()) {
+                songNumber--;
+            } else if (songNumber < 0) {
+                songNumber++;
             }
+            play.setIcon(pauseIcon);
+            isPlaying = true;
+            player.play(musicList.get(songNumber), musicSlider);
+            long duaration = player.getDuration();
+            String secondsString = "";
+            int minutes = (int) (duaration % (1000 * 60 * 60)) / (1000 * 60);
+            int seconds = (int) ((duaration % (1000 * 60 * 60)) % (1000 * 60) / 1000);
+            if (seconds == 10) {
+                secondsString = "0" + seconds;
+            } else {
+                secondsString = "" + seconds;
+            }
+            labelDuration.setText(minutes + ":" + secondsString);
+
         }
     }
 
@@ -342,13 +360,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
             if (event.getSource() == play) {//Resume
                 if (!isPlaying) {
                     play.setIcon(pauseIcon);
-                    if (musicList.size()==0){
-                        Account a =new Account("Delaram");
-                        Core.initialLoadSongs(a.getMusics(),a.getAlbums());
-                        a.addMusic("E:\\Codes\\Java\\Project\\Jpotify\\src\\Musics\\01 - Rolling In The Deep.mp3");//0
-                        updateList(a.getMusics());
-                    }
-                    else player.resume();
+                    player.resume();
                     isPlaying = true;
 
                 } else {//Pause
@@ -365,6 +377,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
                 } else {
                     rePlay.setIcon(replayOff);
+                    player.setRepeat(false);
                     isReplay = false;
 
                 }
@@ -392,4 +405,5 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         } catch (Exception e) {
         }
     }
+
 }

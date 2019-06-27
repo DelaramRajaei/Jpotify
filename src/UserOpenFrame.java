@@ -90,7 +90,7 @@ public class UserOpenFrame extends JFrame implements ActionListener {
         gridBagConstraints.insets = new java.awt.Insets(50, 18, 0, 0);
         jPanel1.add(jTextField1, gridBagConstraints);
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/entery.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/entery.png"))); // NOI18N
         jLabel4.setText("jLabel4");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 6;

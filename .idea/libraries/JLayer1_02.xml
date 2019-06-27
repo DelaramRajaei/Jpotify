@@ -1,5 +1,5 @@
 <component name="libraryTable">
-  <library name="JLayer1.0">
+  <library name="JLayer1.02">
     <CLASSES>
       <root url="file://$PROJECT_DIR$/src/Libraries/JLayer1.0.1" />
     </CLASSES>
@@ -8,7 +8,6 @@
     </JAVADOC>
     <SOURCES>
       <root url="file://$PROJECT_DIR$/src/Libraries/JLayer1.0.1/src" />
-      <root url="file://$PROJECT_DIR$/src/Libraries/JLayer1.0.1/srctest" />
     </SOURCES>
     <jarDirectory url="file://$PROJECT_DIR$/src/Libraries/JLayer1.0.1" recursive="false" />
   </library>

@@ -13,14 +13,11 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-
-        // UserOpenFrame userOpenFrame = new UserOpenFrame();
         Account a = new Account("Delaram");
-        AccountManagement accountManagement=new AccountManagement(a);
-        // a.addMusic("E:\\Codes\\Java\\Project\\Jpotify\\src\\Musics\\01 - Rolling In The Deep.mp3");//0
         Core.initialLoad(a);
-
-
+        UserOpenFrame UOF = new UserOpenFrame();
+        String accountName=UOF.getUserNAme();
+        a.setName(accountName);
 
         SocialNetwork socialNetwork = new SocialNetwork(a.getFriends(),a);
         socialNetwork.startServer();
@@ -45,7 +42,8 @@ public class Main {
 
         //ArrayList<Music> am=new ArrayList<>();
         //am.add(AccountManagement.getActiveAccount().getMusics().get(0));
-        AccountManagement.musicBarP.updateList(am);
+        AccountManagement.musicBarP.updateList(a.getMusics());
+
         Core.savePlaylistFileName();
 
 

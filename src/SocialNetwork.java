@@ -63,6 +63,7 @@ public class SocialNetwork {
                 updateFriendMusic(IP, message);
                 break;
             case "getmusic":
+
                 break;
             case "invitation":
                 break;
@@ -71,9 +72,11 @@ public class SocialNetwork {
 
     private void updateFriendMusic(String ip, String message) throws Exception {
         FriendsActivityPanel friendsActivityPanel = new FriendsActivityPanel();
-        if (friendsActivityPanel.getFriends().size() != 0)
-            friendsActivityPanel.getFriends();
         ArrayList<FriendPanel> friendPanels = new ArrayList<FriendPanel>();
+        if (friendsActivityPanel.getFriends().size() != 0) {
+            friendsActivityPanel.getFriends();
+            friendPanels=friendsActivityPanel.getFriends();
+        }
         for (Friend friend : friendsList) {
             if (ip.equals(friend.getIP())) {
                 FriendPanel friendPanel = new FriendPanel(account);

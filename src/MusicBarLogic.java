@@ -1,8 +1,13 @@
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Objects;
 
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
+
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 
 public class MusicBarLogic {
@@ -13,10 +18,13 @@ public class MusicBarLogic {
     private long totalLengthSize = 0;
     private boolean repeat;
     private boolean paused;
+    private ChangeListener listener;
+    private long duration;
 
-    public void play(Music music) throws Exception {
+    public void play(Music music, JSlider musicSlider) throws Exception {
         currentMusic = music;
         audioInputStream = new FileInputStream(music.getDirectory());
+        duration = Objects.requireNonNull(audioInputStream).getChannel().size();
         player = new Player(audioInputStream);
         totalLengthSize = audioInputStream.available();
         new Thread(new Runnable() {
@@ -24,14 +32,16 @@ public class MusicBarLogic {
             public void run() {
                 try {
                     player.play();
+                    musicSlider.setValue(0);
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
                 }
             }
         }).start();
-        if (player.isComplete() && repeat)
+    }
 
-            play(currentMusic);
+    public void musicSlider(int length) {
+
     }
 
     public void pause() throws Exception {
@@ -59,6 +69,18 @@ public class MusicBarLogic {
         }).start();
     }
 
+    public void repeat(JSlider musicSlider) throws Exception {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        }).join();
+        if (player.isComplete() && repeat) {
+            play(currentMusic, musicSlider);
+            musicSlider.setValue(0);
+        }
+    }
 
     public void stop() throws Exception {
         paused = false;
@@ -88,5 +110,17 @@ public class MusicBarLogic {
     public void setPaused(boolean paused) {
         this.paused = paused;
     }
-}
+
+    public Long getDuration() {
+        return duration;
+    }
+        public void run() {
+            try {
+                player.play();
+            } catch (JavaLayerException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
 

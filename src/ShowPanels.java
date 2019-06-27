@@ -15,7 +15,7 @@ public class ShowPanels extends JPanel implements ActionListener {
     //albums /show songs of album/
 
     //songs of play list /rename playlist /show musics /order musics /play
-    //TODO a childe of this class that hase a button to renaem plaulist name
+    //TODO a child of this class that has a button to rename playlist name
 
 
 
@@ -140,7 +140,7 @@ public class ShowPanels extends JPanel implements ActionListener {
 
     }
 
-    // TODO 3 ta boolian fals yekish true ke to action li
+    // TODO 3 ta boolean fals yekish true ke to action li
 
 
     @Override
