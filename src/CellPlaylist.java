@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -19,6 +20,17 @@ public class CellPlaylist extends CellShowJpanel implements ActionListener {
 
         playList=p;
         this.song=song;
+
+
+        ImageIcon c=song.getImage() ;
+        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
+        image.setPreferredSize(new Dimension(150,150));
+
+        image.setIcon(i);
+        l1.setText(song.getName());
+        l2.setText("Artist : "+song.getArtist());
+        l3.setText("Album : "+song.getAlbum());
+
 
         next= new JButton("|>");
         previous= new JButton("|>");
@@ -68,7 +80,7 @@ public class CellPlaylist extends CellShowJpanel implements ActionListener {
                 CellPlaylist c = new CellPlaylist(playList,m);
                 ac.add(c);
             }
-            AccountManagement.showPanels.showSongPlaylist(ac);
+            AccountManagement.showPanels.showSongPlaylist(ac,playList);
 
         }
         else if(e.getSource()==previous){
@@ -87,7 +99,7 @@ public class CellPlaylist extends CellShowJpanel implements ActionListener {
                 CellPlaylist c = new CellPlaylist(playList,m);
                 ac.add(c);
             }
-            AccountManagement.showPanels.showSongPlaylist(ac);
+            AccountManagement.showPanels.showSongPlaylist(ac,playList);
 
         }
 
@@ -99,7 +111,7 @@ public class CellPlaylist extends CellShowJpanel implements ActionListener {
                 CellPlaylist c = new CellPlaylist(playList,m);
                 ac.add(c);
             }
-            AccountManagement.showPanels.showSongPlaylist(ac);
+            AccountManagement.showPanels.showSongPlaylist(ac,playList);
         }
 
 

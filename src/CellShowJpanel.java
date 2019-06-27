@@ -31,6 +31,7 @@ public class CellShowJpanel extends JPanel  {
     protected JMenu more;
 
     public CellShowJpanel() {
+        buttonsPanel=new JPanel();
 
         Music song=AccountManagement.getActiveAccount().getMusics().get(0);
         ImageIcon c=new ImageIcon(song.getImage().getImage());

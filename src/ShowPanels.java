@@ -2,9 +2,11 @@
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ShowPanels extends JPanel{
+public class ShowPanels extends JPanel implements ActionListener {
 
     private ArrayList<CellShowJpanel>panels;
 
@@ -18,8 +20,8 @@ public class ShowPanels extends JPanel{
 
 
 
-
-    private JButton temp;
+    protected JPanel contentPanel;
+    protected JPanel buttonsPanel;
     private CellSongs c1;
     private CellShowJpanel c2;
     private CellShowJpanel c3;
@@ -35,6 +37,11 @@ public class ShowPanels extends JPanel{
     private CellShowJpanel c33;
     private CellShowJpanel c44;
     private CellShowJpanel c55;
+    private PlayList playList;
+
+    private JButton rename;
+    private JButton delete;
+    private JTextField jTextField;
 
 
 
@@ -43,12 +50,28 @@ public class ShowPanels extends JPanel{
     public ShowPanels()  {
 
 
+        contentPanel = new JPanel();
+        buttonsPanel=new JPanel();
         //panels=new ArrayList<>();
         panels=new ArrayList<CellShowJpanel>();
 
 
-        this.setBackground(new Color(51,51,100));
-        this.setLayout(new FlowLayout());
+        rename=new JButton("RENAME");
+        delete=new JButton("DELETE");
+        jTextField=new JTextField();
+        delete.addActionListener(this);
+        rename.addActionListener(this);
+
+        contentPanel.setBackground(new Color(0,0,0));
+        contentPanel.setLayout(new FlowLayout());
+        buttonsPanel.setBackground(new Color(22,5,33));
+        this.setLayout(new GridLayout(2,1));
+        this.add(contentPanel);
+        this.add(buttonsPanel);
+
+
+
+
         c1=new CellSongs(AccountManagement.getActiveAccount().getMusics().get(0));
         c2=new CellShowJpanel();
         c3=new CellShowJpanel();
@@ -81,15 +104,6 @@ public class ShowPanels extends JPanel{
         panels.add(c55);
         showCellsMethod(panels);
 
-        //JScrollPane scrollPane = new JScrollPane(this);
-        //scrollPane.add(this
-        // this.add(scrollPane);
-        //this.getAutoscrolls();
-        //this.setVisible(true);
-
-
-
-
 
     }
 
@@ -97,7 +111,7 @@ public class ShowPanels extends JPanel{
     public void showCellsMethod (ArrayList<CellShowJpanel> cells){
         this.removeAll();
         for(CellShowJpanel cell : cells){
-            this.add(cell);
+            contentPanel.add(cell);
         }
 
     }
@@ -105,27 +119,43 @@ public class ShowPanels extends JPanel{
     public void showSongCellMethod (ArrayList<CellSongs> cells){
         this.removeAll();
         for(CellSongs cell : cells){
-            this.add(cell);
+            contentPanel.add(cell);
         }
     }
 
     public void showAlbumCellMethod (ArrayList<CallAlbums> cells){
         this.removeAll();
         for(CallAlbums cell : cells){
-            this.add(cell);
+            contentPanel.add(cell);
         }}
 
-        public void showSongPlaylist (ArrayList<CellPlaylist> cells){
+        public void showSongPlaylist (ArrayList<CellPlaylist> cells,PlayList playList){
+        this.playList=playList;
             this.removeAll();
             for(CellPlaylist cell : cells){
-                this.add(cell);
+                contentPanel.add(cell);
             }
+            this.add(delete);
+            this.add(rename);
 
     }
 
+    // TODO 3 ta boolian fals yekish true ke to action li
 
 
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==delete){
+            AccountManagement.getActiveAccount().removePlaylist(playList);
 
+        }
+        else if(e.getSource()==rename){
+            String name =jTextField.getText();
 
+            for (ClientPlayList cpl:AccountManagement.getActiveAccount().getClientPlayLists()){
+                if (cpl==playList){cpl.editName(name);break;}
+            }
+        }
     }
+}
 

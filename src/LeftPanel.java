@@ -19,11 +19,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
  * @author Darya
  */
+
 public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
 
@@ -31,6 +33,15 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
     public static String audioFilePath;
     private String lastOpenPath;
+
+    private JButton addMusic;
+    private JButton albumsButton;
+    private JButton addPlaylist;
+    private JList<PlayList> jplaylist;
+
+
+    private JButton songsButton;
+
 
 
     public LeftPanel() {
@@ -48,13 +59,12 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         albumsButton = new javax.swing.JButton();
         addMusic = new javax.swing.JButton();
         addPlaylist = new javax.swing.JButton();
-        playlistMenu= new JList<String>();
-        playlistMenu.addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
 
-            }
-        });
+        jplaylist = new JList<>();
+        setJlistPlayList();
+
+        //TODOOOOOOOOOOOOO
+
 
         setBackground(new java.awt.Color(51, 51, 51));
         setMinimumSize(new java.awt.Dimension(120, 500));
@@ -123,13 +133,6 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         gridBagConstraints.insets = new java.awt.Insets(18, 22, 0, 0);
         add(addPlaylist, gridBagConstraints);
 
-
-
-
-
-
-
-
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 5;
@@ -141,20 +144,8 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         gridBagConstraints.weighty = 1.0;
         gridBagConstraints.insets = new java.awt.Insets(7, 22, 13, 0);
 
-
         addPlaylist.addActionListener((ActionListener) this);
         addMusic.addActionListener(this);
-
-
-
-
-
-
-
-
-
-
-
 
     }
 
@@ -163,12 +154,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
     }
 
 
-    private javax.swing.JButton addMusic;
-    private javax.swing.JButton albumsButton;
-    private javax.swing.JButton addPlaylist;
-    private JList playlistMenu;
 
-    private javax.swing.JButton songsButton;
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -225,6 +211,34 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
     }
 
 
+    private void setJlistPlayList(){
+
+        DefaultListModel<PlayList> model = new DefaultListModel<>();
+        jplaylist.setModel(model);
+
+        for(PlayList p:AccountManagement.getActiveAccount().getPlayLists()){
+            model.addElement(p);
+
+        }
+
+        jplaylist.getSelectionModel().addListSelectionListener(e -> {
+            PlayList p = jplaylist.getSelectedValue();
+            AccountManagement.showPanels.showSongPlaylist(actionJlistPlaylist(p),p);
+
+
+        });
+
+    }
+
+
+    private ArrayList<CellPlaylist> actionJlistPlaylist(PlayList p){
+        ArrayList<CellPlaylist>cshp=new ArrayList<>();
+        for (Music m:p.getMusic()){
+            CellPlaylist cp=new CellPlaylist(p,m);
+            cshp.add(cp);
+        }
+        return cshp;
+    }
 
 
 
