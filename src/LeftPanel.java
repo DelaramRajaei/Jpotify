@@ -144,6 +144,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
         addPlaylist.addActionListener( this);
         addMusic.addActionListener(this);
+        albumsButton.addActionListener(this);
 
 
 
@@ -209,7 +210,16 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
                     acs.add(cs);
                 }
                 AccountManagement.showPanels.showSongCellMethod(acs);
-            }
+            }else
+                if(source==albumsButton){
+
+                    ArrayList<CallAlbums> aca = new ArrayList<>();
+                    for(Album a:AccountManagement.getActiveAccount().getAlbums()){
+                        CallAlbums ca = new CallAlbums(a);
+                        aca.add(ca);
+                    }
+                    AccountManagement.showPanels.showAlbumCellMethod(aca);
+                }
 
     }
 
