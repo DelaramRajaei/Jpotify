@@ -38,7 +38,7 @@ public class Friend {
         return lastCommunicationDate;
     }
 
-    public void setLastCommunicationDate(BaseCalendar.Date lastCommunicationDate) {
+    public void setLastCommunicationDate(LocalDate lastCommunicationDate) {
         this.lastCommunicationDate = lastCommunicationDate;
     }
 

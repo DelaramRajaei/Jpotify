@@ -170,7 +170,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         Object source=e.getSource();
         if(source==addPlaylist){
 
-            NewPlayListPanel newPlaylistPanel=new NewPlayListPanel();
+            NewPlayList newPlaylistPanel=new NewPlayList();
             newPlaylistPanel.setVisible(true);
             AccountManagement.getActiveAccount().createPlayList(newPlaylistPanel.getPlaylistName());
             System.out.println("new Playlist: "+newPlaylistPanel.getPlaylistName());
@@ -194,14 +194,18 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
 
             if(source==addMusic){
-                openFile();
+                try {
+                    openFile();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
 
 
-        }
+            }
 
     }
 
-    public void openFile(){
+    public void openFile()throws Exception{
         System.out.println("open pressed");
         JFileChooser fileChooser = new JFileChooser();
         FileFilter filter = new FileNameExtensionFilter("MP3 File","mp3");

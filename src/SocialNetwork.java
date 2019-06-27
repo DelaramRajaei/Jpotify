@@ -102,9 +102,9 @@ public class SocialNetwork {
     }
 
     public void sendStatusToAll(UserStatus us) {
-        for (Friend friend : friendsList) {
-            sendStatus(us, friend.getIP());
-        }
+            for (Friend friend : friendsList) {
+                sendStatus(us, friend.getIP());
+            }
     }
 
     public void sendStatus(UserStatus us, String IP) {

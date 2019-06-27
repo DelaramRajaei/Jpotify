@@ -11,6 +11,7 @@ public class Account {
     private FavoriteSongs favoriteSongs;
     private SharedPlayList sharedPlayList;
     private ArrayList<PlayList> playLists;
+    private ArrayList<Friend> friends;
 
 
     public Account(String name) {
@@ -30,6 +31,7 @@ public class Account {
                 playLists.add(eachOne);
             }
         }
+        friends=new ArrayList<Friend>();
     }
 
     /**
@@ -37,7 +39,7 @@ public class Account {
      *
      * @param directory Path of the new song.
      */
-    public void addMusic(String directory) {
+    public void addMusic(String directory)throws  Exception {
         Music music = new Music(directory);
         musics.add(music);
         Core.addSong(music, albums);
@@ -124,5 +126,13 @@ public class Account {
 
     public ArrayList<Album> getAlbums() {
         return albums;
+    }
+
+    public ArrayList<Friend> getFriends() {
+        return friends;
+    }
+
+    public void setFriends(ArrayList<Friend> friends) {
+        this.friends = friends;
     }
 }

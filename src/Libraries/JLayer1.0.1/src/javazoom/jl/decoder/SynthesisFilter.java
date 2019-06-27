@@ -1618,7 +1618,7 @@ private void compute_pcm_samples(Obuffer buffer)
 		try
 		{
 			Class elemType = Float.TYPE;
-			Object o = JavaLayerUtils.deserializeArrayResource("sfd.ser", elemType, 512);
+			Object o = javazoom.jl.decoder.JavaLayerUtils.deserializeArrayResource("sfd.ser", elemType, 512);
 			return (float[])o;
 		}
 		catch (IOException ex)
