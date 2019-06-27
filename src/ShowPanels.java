@@ -135,10 +135,13 @@ public class ShowPanels extends JPanel implements ActionListener {
     }
 
     public void showAlbumCellMethod (ArrayList<CallAlbums> cells){
-        this.removeAll();
+        contentPanel.removeAll();
         for(CallAlbums cell : cells){
             contentPanel.add(cell);
-        }}
+        }
+        this.setVisible(false);
+        this.setVisible(true);
+        }
 
         public void showSongPlaylist (ArrayList<CellPlaylist> cells,PlayList playList){
         this.playList=playList;
