@@ -55,7 +55,7 @@ public class MusicBarLogic {
             public void run() {
                 try {
                     pausedLocation = audioInputStream.available();
-                    musicSlider.setValue((int)((totalLengthSize-pausedLocation)/totalLengthSize)*100);
+                    musicSlider.setValue((int) ((totalLengthSize - pausedLocation) / totalLengthSize) * 100);
                     Thread.sleep(1000);
                 } catch (Exception e) {
                 }
@@ -128,9 +128,13 @@ public class MusicBarLogic {
         return duration;
     }
 
+    /**
+     * @param duration
+     * @return
+     */
     public String convertDuration(long duration) {
         String out = null;
-        long hours=0;
+        long hours = 0;
         try {
             hours = (duration / 3600000);
         } catch (Exception e) {
@@ -161,12 +165,55 @@ public class MusicBarLogic {
     }
 
 
+    /**
+     * @param musicList
+     * @param music
+     */
     public void changeTimePlayed(ArrayList<Music> musicList, Music music) {
         music.setLastTimePlayed(0);
         for (Music eachMusic : musicList)
             if (!(music.getName().equals(eachMusic.getName()))) {
                 eachMusic.setLastTimePlayed(eachMusic.getLastTimePlayed() + 1);
             }
+
+    }
+
+    /**
+     * @param labelTimeCounter
+     */
+    public void setLabelTimeCounter(JLabel labelTimeCounter) {
+
+        new Thread(new Runnable() {
+            int sec = 0;
+            int min = 0;
+            String minutes;
+            String second;
+
+            @Override
+            public void run() {
+                try {
+                    while (!player.isComplete()) {
+                        if (min < 10) {
+                            minutes = "0" + min;
+                        }
+                        else minutes = min + "";
+                        if (sec < 10) {
+                            second = "0" + sec;
+                        }
+                        else second = sec + "";
+                    }
+                    labelTimeCounter.setText(minutes+second);
+                    Thread.sleep(1000);
+                    sec++;
+                    if (sec >= 60) min++;
+
+                } catch (
+                        Exception e) {
+                }
+            }
+        }).
+
+                start();
 
     }
 }
