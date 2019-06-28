@@ -10,11 +10,10 @@
     <orderEntry type="library" name="jaaaaa" level="project" />
     <orderEntry type="library" name="docs" level="project" />
     <orderEntry type="library" name="jl-1.0.1" level="project" />
-    <orderEntry type="library" name="jl-1.0" level="project" />
     <orderEntry type="library" name="jl1.0" level="project" />
     <orderEntry type="library" name="JLayer1.02" level="project" />
     <orderEntry type="library" name="jaudiotagger-2.0.2" level="project" />
     <orderEntry type="library" name="jmf-2.1.1e" level="project" />
-    <orderEntry type="library" name="mp3agic-0.8.11" level="project" />
+    <orderEntry type="library" name="mp3agic-0.8.1" level="project" />
   </component>
 </module>

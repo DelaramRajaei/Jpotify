@@ -1,6 +1,7 @@
 import java.beans.Encoder;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,7 +41,7 @@ public class MusicBarLogic {
             public void run() {
                 try {
                     player.play();
-                    musicSlider.setValue(0);
+                    musicSlider(musicSlider);
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
                 }
@@ -48,7 +49,19 @@ public class MusicBarLogic {
         }).start();
     }
 
-    public void musicSlider(int length) {
+    public void musicSlider(JSlider musicSlider) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    pausedLocation = audioInputStream.available();
+                    musicSlider.setValue((int) ((totalLengthSize - pausedLocation) / totalLengthSize) * 100);
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                }
+            }
+
+        }).start();
 
     }
 
@@ -77,18 +90,6 @@ public class MusicBarLogic {
         }).start();
     }
 
-    public void repeat(JSlider musicSlider) throws Exception {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }).join();
-        if (player.isComplete() && repeat) {
-            play(currentMusic, musicSlider);
-            musicSlider.setValue(0);
-        }
-    }
 
     public void stop() throws Exception {
         paused = false;
@@ -119,51 +120,100 @@ public class MusicBarLogic {
         this.paused = paused;
     }
 
-    public float getDuration(Music music) {
-        Header h= null;
-        FileInputStream file = null;
-        Bitstream bitstream;
-        try {
-            file = new FileInputStream(music.getDirectory());
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Music.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        bitstream = new Bitstream(file);
-        try {
-            h = bitstream.readFrame();
-
-        } catch (BitstreamException ex) {
-            Logger.getLogger(Music.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        int size = h.calculate_framesize();
-        float ms_per_frame = h.ms_per_frame();
-        int maxSize = h.max_number_of_frames(10000);
-        float t = h.total_ms(size);
-        long tn = 0;
-        try {
-            tn = file.getChannel().size();
-        } catch (IOException ex) {
-            Logger.getLogger(Music.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        //System.out.println("Chanel: " + file.getChannel().size());
-        int min = h.min_number_of_frames(500);
-        return h.total_ms((int) tn)/1000;
+    public long getDuration(Music music) throws Exception {
+        File file = new File(music.getDirectory());
+        AudioFileFormat baseFileFormat = AudioSystem.getAudioFileFormat(file);
+        Map properties = baseFileFormat.properties();
+        Long duration = (Long) properties.get("duration");
+        return duration;
     }
 
-    public void run() {
+    /**
+     * @param duration
+     * @return
+     */
+    public String convertDuration(long duration) {
+        String out = null;
+        long hours = 0;
         try {
-            player.play();
-        } catch (JavaLayerException e) {
+            hours = (duration / 3600000);
+        } catch (Exception e) {
             e.printStackTrace();
+            return out;
         }
+        long remaining_minutes = (duration - (hours * 3600000)) / 60000;
+        String minutes = String.valueOf(remaining_minutes);
+        if (minutes.equals(0)) {
+            minutes = "00";
+        }
+        long remaining_seconds = (duration - (hours * 3600000) - (remaining_minutes * 60000));
+        String seconds = String.valueOf(remaining_seconds);
+        if (seconds.length() < 2) {
+            seconds = "00";
+        } else {
+            seconds = seconds.substring(0, 2);
+        }
+
+        if (hours > 0) {
+            out = hours + ":" + minutes + ":" + seconds;
+        } else {
+            out = minutes + ":" + seconds;
+        }
+
+        return out;
+
     }
 
+
+    /**
+     * @param musicList
+     * @param music
+     */
     public void changeTimePlayed(ArrayList<Music> musicList, Music music) {
         music.setLastTimePlayed(0);
         for (Music eachMusic : musicList)
             if (!(music.getName().equals(eachMusic.getName()))) {
                 eachMusic.setLastTimePlayed(eachMusic.getLastTimePlayed() + 1);
             }
+
+    }
+
+    /**
+     * @param labelTimeCounter
+     */
+    public void setLabelTimeCounter(JLabel labelTimeCounter) {
+
+        new Thread(new Runnable() {
+            int sec = 0;
+            int min = 0;
+            String minutes;
+            String second;
+
+            @Override
+            public void run() {
+                try {
+                    while (!player.isComplete()) {
+                        if (min < 10) {
+                            minutes = "0" + min;
+                        }
+                        else minutes = min + "";
+                        if (sec < 10) {
+                            second = "0" + sec;
+                        }
+                        else second = sec + "";
+                    }
+                    labelTimeCounter.setText(minutes+second);
+                    Thread.sleep(1000);
+                    sec++;
+                    if (sec >= 60) min++;
+
+                } catch (
+                        Exception e) {
+                }
+            }
+        }).
+
+                start();
 
     }
 }

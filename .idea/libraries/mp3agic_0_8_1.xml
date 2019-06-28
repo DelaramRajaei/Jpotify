@@ -1,7 +1,7 @@
 <component name="libraryTable">
-  <library name="jl-1.0">
+  <library name="mp3agic-0.8.1">
     <CLASSES>
-      <root url="file://$USER_HOME$/Downloads/jl-1.0.1" />
+      <root url="jar://$PROJECT_DIR$/src/Libraries/mp3agic-0.8.1.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

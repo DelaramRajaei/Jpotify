@@ -60,6 +60,14 @@ public class Account {
         playLists.add(newPlaylist);
         Core.createPlaylist(newPlaylist, playLists);
     }
+    public ArrayList<Music> search(String search){
+        ArrayList<Music> searchMusic=new ArrayList<Music>();
+        for (Music music:musics){
+            if (music.getName().equals(search))searchMusic.add(music);
+            else if (music.getArtist().equals(search))searchMusic.add(music);
+        }
+        return searchMusic;
+    }
 
     /**
      * Add a new friend to your list and save it.
