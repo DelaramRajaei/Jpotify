@@ -79,12 +79,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         musicSlider = new JSlider(0, 100, 0);
         musicSlider.setMajorTickSpacing(5);
         musicSlider.setPaintTicks(true);
-        musicSlider.addChangeListener(new ChangeListener() {
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                player.musicSlider(musicSlider.getValue() / 100);
-            }
-        });
+
 
         play.setIcon(playIcon);
         play.setFont(new Font("Sans", Font.BOLD, 14));
@@ -342,9 +337,9 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
             player.play(musicList.get(songNumber), musicSlider);
             player.changeTimePlayed(AccountManagement.getActiveAccount().getMusics(), musicList.get(songNumber));
 
-            float duaration = player.getDuration(musicList.get(songNumber));
 
-            labelDuration.setText(du);
+            String duration = player.convertDuration(player.getDuration(musicList.get(songNumber)));
+            labelDuration.setText(duration);
 
             musicList.sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
             AccountManagement.getActiveAccount().getMusics().sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
@@ -353,7 +348,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
     }
 
     @Override
-    public void actionPerformed (ActionEvent event){
+    public void actionPerformed(ActionEvent event) {
 
         try {
             if (event.getSource() == play) {//Resume
