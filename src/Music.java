@@ -25,6 +25,7 @@ public class Music {
     private int lastTimePlayed;
 
     public Music(String directory) throws Exception {
+        lastTimePlayed=0;
         playLists = new ArrayList<PlayList>();
         try {
             file = new File(directory);
