@@ -65,7 +65,7 @@ public class SocialNetwork {
                 // sendMusic(IP, message.split(",")[1],);
                 break;
             case "sendMusic":
-                getMusic(message);
+                //getMusic(,message);//TODO How to get DataInputStream
                 break;
             case "invitation":
                 answerInvitation(IP);
@@ -84,10 +84,19 @@ public class SocialNetwork {
         account.addFriend(newFriend);
     }
 
-    private void getMusic(String message) throws Exception {
-        DataInputStream readHolder;
-
-
+    private void getMusic(DataInputStream read, String message) throws Exception {
+        DataInputStream readHolder = read;
+        String fileName = readHolder.readLine();
+        int fileLength=Integer.parseInt(readHolder.readLine());
+        byte[] fileData =new byte[fileLength];
+        readHolder.readFully(fileData);
+        File file=new File("Files");
+        if (!file.exists())file.mkdir();//Make a Folder
+        File newFile=new File(file,fileName);
+        FileOutputStream fos=new FileOutputStream(newFile);
+        fos.write(fileData);
+        fos.flush();
+        fos.close();
     }
 
     private void sendMusic(String IP, Socket socket, String nameMusic) throws Exception {
@@ -97,12 +106,11 @@ public class SocialNetwork {
         int length;
         Socket client = new Socket(IP, 6666);
         OutputStream outputStream = client.getOutputStream();
-        PrintWriter writer = new PrintWriter(outputStream,true);
+        PrintWriter writer = new PrintWriter(outputStream, true);
         DataInputStream dataInputStream;
         String str = "sendMusic";
         outputStream.write(str.getBytes());
         outputStream.flush();
-
 
 
         for (Music music : account.getMusics())
@@ -114,7 +122,6 @@ public class SocialNetwork {
                 bytes = new byte[length];
                 dataInputStream.readFully(bytes);
 
-                writer.println("sendMusic");
                 writer.println(newMusics);
                 writer.println(length);
             }
