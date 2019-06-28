@@ -68,8 +68,12 @@ public class Account {
      * @throws Exception
      */
     public void addFriend(Friend friend) throws Exception {
-        friends.add(friend);
-        Core.addFriend(friends);
+        for (Friend eachFriend : friends) {
+            if (!(eachFriend.getIP().equals(friend.getIP()))) {
+                friends.add(friend);
+                Core.addFriend(friends);
+            }
+        }
     }
 
     /**

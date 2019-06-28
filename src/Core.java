@@ -313,11 +313,11 @@ public class Core {
         InetAddress IP=null;
         accountFile = new File(FILE_PATH_OF_ACCOUNT);
         try {
+            input = new FileReader(accountFile);
+            reader = new BufferedReader(input);
+            line = reader.readLine();
+            IP= InetAddress.getLocalHost();
             if (accountFile.createNewFile()) {//If the file exists.
-                input = new FileReader(accountFile);
-                reader = new BufferedReader(input);
-                line = reader.readLine();
-                IP= InetAddress.getLocalHost();
                 if (line == null) {
                     UOF = new UserOpenFrame(IP.getHostAddress());
                     while (!UOF.finish) {
@@ -329,7 +329,7 @@ public class Core {
         } catch (Exception e) {
         } finally {
             account = new Account(line);
-            account.setIP(IP.getHostAddress().toString());
+            account.setIP(IP.getHostAddress());
             //File accountFolder = new File(line);
             //accountFolder.mkdir();
             //accountFolder.createNewFile();

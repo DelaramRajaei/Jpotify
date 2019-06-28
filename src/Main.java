@@ -18,7 +18,7 @@ public class Main {
 
         Account account = Core.initialLoad();
 
-        Friend friend = new Friend();
+     /*   Friend friend = new Friend();
         friend.setIP("127.0.0.1");
         friend.setName("Delaram");
         AccountManagement accountManagement = new AccountManagement(account);
@@ -26,7 +26,12 @@ public class Main {
         SocialNetwork socialNetwork = new SocialNetwork(account.getFriends(), account);
         socialNetwork.startServer();
         socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);
-        socialNetwork.askForMusic();
+        socialNetwork.askForMusic(friend.getIP(), "Rolling In The Deep");
+        account.createPlayList("FriendsPlaylist");
+        account.addSongToPlayList(account.getPlayLists().get(2),socialNetwork.getNewMusics().get(0));
+
+*/
+
        /* new Thread(new Runnable() {
             @Override
             public void run(){
@@ -44,9 +49,9 @@ public class Main {
         }).start();*/
 
 
-       /* RootPanel rootPanel = new RootPanel();
+        RootPanel rootPanel = new RootPanel();
         AccountManagement.toolBarPanel.setUserUame();
-*/
+
 
         //ArrayList<Music> am=new ArrayList<>();
         //am.add(AccountManagement.getActiveAccount().getMusics().get(0));
