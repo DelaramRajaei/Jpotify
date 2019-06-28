@@ -2,8 +2,7 @@ import java.util.ArrayList;
 
 public class Account {
     private String name;
-    private int lastActivity;
-    private int IP;
+    private String IP;
 
     private ArrayList<Music> musics;
     private ArrayList<Album> albums;
@@ -150,11 +149,11 @@ public class Account {
         this.name = name;
     }
 
-    public int getIP() {
+    public String getIP() {
         return IP;
     }
 
-    public void setIP(int IP) {
+    public void setIP(String IP) {
         this.IP = IP;
     }
 }

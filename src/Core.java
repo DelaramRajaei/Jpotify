@@ -310,23 +310,26 @@ public class Core {
         BufferedReader reader = null;
         String line = null;
         UserOpenFrame UOF = null;
+        InetAddress IP=null;
         accountFile = new File(FILE_PATH_OF_ACCOUNT);
         try {
             if (accountFile.createNewFile()) {//If the file exists.
                 input = new FileReader(accountFile);
                 reader = new BufferedReader(input);
                 line = reader.readLine();
+                IP= InetAddress.getLocalHost();
                 if (line == null) {
-                    InetAddress IP = InetAddress.getLocalHost();
                     UOF = new UserOpenFrame(IP.getHostAddress());
                     while (!UOF.finish) {
                     }
                     line = UOF.getUserNAme();
+
                 }
             }
         } catch (Exception e) {
         } finally {
             account = new Account(line);
+            account.setIP(IP.getHostAddress().toString());
             //File accountFolder = new File(line);
             //accountFolder.mkdir();
             //accountFolder.createNewFile();
