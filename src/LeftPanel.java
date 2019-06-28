@@ -196,13 +196,6 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
 
 
-
-
-
-
-
-
-
         }else
 
 

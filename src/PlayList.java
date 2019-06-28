@@ -1,13 +1,26 @@
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 
 public abstract class PlayList {
     protected String name;
+    private JMenuItem jMenuItem;
     protected boolean editable;
     protected ArrayList<Music> musics;
     protected String fileName;
     public PlayList(){
+
         musics=new ArrayList<Music>();
+    }
+    public void addsongActionListenerItemOfMenuHelloWorld(Music m){
+        jMenuItem=new JMenuItem(new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                addSong(m);
+            }
+        });
+
     }
     public void addSong(Music selectedMusic) {
         musics.add(selectedMusic);
@@ -41,5 +54,13 @@ public abstract class PlayList {
     @Override
     public String toString() {
         return name;
+    }
+
+    public JMenuItem getjMenuItem() {
+        return jMenuItem;
+    }
+
+    public void setjMenuItem(JMenuItem jMenuItem) {
+        this.jMenuItem = jMenuItem;
     }
 }

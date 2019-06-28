@@ -27,46 +27,50 @@ public class CellSongs extends CellShowJpanel implements ActionListener {
         l2.setText("Artist : "+song.getArtist());
         l3.setText("Album : "+song.getAlbum());
 
-        addToPlaylist=new JPopupMenu("Add to playlist");
-        elementPlaylists=new ArrayList<>();
 
-        for(PlayList p:AccountManagement.getActiveAccount().getPlayLists()){
-            JMenuItem j =new JMenuItem(p.getName());
-            elementPlaylists.add(j);
+//        elementPlaylists=new ArrayList<>();
+//        addToPlaylist = new JPopupMenu();
+//        ActionListener menuListener = new ActionListener() {
+//            public void actionPerformed(ActionEvent event) {
+//                System.out.println("Popup menu item ["
+//                        + event.getActionCommand() + "] was pressed.");
+//            }
+//        };
+
+//        JMenuItem item;
+//        for(PlayList p :AccountManagement.getActiveAccount().getPlayLists()) {
+//            addToPlaylist.add(item = new JMenuItem();
+//            item.setHorizontalTextPosition(JMenuItem.RIGHT);
+//            item.addActionListener(menuListener);
+//        }
+
+        addToPlaylist=new JPopupMenu("Add to playlist");
+        for(PlayList p : AccountManagement.getActiveAccount().getPlayLists()){
+            p.addsongActionListenerItemOfMenuHelloWorld(song);
+            addToPlaylist.add(p.getjMenuItem());
+
+
         }
 
         addToPlaylist.addSeparator();
         JMenuItem j=new JMenuItem("new playlist");
-        elementPlaylists.add(j);
-
-        buttonsPanel.add(play);
+//        elementPlaylists.add(j);
         play.addActionListener(this);
 
+        buttonsPanel.add(play);
+        addToPlaylist.setPopupSize(new Dimension(100,100));
+        addToPlaylist.setBackground(new Color(122,133,200));
         buttonsPanel.add(addToPlaylist);
 
-        setAction();
 
     }
 
 
 
-    private void setAction (){
-        for(JMenuItem j : elementPlaylists){
-            j.addActionListener(this);
-        }
-
-    }
 
     @Override
     public void actionPerformed(ActionEvent eve)
     {
-
-        for(PlayList p : AccountManagement.getActiveAccount().getPlayLists()){
-            if(eve.getSource()==p.getName()){//TODO is this line true?
-                p.addSong(song);
-                break;
-            }
-        }
         if(eve.getSource()=="new playlist"){
             NewPlayList npl=new NewPlayList();
             AccountManagement.getActiveAccount().createPlayList(npl.getPlaylistName());
@@ -78,8 +82,6 @@ public class CellSongs extends CellShowJpanel implements ActionListener {
             }
         }
 
-
-
         if(eve.getSource()==play){
             ArrayList<Music> musicArray = new ArrayList();
             musicArray.add(song);
@@ -88,13 +90,8 @@ public class CellSongs extends CellShowJpanel implements ActionListener {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
 
     }
-
-
-
-
 
 }
