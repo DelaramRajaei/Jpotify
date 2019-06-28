@@ -16,9 +16,9 @@ public class Main {
 
         Account account=Core.initialLoad();
 
-        SocialNetwork socialNetwork = new SocialNetwork(account.getFriends(),account);
+        /*SocialNetwork socialNetwork = new SocialNetwork(account.getFriends(),account);
         socialNetwork.startServer();
-        socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);
+        socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);*/
        /* new Thread(new Runnable() {
             @Override
             public void run(){
@@ -34,7 +34,6 @@ public class Main {
                 {}
             }
         }).start();*/
-
         RootPanel rootPanel = new RootPanel();
         AccountManagement.toolBarPanel.setUserUame();
 
