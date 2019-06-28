@@ -6,14 +6,11 @@
 
 
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Random;
 
 /**
  * @author Darya
@@ -46,7 +43,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
     private JLabel powerVoicLable;
 
     private JSlider musicSlider;
-    private JSlider powerVoicSlider;
+    private JSlider powerVoiceSlider;
 
     private JButton next;
     private JButton play;
@@ -75,10 +72,6 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         player = new MusicBarLogic();
         initComponents();
         musicList = new ArrayList<>();
-
-        musicSlider = new JSlider(0, 100, 0);
-        musicSlider.setMajorTickSpacing(5);
-        musicSlider.setPaintTicks(true);
 
 
         play.setIcon(playIcon);
@@ -152,7 +145,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         musicName.setText(musicList.get(songNumber).getName());
         musicArtist.setText(musicList.get(songNumber).getArtist());
         musicAlbum.setText(musicList.get(songNumber).getAlbum());
-        musicPublishYear.setText(musicList.get(songNumber).getYear()+"");
+        musicPublishYear.setText(musicList.get(songNumber).getYear() + "");
         musicName.setForeground(new Color(234, 251, 255));
         musicArtist.setForeground(new Color(234, 251, 255));
         musicAlbum.setForeground(new Color(234, 251, 255));
@@ -193,7 +186,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         rePlay = new javax.swing.JButton();
         powerVoice = new javax.swing.JPanel();
         powerVoicLable = new javax.swing.JLabel();
-        powerVoicSlider = new javax.swing.JSlider();
+        powerVoiceSlider = new javax.swing.JSlider();
 
         setMinimumSize(new java.awt.Dimension(719, 159));
         setPreferredSize(new java.awt.Dimension(800, 159));
@@ -308,7 +301,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         powerVoicLable.setText("Power Voice");
         powerVoicLable.setForeground(new Color(171, 117, 188));
         powerVoice.add(powerVoicLable, BorderLayout.NORTH);
-        powerVoice.add(powerVoicSlider, BorderLayout.SOUTH);
+        powerVoice.add(powerVoiceSlider, BorderLayout.SOUTH);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
@@ -327,6 +320,27 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
     public void updateList(ArrayList<Music> musics) throws Exception {
         musicList = musics;
         if (musicList != null) {
+            if (isReplay) {
+                if (songNumber > musicList.size())
+                    songNumber = 0;
+            }
+            if (isShuffle) {
+                ArrayList<Integer> index = new ArrayList<Integer>();
+                Random rand = new Random();
+                boolean flag = true;
+                while (true) {
+                    int i = rand.nextInt(musicList.size());
+                    for (int n : index) {
+                        if (n == i) flag = false;
+                    }
+                    if (flag) {
+                        songNumber = i;
+                        index.add(i);
+                        break;
+                    }
+                }
+            }
+
             if (songNumber > musics.size()) {
                 songNumber--;
             } else if (songNumber < 0) {
@@ -368,12 +382,10 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
                 if (!isReplay) {
                     rePlay.setIcon(replayOn);
-                    player.setRepeat(true);
                     isReplay = true;
 
                 } else {
                     rePlay.setIcon(replayOff);
-                    player.setRepeat(false);
                     isReplay = false;
 
                 }
@@ -389,7 +401,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
             } else if (event.getSource() == shuffle) {//Shuffle
                 if (!isShuffle) {
                     shuffle.setIcon(shuffleOn);
-                    isShuffle = true;//TODO shuffle
+                    isShuffle = true;
 
                 } else {
                     shuffle.setIcon(shuffleoff);
