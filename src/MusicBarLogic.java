@@ -1,10 +1,18 @@
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.beans.Encoder;
+import java.io.*;
+import java.util.ArrayList;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javazoom.jl.decoder.Bitstream;
+import javazoom.jl.decoder.BitstreamException;
+import javazoom.jl.decoder.Header;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -111,16 +119,53 @@ public class MusicBarLogic {
         this.paused = paused;
     }
 
-    public Long getDuration() {
-        return duration;
+    public float getDuration(Music music) {
+        Header h= null;
+        FileInputStream file = null;
+        Bitstream bitstream;
+        try {
+            file = new FileInputStream(music.getDirectory());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Music.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        bitstream = new Bitstream(file);
+        try {
+            h = bitstream.readFrame();
+
+        } catch (BitstreamException ex) {
+            Logger.getLogger(Music.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        int size = h.calculate_framesize();
+        float ms_per_frame = h.ms_per_frame();
+        int maxSize = h.max_number_of_frames(10000);
+        float t = h.total_ms(size);
+        long tn = 0;
+        try {
+            tn = file.getChannel().size();
+        } catch (IOException ex) {
+            Logger.getLogger(Music.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        //System.out.println("Chanel: " + file.getChannel().size());
+        int min = h.min_number_of_frames(500);
+        return h.total_ms((int) tn)/1000;
     }
-        public void run() {
-            try {
-                player.play();
-            } catch (JavaLayerException e) {
-                e.printStackTrace();
-            }
+
+    public void run() {
+        try {
+            player.play();
+        } catch (JavaLayerException e) {
+            e.printStackTrace();
         }
     }
+
+    public void changeTimePlayed(ArrayList<Music> musicList, Music music) {
+        music.setLastTimePlayed(0);
+        for (Music eachMusic : musicList)
+            if (!(music.getName().equals(eachMusic.getName()))) {
+                eachMusic.setLastTimePlayed(eachMusic.getLastTimePlayed() + 1);
+            }
+
+    }
+}
 
 

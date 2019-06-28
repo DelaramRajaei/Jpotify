@@ -47,6 +47,8 @@ this.setBackground(new Color(22,5,33));
         delete=new JButton("DELETE");
         playTotalArrayButton=new JButton("play all");
         jTextField=new JTextField();
+        jTextField.setPreferredSize(new Dimension(75,25));
+        jTextField.setBackground(new Color(122, 133, 215));
         delete.addActionListener(this);
         rename.addActionListener(this);
         playTotalArrayButton.addActionListener(this);
@@ -87,17 +89,17 @@ this.setBackground(new Color(22,5,33));
         System.out.println("showSongCellMethod");
         contentPanel.removeAll();
         musicArray.removeAll(musicArray);
+        buttonsPanel.remove(rename);
+        buttonsPanel.remove(delete);
+        buttonsPanel.remove(jTextField);
 
 
         for(CellSongs cell : cells){
-            buttonsPanel.remove(rename);
-            buttonsPanel.remove(delete);
-            buttonsPanel.remove(jTextField);
+
             contentPanel.add(cell);
             musicArray.add(cell.song);
 
         }
-        System.out.println(cells.size()+"sizeeeeeeeeeee");
 
         this.add(contentPanel,BorderLayout.NORTH);
         buttonsPanel.add(playTotalArrayButton);
@@ -109,6 +111,10 @@ this.setBackground(new Color(22,5,33));
         contentPanel.removeAll();
         for(CallAlbums cell : cells){
             contentPanel.add(cell);
+
+            buttonsPanel.remove(rename);
+            buttonsPanel.remove(delete);
+            buttonsPanel.remove(jTextField);
         }
         this.setVisible(false);
         this.setVisible(true);
@@ -124,6 +130,7 @@ this.setBackground(new Color(22,5,33));
             }
             buttonsPanel.add(delete);
             buttonsPanel.add(rename);
+            buttonsPanel.add(jTextField);
             buttonsPanel.add(playTotalArrayButton);
 
             this.setVisible(false);
@@ -138,6 +145,8 @@ this.setBackground(new Color(22,5,33));
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==delete){
             AccountManagement.getActiveAccount().removePlaylist(playList);
+            //int index = AccountManagement.leftPanel.jplaylist.getSelectedIndex();
+            AccountManagement.leftPanel.setJlistPlayList();
 
         }
         else if(e.getSource()==rename){
@@ -146,6 +155,8 @@ this.setBackground(new Color(22,5,33));
             for (ClientPlayList cpl:AccountManagement.getActiveAccount().getClientPlayLists()){
                 if (cpl==playList){cpl.editName(name);break;}
             }
+            AccountManagement.getActiveAccount().removePlaylist(playList);
+            AccountManagement.leftPanel.setJlistPlayList();
         }
 
         else if(e.getSource()==playTotalArrayButton){

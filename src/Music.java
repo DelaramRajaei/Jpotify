@@ -22,6 +22,7 @@ public class Music {
     private int year;
     private ArrayList<PlayList> playLists;
     private File file;
+    private int lastTimePlayed;
 
     public Music(String directory) throws Exception {
         playLists = new ArrayList<PlayList>();
@@ -39,7 +40,7 @@ public class Music {
                 name = metaTag.substring(3, 33);
                 artist = metaTag.substring(33, 63);
                 album = metaTag.substring(63, 93);
-               // year = Integer.parseInt(metaTag.substring(93, 97));
+                // year = Integer.parseInt(metaTag.substring(93, 97));
             } else {
                 throw new Exception("Not a ID3v1 TAG");
             }
@@ -98,6 +99,14 @@ public class Music {
 
             }
         }
+    }
+
+    public int getLastTimePlayed() {
+        return lastTimePlayed;
+    }
+
+    public void setLastTimePlayed(int lastTimePlayed) {
+        this.lastTimePlayed = lastTimePlayed;
     }
 }
 

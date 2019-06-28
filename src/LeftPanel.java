@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
-    private DefaultListModel<PlayList> model = new DefaultListModel<>();
+    protected DefaultListModel<PlayList> model = new DefaultListModel<>();
 
     private JButton addMusic;
     private JButton albumsButton;
@@ -29,7 +29,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
     private JScrollPane jScrollPanePlayListList;
     private JButton songsButton;
-    private JList<PlayList> jplaylist;
+    protected JList<PlayList> jplaylist;
 
 
 
@@ -133,6 +133,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         //});
         //jListPlayListList.setFocusable(false);
         jScrollPanePlayListList.setViewportView(jplaylist);
+
         //jListPlayListList.setBackground(new Color(51,51,51));
         //jListPlayListList.setForeground(new Color(241, 254, 255));
 
@@ -263,10 +264,9 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
     }
 
-    private void setJlistPlayList(){
+    protected void setJlistPlayList(){
 
 
-        //DefaultListModel<PlayList> model = new DefaultListModel<>();
         jplaylist.setModel(model);
 
         for(PlayList p:AccountManagement.getActiveAccount().getPlayLists()){
@@ -282,6 +282,8 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
         });
 
+        jplaylist.setVisible(false);
+        jplaylist.setVisible(true);
 
 
     }

@@ -27,7 +27,7 @@ public class CellShowJpanel extends JPanel  {
     protected JLabel l2;
     protected JLabel l3;
 
-    protected JButton playButton;
+    //protected JButton playButton;
     protected JMenu more;
 
     public CellShowJpanel() {

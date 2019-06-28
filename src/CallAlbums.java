@@ -7,8 +7,8 @@ import java.util.ArrayList;
 public class CallAlbums extends CellShowJpanel implements ActionListener
 {
 
-    JButton show;
-    Album album;
+     private JButton show;
+    private Album album;
 
     public CallAlbums (Album album){
         super();
@@ -24,6 +24,7 @@ public class CallAlbums extends CellShowJpanel implements ActionListener
         l2.setText("Artist : "+album.getArtistName());
         l3.setText("Songs Number : "+album.getMusics().size());
 
+        buttonsPanel.add(show);
         show.addActionListener(this);
 
     }
