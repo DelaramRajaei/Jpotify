@@ -310,23 +310,24 @@ public class Core {
         BufferedReader reader = null;
         String line = null;
         UserOpenFrame UOF = null;
-        InetAddress IP=null;
+        InetAddress IP = null;
         accountFile = new File(FILE_PATH_OF_ACCOUNT);
+        accountFile.createNewFile();
         try {
             input = new FileReader(accountFile);
             reader = new BufferedReader(input);
             line = reader.readLine();
-            IP= InetAddress.getLocalHost();
-            if (accountFile.createNewFile()) {//If the file exists.
-                if (line == null) {
-                    UOF = new UserOpenFrame(IP.getHostAddress());
-                    while (!UOF.finish) {
-                    }
-                    line = UOF.getUserNAme();
-
+            IP = InetAddress.getLocalHost();
+            if (line == null) {
+                UOF = new UserOpenFrame(IP.getHostAddress());
+                while (!UOF.finish) {
                 }
+                line = UOF.getUserNAme();
+
+
             }
-        } catch (Exception e) {
+        } catch (
+                Exception e) {
         } finally {
             account = new Account(line);
             account.setIP(IP.getHostAddress());
@@ -347,9 +348,9 @@ public class Core {
         try {
             input = new FileReader(accountFile);
             reader = new BufferedReader(input);
-            fileWriter = new BufferedWriter(new FileWriter(accountFile, true));
             line = reader.readLine();
             if (line == null) {
+                fileWriter = new BufferedWriter(new FileWriter(accountFile, true));
                 fileWriter.write(account.getName());
                 fileWriter.flush();
                 fileWriter.close();
