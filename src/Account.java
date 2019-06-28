@@ -40,8 +40,13 @@ public class Account {
      */
     public void addMusic(String directory) throws Exception {
         Music music = new Music(directory);
-        musics.add(music);
-        Core.addSong(music, albums);
+        for (Music eachMusic : musics) {
+            if (!(eachMusic.getDirectory().equals(directory))) {
+                musics.add(music);
+                Core.addSong(music, albums);
+                break;
+            }
+        }
     }
 
     /**
@@ -58,6 +63,7 @@ public class Account {
 
     /**
      * Add a new friend to your list and save it.
+     *
      * @param friend new friend you wanted to add.
      * @throws Exception
      */

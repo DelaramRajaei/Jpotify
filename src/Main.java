@@ -1,3 +1,4 @@
+import com.sun.security.ntlm.Client;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 import sun.util.calendar.BaseCalendar;
@@ -5,6 +6,7 @@ import sun.util.calendar.BaseCalendar;
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.Socket;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -16,11 +18,15 @@ public class Main {
 
         Account account = Core.initialLoad();
 
-        /*AccountManagement accountManagement = new AccountManagement(account);
+        Friend friend = new Friend();
+        friend.setIP("127.0.0.1");
+        friend.setName("Delaram");
+        AccountManagement accountManagement = new AccountManagement(account);
+        account.addFriend(friend);
         SocialNetwork socialNetwork = new SocialNetwork(account.getFriends(), account);
         socialNetwork.startServer();
         socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);
-        */
+        socialNetwork.askForMusic();
        /* new Thread(new Runnable() {
             @Override
             public void run(){
@@ -36,13 +42,11 @@ public class Main {
                 {}
             }
         }).start();*/
-/*
 
-        RootPanel rootPanel = new RootPanel();
 
+       /* RootPanel rootPanel = new RootPanel();
         AccountManagement.toolBarPanel.setUserUame();
 */
-
 
         //ArrayList<Music> am=new ArrayList<>();
         //am.add(AccountManagement.getActiveAccount().getMusics().get(0));

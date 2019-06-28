@@ -75,7 +75,7 @@ public class SocialNetwork {
         }
     }
 
-    private void addFriend(String IP, String message) throws Exception{
+    private void addFriend(String IP, String message) throws Exception {
         Friend newFriend = new Friend();
         newFriend.setIP(IP);
         newFriend.setName(message.split(",")[1]);
@@ -84,18 +84,18 @@ public class SocialNetwork {
     }
 
     private void getMusic(String IP, String message) throws Exception {
-         newMusics = new ArrayList<Music>();
+        newMusics = new ArrayList<Music>();
         byte[] newMusic = message.getBytes();
         File outputFile = File.createTempFile("file", "mp3");
         outputFile.deleteOnExit();
         FileOutputStream fileoutputstream = new FileOutputStream(outputFile);
         fileoutputstream.write(newMusic);
-        Music music=new Music(outputFile.getAbsoluteFile().toString());
+        Music music = new Music(outputFile.getAbsoluteFile().toString());
         newMusics.add(music);
         fileoutputstream.close();
     }
 
-    public ArrayList<Music> getNewMusics(){
+    public ArrayList<Music> getNewMusics() {
         return newMusics;
     }
 
