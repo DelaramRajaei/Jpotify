@@ -15,18 +15,10 @@ import java.awt.event.ActionListener;
  */
 public class NewPlayList extends JFrame  implements ActionListener {
 
-    /**
-     * Creates new form NewPlayList
-     */
+
     public NewPlayList() {
+        //isFinish=false;
 
-        initComponents();
-        jButton1.addActionListener(this);
-    }
-
-
-    @SuppressWarnings("unchecked")
-    private void initComponents() {
         java.awt.GridBagConstraints gridBagConstraints;
 
         jPanel1 = new javax.swing.JPanel();
@@ -73,11 +65,7 @@ public class NewPlayList extends JFrame  implements ActionListener {
 
         jTextField1.setBackground(new java.awt.Color(190, 209, 253));
         jTextField1.setToolTipText("Your new Playlist Name");
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
@@ -93,11 +81,7 @@ public class NewPlayList extends JFrame  implements ActionListener {
         jButton1.setText("CREATE");
         jButton1.setToolTipText("Create Playlist");
         jButton1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, new java.awt.Color(204, 255, 255), new java.awt.Color(204, 204, 255), new java.awt.Color(102, 153, 255), new java.awt.Color(204, 204, 255)));
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -119,45 +103,18 @@ public class NewPlayList extends JFrame  implements ActionListener {
         jPanel1.add(icon, gridBagConstraints);
 
         getContentPane().add(jPanel1, java.awt.BorderLayout.CENTER);
-
+        jButton1.addActionListener(this);
+        this.setVisible(true);
         pack();
-    }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        System.out.println("xxxx");
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
 
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewPlayList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewPlayList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewPlayList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewPlayList.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    @SuppressWarnings("unchecked")
+    private void initComponents() {
 
-        /* Create and display the form */
-       /* java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new NewPlayList().setVisible(true);
-            }
-        });*/
     }
 
     private String playlistName;
@@ -167,6 +124,7 @@ public class NewPlayList extends JFrame  implements ActionListener {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField jTextField1;
+    private boolean Finish=false;
 
     public String getPlaylistName() {
         return playlistName;
@@ -174,11 +132,19 @@ public class NewPlayList extends JFrame  implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(jTextField1.getText()!=null){
+        if(jButton1==e.getSource()){
             playlistName=jTextField1.getText();
+            System.out.println("actionPerformed"+playlistName);
+            Finish=true;
             //this.dispatchEvent(new WindowEvent(this, WindowEvent.WINDOW_CLOSING));
             //setDefaultCloseOperation(this.DISPOSE_ON_CLOSE);
             setVisible(false);
+            System.out.println("fffffffffffffffffffff");
+
         }
+    }
+
+    public boolean isFinish() {
+        return Finish;
     }
 }

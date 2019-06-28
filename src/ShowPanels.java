@@ -22,25 +22,12 @@ public class ShowPanels extends JPanel implements ActionListener {
 
     protected ContentPanel contentPanel;
     protected JPanel buttonsPanel;
-    private CellSongs c1;
-    private CellShowJpanel c2;
-    private CellShowJpanel c3;
-    private CellShowJpanel c4;
-    private CellShowJpanel c5;
-    private CellShowJpanel c6;
-    private CellShowJpanel c7;
-    private CellShowJpanel c8;
-    private CellShowJpanel c9;
-    private CellShowJpanel c0;
-    private CellShowJpanel c11;
-    private CellShowJpanel c22;
-    private CellShowJpanel c33;
-    private CellShowJpanel c44;
-    private CellShowJpanel c55;
+
     private PlayList playList;
 
     private JButton rename;
     private JButton delete;
+    private JButton playTotalArrayButton;
     private JTextField jTextField;
 
 
@@ -48,7 +35,7 @@ public class ShowPanels extends JPanel implements ActionListener {
 
 
     public ShowPanels()  {
-
+this.setBackground(new Color(22,5,33));
 
         contentPanel = new ContentPanel();
         buttonsPanel=new JPanel();
@@ -58,56 +45,31 @@ public class ShowPanels extends JPanel implements ActionListener {
 
         rename=new JButton("RENAME");
         delete=new JButton("DELETE");
+        playTotalArrayButton=new JButton("play all");
         jTextField=new JTextField();
         delete.addActionListener(this);
         rename.addActionListener(this);
+        playTotalArrayButton.addActionListener(this);
 
         contentPanel.setBackground(new Color(0,0,0));
         contentPanel.setLayout(new FlowLayout());
+        buttonsPanel.setLayout(new FlowLayout());
         buttonsPanel.setBackground(new Color(22,5,33));
-        this.setLayout(new GridLayout(2,1));
-        this.add(contentPanel);
-        this.add(buttonsPanel);
+        this.setLayout(new BorderLayout());
+        this.add(contentPanel,BorderLayout.NORTH);
+        this.add(buttonsPanel,BorderLayout.SOUTH);
 
 
 
 
-      // c1=new CellSongs(AccountManagement.getActiveAccount().getMusics().get(0));
-      // c2=new CellShowJpanel();
-      // c3=new CellShowJpanel();
-      // c4=new CellShowJpanel();
-      // c5=new CellShowJpanel();
-      // c6=new CellShowJpanel();
-      // c7=new CellShowJpanel();
-      // c8=new CellShowJpanel();
-      // c9=new CellShowJpanel();
-      // c0=new CellShowJpanel();
-      // c11=new CellShowJpanel();
-      // c22=new CellShowJpanel();
-      // c33=new CellShowJpanel();
-      // c44=new CellShowJpanel();
-      // c55=new CellShowJpanel();
 
-      // panels.add(c1);
-      // panels.add(c2);
-      // panels.add(c3);
-      // panels.add(c4);
-      // panels.add(c5);
-      // panels.add(c6);
-      // panels.add(c7);
-      // panels.add(c8);
-      // panels.add(c0);
-      // panels.add(c11);
-      // panels.add(c22);
-      // panels.add(c33);
-      // panels.add(c44);
-      // panels.add(c55);
-      // showCellsMethod(panels);
 
 
 
     }
 
+
+    private ArrayList<Music> musicArray=new ArrayList<>();
 
     public void showCellsMethod (ArrayList<CellShowJpanel> cells){
         System.out.println("showCellsMethod");
@@ -124,12 +86,16 @@ public class ShowPanels extends JPanel implements ActionListener {
     public void showSongCellMethod (ArrayList<CellSongs> cells){
         System.out.println("showSongCellMethod");
         contentPanel.removeAll();
+        musicArray.removeAll(musicArray);
 
-       // JPanel jp=new JPanel();
 
         for(CellSongs cell : cells){
             contentPanel.add(cell);
+            musicArray.add(cell.song);
         }
+
+        this.add(contentPanel,BorderLayout.NORTH);
+        buttonsPanel.add(playTotalArrayButton);
         this.setVisible(false);
         this.setVisible(true);
     }
@@ -145,12 +111,20 @@ public class ShowPanels extends JPanel implements ActionListener {
 
         public void showSongPlaylist (ArrayList<CellPlaylist> cells,PlayList playList){
         this.playList=playList;
-            this.removeAll();
+            contentPanel.removeAll();
+            musicArray.removeAll(musicArray);
             for(CellPlaylist cell : cells){
                 contentPanel.add(cell);
+                musicArray.add(cell.song);
             }
-            this.add(delete);
-            this.add(rename);
+            buttonsPanel.add(delete);
+            buttonsPanel.add(rename);
+            buttonsPanel.add(jTextField);
+
+            buttonsPanel.add(playTotalArrayButton);
+
+            this.setVisible(false);
+            this.setVisible(true);
 
     }
 
@@ -168,6 +142,14 @@ public class ShowPanels extends JPanel implements ActionListener {
 
             for (ClientPlayList cpl:AccountManagement.getActiveAccount().getClientPlayLists()){
                 if (cpl==playList){cpl.editName(name);break;}
+            }
+        }
+
+        else if(e.getSource()==playTotalArrayButton){
+            try {
+                AccountManagement.musicBarP.updateList(musicArray);
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
         }
     }

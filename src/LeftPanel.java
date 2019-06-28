@@ -21,6 +21,7 @@ import java.util.ArrayList;
  */
 public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
+    private DefaultListModel<PlayList> model = new DefaultListModel<>();
 
     private JButton addMusic;
     private JButton albumsButton;
@@ -40,6 +41,8 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
     public LeftPanel() {
         jplaylist=new JList<>();
         setJlistPlayList();
+        jplaylist.setForeground(new Color(171, 117, 188));
+        jplaylist.setBackground(new Color(51, 51, 51));
 
         initComponents();
         this.setPreferredSize(new Dimension(150,500));
@@ -173,21 +176,29 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         Object source=e.getSource();
         if(source==addPlaylist){
 
-            NewPlayList newPlaylistPanel=new NewPlayList();
-            newPlaylistPanel.setVisible(true);
-            AccountManagement.getActiveAccount().createPlayList(newPlaylistPanel.getPlaylistName());
-            System.out.println("new Playlist: "+newPlaylistPanel.getPlaylistName());
+            //  NewPlayList newPlaylistPanel=new NewPlayList();
+//
+            String n=JOptionPane.showInputDialog("playlist name : ");
+            AccountManagement.getActiveAccount().createPlayList(n);
+            //  for(int i=0;i<1000000;i++){
+            //      System.out.println(i);
+            //  }
+//while(!newPlaylistPanel.isFinish()){}
+
+            System.out.println("new Playlist: ");
+
+            int x= AccountManagement.getActiveAccount().getPlayLists().size();
+            model.addElement(AccountManagement.getActiveAccount().getPlayLists().get(x - 1));
+            System.out.println(AccountManagement.getActiveAccount().getPlayLists().get(x - 1).getName());
+            jplaylist.setVisible(false);
+            jplaylist.setVisible(true);
 
 
-            int len=AccountManagement.getActiveAccount().getPlayLists().size();
-            String[] playlistsName=new String[len];
-            int i=0;
-            for (PlayList p:AccountManagement.getActiveAccount().getPlayLists()){
-                playlistsName[i]=p.getName();
-                i++;
-            }
 
-            //jListPlayListList=new JList<>(playlistsName);
+
+
+
+
 
 
 
@@ -196,32 +207,40 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
 
 
-            if(source==addMusic){
-                try {
-                    openFile();
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-
-
+        if(source==addMusic){
+            try {
+                openFile();
+            } catch (Exception ex) {
+                ex.printStackTrace();
             }
-            else if(source==songsButton){
-                ArrayList<CellSongs> acs=new ArrayList<>();
-                for(Music m:AccountManagement.getActiveAccount().getMusics()){
-                    CellSongs cs =new CellSongs(m);
-                    acs.add(cs);
-                }
-                AccountManagement.showPanels.showSongCellMethod(acs);
-            }else
-                if(source==albumsButton){
+            ArrayList<CellSongs> acs=new ArrayList<>();
+            for(Music m:AccountManagement.getActiveAccount().getMusics()){
+                CellSongs cs =new CellSongs(m);
+                acs.add(cs);
+            }
+            AccountManagement.showPanels.showSongCellMethod(acs);
 
-                    ArrayList<CallAlbums> aca = new ArrayList<>();
-                    for(Album a:AccountManagement.getActiveAccount().getAlbums()){
-                        CallAlbums ca = new CallAlbums(a);
-                        aca.add(ca);
-                    }
-                    AccountManagement.showPanels.showAlbumCellMethod(aca);
-                }
+
+
+
+        }
+        else if(source==songsButton){
+            ArrayList<CellSongs> acs=new ArrayList<>();
+            for(Music m:AccountManagement.getActiveAccount().getMusics()){
+                CellSongs cs =new CellSongs(m);
+                acs.add(cs);
+            }
+            AccountManagement.showPanels.showSongCellMethod(acs);
+        }else
+        if(source==albumsButton){
+
+            ArrayList<CallAlbums> aca = new ArrayList<>();
+            for(Album a:AccountManagement.getActiveAccount().getAlbums()){
+                CallAlbums ca = new CallAlbums(a);
+                aca.add(ca);
+            }
+            AccountManagement.showPanels.showAlbumCellMethod(aca);
+        }
 
     }
 
@@ -246,20 +265,24 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
     private void setJlistPlayList(){
 
-        DefaultListModel<PlayList> model = new DefaultListModel<>();
+
+        //DefaultListModel<PlayList> model = new DefaultListModel<>();
         jplaylist.setModel(model);
 
         for(PlayList p:AccountManagement.getActiveAccount().getPlayLists()){
             model.addElement(p);
-
         }
 
+
         jplaylist.getSelectionModel().addListSelectionListener(e -> {
+            System.out.println("darya action");
             PlayList p = jplaylist.getSelectedValue();
             AccountManagement.showPanels.showSongPlaylist(actionJlistPlaylist(p),p);
 
 
         });
+
+
 
     }
 

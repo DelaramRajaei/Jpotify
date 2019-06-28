@@ -331,6 +331,8 @@ public class Core {
         } finally {
             account = new Account(line);
             account.setIP(IP.getHostAddress());
+            AccountManagement.setActiveAccount(account);
+
             //File accountFolder = new File(line);
             //accountFolder.mkdir();
             //accountFolder.createNewFile();

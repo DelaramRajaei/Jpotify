@@ -50,7 +50,7 @@ public class Main {
 
 
         RootPanel rootPanel = new RootPanel();
-        AccountManagement.toolBarPanel.setUserUame();
+        //AccountManagement.toolBarPanel.setUserUame();
 
 
         //ArrayList<Music> am=new ArrayList<>();

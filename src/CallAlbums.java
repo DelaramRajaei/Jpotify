@@ -16,14 +16,16 @@ public class CallAlbums extends CellShowJpanel implements ActionListener
         show= new JButton("show songs");
 
         ImageIcon c=album.getAlbumCover() ;
-        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
-        image.setPreferredSize(new Dimension(150,150));
+        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(400,400, Image.SCALE_DEFAULT));
+        image.setPreferredSize(new Dimension(400,400));
         image.setIcon(i);
 
         l1.setText(album.getAlbumName());
         l2.setText("Artist : "+album.getArtistName());
         l3.setText("Songs Number : "+album.getMusics().size());
 
+
+        buttonsPanel.add(show);
         show.addActionListener(this);
 
     }
