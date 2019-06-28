@@ -12,8 +12,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author Darya
@@ -340,69 +339,71 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
             play.setIcon(pauseIcon);
             isPlaying = true;
             player.play(musicList.get(songNumber), musicSlider);
-            player.changeTimePlayed(musicList, musicList.get(songNumber));
-
-            float duaration = player.getDuration(musicList.get(songNumber));
-            String du=""+duaration;
-            labelDuration.setText(du);
-
-            musicList.sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
-            musics.sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
-
+            long duaration = player.getDuration();
+            String secondsString = "";
+            int minutes = (int) (duaration % (1000 * 60 * 60)) / (1000 * 60);
+            int seconds = (int) ((duaration % (1000 * 60 * 60)) % (1000 * 60) / 1000);
+            if (seconds == 10) {
+                secondsString = "0" + seconds;
+            } else {
+                secondsString = "" + seconds;
             }
+            labelDuration.setText(minutes + ":" + secondsString);
+
         }
-
-        @Override
-        public void actionPerformed (ActionEvent event){
-
-            try {
-                if (event.getSource() == play) {//Resume
-                    if (!isPlaying) {
-                        play.setIcon(pauseIcon);
-                        player.resume();
-                        isPlaying = true;
-
-                    } else {//Pause
-                        play.setIcon(playIcon);
-                        isPlaying = false;
-                        player.pause();
-                    }
-                } else if (event.getSource() == rePlay) {//Replay
-
-                    if (!isReplay) {
-                        rePlay.setIcon(replayOn);
-                        player.setRepeat(true);
-                        isReplay = true;
-
-                    } else {
-                        rePlay.setIcon(replayOff);
-                        player.setRepeat(false);
-                        isReplay = false;
-
-                    }
-                } else if (event.getSource() == next) {//Next
-                    player.stop();
-                    songNumber++;
-                    updateList(musicList);
-
-                } else if (event.getSource() == previous) {//Previous
-                    player.stop();
-                    songNumber--;
-                    updateList(musicList);
-                } else if (event.getSource() == shuffle) {//Shuffle
-                    if (!isShuffle) {
-                        shuffle.setIcon(shuffleOn);
-                        isShuffle = true;//TODO shuffle
-
-                    } else {
-                        shuffle.setIcon(shuffleoff);
-                        isShuffle = false;
-
-                    }
-                }
-
-            } catch (Exception e) {
-            }
-        }
-
     }
+
+    @Override
+    public void actionPerformed(ActionEvent event) {
+
+        try {
+            if (event.getSource() == play) {//Resume
+                if (!isPlaying) {
+                    play.setIcon(pauseIcon);
+                    player.resume();
+                    isPlaying = true;
+
+                } else {//Pause
+                    play.setIcon(playIcon);
+                    isPlaying = false;
+                    player.pause();
+                }
+            } else if (event.getSource() == rePlay) {//Replay
+
+                if (!isReplay) {
+                    rePlay.setIcon(replayOn);
+                    player.setRepeat(true);
+                    isReplay = true;
+
+                } else {
+                    rePlay.setIcon(replayOff);
+                    player.setRepeat(false);
+                    isReplay = false;
+
+                }
+            } else if (event.getSource() == next) {//Next
+                player.stop();
+                songNumber++;
+                updateList(musicList);
+
+            } else if (event.getSource() == previous) {//Previous
+                player.stop();
+                songNumber--;
+                updateList(musicList);
+            } else if (event.getSource() == shuffle) {//Shuffle
+                if (!isShuffle) {
+                    shuffle.setIcon(shuffleOn);
+                    isShuffle = true;//TODO shuffle
+
+                } else {
+                    shuffle.setIcon(shuffleoff);
+                    isShuffle = false;
+
+                }
+            }
+
+        } catch (Exception e) {
+        }
+    }
+
+}

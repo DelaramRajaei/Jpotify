@@ -22,7 +22,6 @@ public class Music {
     private int year;
     private ArrayList<PlayList> playLists;
     private File file;
-    private int lastTimePlayed;
 
     public Music(String directory) throws Exception {
         playLists = new ArrayList<PlayList>();
@@ -99,14 +98,6 @@ public class Music {
 
             }
         }
-    }
-
-    public int getLastTimePlayed() {
-        return lastTimePlayed;
-    }
-
-    public void setLastTimePlayed(int lastTimePlayed) {
-        this.lastTimePlayed = lastTimePlayed;
     }
 }
 

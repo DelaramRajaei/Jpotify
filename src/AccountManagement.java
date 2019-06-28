@@ -10,7 +10,7 @@ public class AccountManagement {
     protected static ShowPanels showPanels;
     protected static ToolBarPanel toolBarPanel;
 
-    /*public  AccountManagement(Account active) {
+    public AccountManagement(Account active) {
 
         activeAccount = active;
 
@@ -18,7 +18,8 @@ public class AccountManagement {
         //rootPanel=new RootPanel();
         //rootPanel=new RootPanel( activeAccount, accounts);
 
-    }*/
+    }
+    //TODO IP
 
     public static Account getActiveAccount() {
         return activeAccount;

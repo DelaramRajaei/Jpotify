@@ -1,11 +1,13 @@
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
 public class SocialNetwork {
     private ArrayList<Friend> friendsList;
-    private ArrayList<Music> newMusics;
     ServerSocket serverSocket;
     Socket socket;
     private Account account;
@@ -60,75 +62,27 @@ public class SocialNetwork {
             case "listeninto":
                 updateFriendMusic(IP, message);
                 break;
-            case "askMusic":
-                sendMusic(IP);
+            case "getmusic":
+                sendMusic(message);
                 break;
-            case "sendMusic":
-                getMusic(message);
+            case "sendmusic":
+
                 break;
             case "invitation":
-                answerInvitation(IP);
-                break;
-            case "accept":
-                addFriend(IP, message);
+                invitation();
                 break;
         }
     }
 
-    private void addFriend(String IP, String message) throws Exception {
-        Friend newFriend = new Friend();
-        newFriend.setIP(IP);
-        newFriend.setName(message.split(",")[1]);
-        friendsList.add(newFriend);
-        account.addFriend(newFriend);
-    }
+    private void sendMusic(String message) {
 
-    private void getMusic(String message) throws Exception {
-        newMusics = new ArrayList<Music>();
-        byte[] newMusic = message.getBytes();
-        File outputFile = File.createTempFile("file", "mp3");
-        outputFile.deleteOnExit();
-        FileOutputStream fileoutputstream = new FileOutputStream(outputFile);
-        fileoutputstream.write(newMusic);
-        Music music = new Music(outputFile.getAbsoluteFile().toString());
-        newMusics.add(music);
-        fileoutputstream.close();
-    }
-
-    public ArrayList<Music> getNewMusics() {
-        return newMusics;
-    }
-
-    private void sendMusic(String IP) throws Exception {
-        String sendMessage = "sendMusic";
-        Socket client = new Socket(IP, 6666);
-        OutputStream output = client.getOutputStream();
-        output.write(sendMessage.getBytes());
-        for (Music music : account.getSharedPlayLists().getMusic()) {
-            File songFile = null;
-            FileInputStream input = null;
-            int count;
-
-            songFile = new File(music.getDirectory());
-            input = new FileInputStream(songFile);
-            byte[] buffer = new byte[2048];
-            while ((count = input.read(buffer)) != -1) {
-                output.write(buffer, 0, count);
-            }
-            output.write(-1);
-            input.close();
-            input.close();
-            output.write(sendMessage.getBytes());
-            output.flush();
-        }
     }
 
     private void updateFriendMusic(String ip, String message) throws Exception {
-        for (Friend friend : friendsList) {
+        for(Friend friend:friendsList) {
             if (friend.getIP().equals(ip)) {
                 friend.setMusic(message.split(",")[1]);
-                friend.setArtist(message.split(",")[2]);
-                friend.setAlbum(message.split(",")[3]);
+                friend.setAlbum(message.split(",")[2]);
             }
         }
     }
@@ -187,45 +141,25 @@ public class SocialNetwork {
         try {
             Socket client = new Socket(IP, 6666);
             OutputStream output = client.getOutputStream();
-            String message = "ListenInto" + music.getName() + "," + music.getArtist() + "," + music.getAlbum();
+            String message = "ListenInto" + music.getName() + ","+music.getArtist() +","+ music.getAlbum();
             output.write(message.getBytes());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void askForMusic(String IP, String name) {
+    public void getMusic(String IP, String name) {
         try {
             Socket client = new Socket(IP, 6666);
             OutputStream output = client.getOutputStream();
-            String message = "askMusic";
+            String message = "getMusic";
             output.write(message.getBytes());
         } catch (Exception e) {
         }
     }
 
-    public void sendInvitation(String IP) {
-        try {
-            Socket client = new Socket(IP, 6666);
-            OutputStream output = client.getOutputStream();
-            String message = "invitation" + "," + account.getName();
-            output.write(message.getBytes());
-        } catch (Exception e) {
-        }
-    }
 
-    public void answerInvitation(String IP) {
-        try {
-            Socket client = new Socket(IP, 6666);
-            OutputStream output = client.getOutputStream();
-            String answer = null;
-            String message;
-            //TODO get answer
-            if (answer.equals("accept")) {
-                message = "accept" + "," + account.getName();
-            } else message = "reject";
-            output.write(message.getBytes());
-        } catch (Exception e) {
-        }
+    public void invitation() {
+
     }
 }

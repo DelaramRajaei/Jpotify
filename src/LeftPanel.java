@@ -176,22 +176,22 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         Object source=e.getSource();
         if(source==addPlaylist){
 
-            //  NewPlayList newPlaylistPanel=new NewPlayList();
+          //  NewPlayList newPlaylistPanel=new NewPlayList();
 //
             String n=JOptionPane.showInputDialog("playlist name : ");
             AccountManagement.getActiveAccount().createPlayList(n);
-            //  for(int i=0;i<1000000;i++){
-            //      System.out.println(i);
-            //  }
+          //  for(int i=0;i<1000000;i++){
+          //      System.out.println(i);
+          //  }
 //while(!newPlaylistPanel.isFinish()){}
 
-            System.out.println("new Playlist: ");
+                System.out.println("new Playlist: ");
 
-            int x= AccountManagement.getActiveAccount().getPlayLists().size();
-            model.addElement(AccountManagement.getActiveAccount().getPlayLists().get(x - 1));
-            System.out.println(AccountManagement.getActiveAccount().getPlayLists().get(x - 1).getName());
-            jplaylist.setVisible(false);
-            jplaylist.setVisible(true);
+                 int x= AccountManagement.getActiveAccount().getPlayLists().size();
+                model.addElement(AccountManagement.getActiveAccount().getPlayLists().get(x - 1));
+                System.out.println(AccountManagement.getActiveAccount().getPlayLists().get(x - 1).getName());
+                jplaylist.setVisible(false);
+                jplaylist.setVisible(true);
 
 
 
@@ -207,40 +207,40 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
 
 
-        if(source==addMusic){
-            try {
-                openFile();
-            } catch (Exception ex) {
-                ex.printStackTrace();
+            if(source==addMusic){
+                try {
+                    openFile();
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                }
+                ArrayList<CellSongs> acs=new ArrayList<>();
+                for(Music m:AccountManagement.getActiveAccount().getMusics()){
+                    CellSongs cs =new CellSongs(m);
+                    acs.add(cs);
+                }
+                AccountManagement.showPanels.showSongCellMethod(acs);
+
+
+
+
             }
-            ArrayList<CellSongs> acs=new ArrayList<>();
-            for(Music m:AccountManagement.getActiveAccount().getMusics()){
-                CellSongs cs =new CellSongs(m);
-                acs.add(cs);
-            }
-            AccountManagement.showPanels.showSongCellMethod(acs);
+            else if(source==songsButton){
+                ArrayList<CellSongs> acs=new ArrayList<>();
+                for(Music m:AccountManagement.getActiveAccount().getMusics()){
+                    CellSongs cs =new CellSongs(m);
+                    acs.add(cs);
+                }
+                AccountManagement.showPanels.showSongCellMethod(acs);
+            }else
+                if(source==albumsButton){
 
-
-
-
-        }
-        else if(source==songsButton){
-            ArrayList<CellSongs> acs=new ArrayList<>();
-            for(Music m:AccountManagement.getActiveAccount().getMusics()){
-                CellSongs cs =new CellSongs(m);
-                acs.add(cs);
-            }
-            AccountManagement.showPanels.showSongCellMethod(acs);
-        }else
-        if(source==albumsButton){
-
-            ArrayList<CallAlbums> aca = new ArrayList<>();
-            for(Album a:AccountManagement.getActiveAccount().getAlbums()){
-                CallAlbums ca = new CallAlbums(a);
-                aca.add(ca);
-            }
-            AccountManagement.showPanels.showAlbumCellMethod(aca);
-        }
+                    ArrayList<CallAlbums> aca = new ArrayList<>();
+                    for(Album a:AccountManagement.getActiveAccount().getAlbums()){
+                        CallAlbums ca = new CallAlbums(a);
+                        aca.add(ca);
+                    }
+                    AccountManagement.showPanels.showAlbumCellMethod(aca);
+                }
 
     }
 

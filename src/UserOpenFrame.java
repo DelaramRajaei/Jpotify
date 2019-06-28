@@ -16,6 +16,9 @@ public class UserOpenFrame extends JFrame implements ActionListener {
 
     public UserOpenFrame(String IP) {
         this.IP=IP;
+
+
+
         initComponents();
     }
 

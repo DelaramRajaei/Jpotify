@@ -127,7 +127,7 @@ public class Core {
         BufferedReader reader = null;
         String line;
         try {
-            songsFile = new File("Account\\" + FILE_PATH_OF_SONGS);
+            songsFile = new File( FILE_PATH_OF_SONGS);
             if (!songsFile.createNewFile()) {//If the file exists.
                 input = new FileReader(songsFile);
                 reader = new BufferedReader(input);
@@ -331,7 +331,7 @@ public class Core {
         } finally {
             account = new Account(line);
             account.setIP(IP.getHostAddress());
-            AccountManagement.setActiveAccount(account);
+            AccountManagement accountManagement=new AccountManagement(account);
 
             //File accountFolder = new File(line);
             //accountFolder.mkdir();

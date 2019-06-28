@@ -90,9 +90,14 @@ this.setBackground(new Color(22,5,33));
 
 
         for(CellSongs cell : cells){
+            buttonsPanel.remove(rename);
+            buttonsPanel.remove(delete);
+            buttonsPanel.remove(jTextField);
             contentPanel.add(cell);
             musicArray.add(cell.song);
+
         }
+        System.out.println(cells.size()+"sizeeeeeeeeeee");
 
         this.add(contentPanel,BorderLayout.NORTH);
         buttonsPanel.add(playTotalArrayButton);
@@ -119,8 +124,6 @@ this.setBackground(new Color(22,5,33));
             }
             buttonsPanel.add(delete);
             buttonsPanel.add(rename);
-            buttonsPanel.add(jTextField);
-
             buttonsPanel.add(playTotalArrayButton);
 
             this.setVisible(false);

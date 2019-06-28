@@ -24,8 +24,6 @@ public class CallAlbums extends CellShowJpanel implements ActionListener
         l2.setText("Artist : "+album.getArtistName());
         l3.setText("Songs Number : "+album.getMusics().size());
 
-
-        buttonsPanel.add(show);
         show.addActionListener(this);
 
     }
