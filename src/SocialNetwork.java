@@ -83,7 +83,7 @@ public class SocialNetwork {
         account.addFriend(newFriend);
     }
 
-    private void getMusic(String message) throws Exception {
+    private Music getMusic(String message) throws Exception {
         FileInputStream file = new FileInputStream(message.split(",")[1]+".mp3");
         ObjectInputStream in = new ObjectInputStream(file);
         Music music = null;
@@ -91,6 +91,7 @@ public class SocialNetwork {
 
         in.close();
         file.close();
+        return music;
     }
 
     public ArrayList<Music> getNewMusics() {
