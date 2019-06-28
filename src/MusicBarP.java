@@ -340,7 +340,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
             play.setIcon(pauseIcon);
             isPlaying = true;
             player.play(musicList.get(songNumber), musicSlider);
-            player.changeTimePlayed(musicList, musicList.get(songNumber));
+            player.changeTimePlayed(AccountManagement.getActiveAccount().getMusics(), musicList.get(songNumber));
 
             float duaration = player.getDuration(musicList.get(songNumber));
             String du=""+duaration;
@@ -350,7 +350,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
 
             musicList.sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
-            musics.sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
+            AccountManagement.getActiveAccount().getMusics().sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
 
         }
     }

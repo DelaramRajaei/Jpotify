@@ -12,6 +12,7 @@ public class CellSongs extends CellShowJpanel implements ActionListener {
     Music song;
 
     public  CellSongs(Music songi){
+
         super();
         play=new JButton("play");
 
