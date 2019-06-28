@@ -343,11 +343,8 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
             player.changeTimePlayed(AccountManagement.getActiveAccount().getMusics(), musicList.get(songNumber));
 
             float duaration = player.getDuration(musicList.get(songNumber));
-            String du=""+duaration;
-
 
             labelDuration.setText(du);
-
 
             musicList.sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
             AccountManagement.getActiveAccount().getMusics().sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());

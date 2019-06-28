@@ -1,10 +1,19 @@
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.beans.Encoder;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javazoom.jl.decoder.Bitstream;
+import javazoom.jl.decoder.BitstreamException;
+import javazoom.jl.decoder.Header;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -32,7 +41,7 @@ public class MusicBarLogic {
             public void run() {
                 try {
                     player.play();
-                    musicSlider.setValue(0);
+                    musicSlider(musicSlider);
                 } catch (JavaLayerException e) {
                     e.printStackTrace();
                 }
@@ -40,7 +49,19 @@ public class MusicBarLogic {
         }).start();
     }
 
-    public void musicSlider(int length) {
+    public void musicSlider(JSlider musicSlider) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    pausedLocation = audioInputStream.available();
+                    musicSlider.setValue((int)((totalLengthSize-pausedLocation)/totalLengthSize)*100);
+                    Thread.sleep(1000);
+                } catch (Exception e) {
+                }
+            }
+
+        }).start();
 
     }
 
@@ -69,18 +90,6 @@ public class MusicBarLogic {
         }).start();
     }
 
-    public void repeat(JSlider musicSlider) throws Exception {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }).join();
-        if (player.isComplete() && repeat) {
-            play(currentMusic, musicSlider);
-            musicSlider.setValue(0);
-        }
-    }
 
     public void stop() throws Exception {
         paused = false;
@@ -111,16 +120,21 @@ public class MusicBarLogic {
         this.paused = paused;
     }
 
-    public Long getDuration() {
-        return duration;
+    public float getDuration(Music music) throws Exception {
+        File file = new File(music.getDirectory());
+        AudioFileFormat baseFileFormat = AudioSystem.getAudioFileFormat(file);
+        Map properties = baseFileFormat.properties();
+        Long duration = (Long) properties.get("duration");
     }
-        public void run() {
-            try {
-                player.play();
-            } catch (JavaLayerException e) {
-                e.printStackTrace();
+
+    public void changeTimePlayed(ArrayList<Music> musicList, Music music) {
+        music.setLastTimePlayed(0);
+        for (Music eachMusic : musicList)
+            if (!(music.getName().equals(eachMusic.getName()))) {
+                eachMusic.setLastTimePlayed(eachMusic.getLastTimePlayed() + 1);
             }
-        }
+
     }
+}
 
 
