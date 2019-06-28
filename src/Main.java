@@ -5,6 +5,9 @@ import sun.util.calendar.BaseCalendar;
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
@@ -15,7 +18,10 @@ public class Main {
 
 
         Account account=Core.initialLoad();
-
+        ServerSocket serverSocket=new ServerSocket(6666);
+        Socket socket=new Socket(InetAddress.getLocalHost(),6666);
+        socket.getLocalPort();
+        socket.getPort();
         /*SocialNetwork socialNetwork = new SocialNetwork(account.getFriends(),account);
         socialNetwork.startServer();
         socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);*/
@@ -34,8 +40,8 @@ public class Main {
                 {}
             }
         }).start();*/
-        RootPanel rootPanel = new RootPanel();
-        AccountManagement.toolBarPanel.setUserUame();
+     //   RootPanel rootPanel = new RootPanel();
+     //   AccountManagement.toolBarPanel.setUserUame();
 
 
         //ArrayList<Music> am=new ArrayList<>();
@@ -49,7 +55,7 @@ public class Main {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
             ex.printStackTrace();
-        }
+       }
 
         SwingUtilities.invokeLater(new Runnable() {
 

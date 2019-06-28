@@ -148,11 +148,11 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
         currentMusic.add(songDetail, BorderLayout.EAST);
 
-        musicImage.setIcon(cover);
-        musicName.setText("Faint");
-        musicArtist.setText("Epica");
-        musicAlbum.setText("nmidnm");
-        musicPublishYear.setText("2016");
+        musicImage.setIcon(musicList.get(songNumber).getImage());
+        musicName.setText(musicList.get(songNumber).getName());
+        musicArtist.setText(musicList.get(songNumber).getArtist());
+        musicAlbum.setText(musicList.get(songNumber).getAlbum());
+        musicPublishYear.setText(musicList.get(songNumber).getYear()+"");
         musicName.setForeground(new Color(234, 251, 255));
         musicArtist.setForeground(new Color(234, 251, 255));
         musicAlbum.setForeground(new Color(234, 251, 255));

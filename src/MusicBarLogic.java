@@ -211,9 +211,7 @@ public class MusicBarLogic {
                         Exception e) {
                 }
             }
-        }).
-
-                start();
+        }).start();
 
     }
 }
