@@ -31,7 +31,7 @@ public class Account {
                 playLists.add(eachOne);
             }
         }
-        friends=new ArrayList<Friend>();
+        friends = new ArrayList<Friend>();
     }
 
     /**
@@ -39,7 +39,7 @@ public class Account {
      *
      * @param directory Path of the new song.
      */
-    public void addMusic(String directory)throws  Exception {
+    public void addMusic(String directory) throws Exception {
         Music music = new Music(directory);
         musics.add(music);
         Core.addSong(music, albums);
@@ -56,10 +56,17 @@ public class Account {
         playLists.add(newPlaylist);
         Core.createPlaylist(newPlaylist, playLists);
     }
-public void addFriend(Friend friend)throws Exception{
+
+    /**
+     * Add a new friend to your list and save it.
+     * @param friend new friend you wanted to add.
+     * @throws Exception
+     */
+    public void addFriend(Friend friend) throws Exception {
         friends.add(friend);
         Core.addFriend(friends);
-}
+    }
+
     /**
      * Add a song to a playlist.
      * At first it would find the selected playlist and then call the addSong method.
@@ -73,7 +80,7 @@ public void addFriend(Friend friend)throws Exception{
     }
 
 
-    public void removeSong(Music music)throws Exception {
+    public void removeSong(Music music) throws Exception {
         musics.remove(music);
         for (PlayList eachPlaylist : music.getPlaylist()) {
             eachPlaylist.removeSong(music);
