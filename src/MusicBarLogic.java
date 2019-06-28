@@ -152,6 +152,7 @@ public class MusicBarLogic {
 
     /**
      * Change the time of the each music by the time it played.
+     *
      * @param musicList
      * @param music
      */
@@ -165,6 +166,7 @@ public class MusicBarLogic {
     }
 
     /**
+     * Counts each sec of the music
      * @param labelTimeCounter
      */
     public void setLabelTimeCounter(JLabel labelTimeCounter) {
@@ -186,7 +188,8 @@ public class MusicBarLogic {
                             second = "0" + sec;
                         } else second = sec + "";
                     }
-                    labelTimeCounter.setText(minutes + second);
+                    labelTimeCounter.setText(minutes + ":" + second);
+                    labelTimeCounter.paintImmediately(labelTimeCounter.getVisibleRect());
                     Thread.sleep(1000);
                     sec++;
                     if (sec >= 60) min++;
