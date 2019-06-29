@@ -346,6 +346,7 @@ public class Core {
             initialLoadPlaylistsFileName();
             initialLoadClientsPlaylist(account.getPlayLists(), account.getMusics());
             initialFriend(account.getFriends());
+            Main.networkInitial();
 
         } catch (
                 Exception e) {

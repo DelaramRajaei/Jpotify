@@ -15,12 +15,17 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
-        //Core.initialLoad();
-        ServerSocket serverSocket = new ServerSocket(6666);
-        Socket socket = new Socket("192.168.1.8", 6666);
 
-        socket.getLocalPort();
-        socket.getPort();
+        Core.initialLoad();
+
+    }
+
+    public static void showPanel() {
+        RootPanel rootPanel = new RootPanel();
+    }
+
+    public static void networkInitial()throws Exception {
+
         SocialNetwork socialNetwork = new SocialNetwork(AccountManagement.getActiveAccount().getFriends(), AccountManagement.getActiveAccount());
         socialNetwork.startServer();
         socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);
@@ -30,8 +35,6 @@ public class Main {
                 try {
                     while (true) {
                         for (Friend friend : AccountManagement.getActiveAccount().getFriends())
-                            //Period.between(LocalDate.now(),friend.getLastCommunicationDate())
-                            // if ((new BaseCalendar.Date()) - friend.getLastCommunicationDate() >)
                             socialNetwork.askStatus(friend.getIP());
                         Thread.sleep(30000);
                     }
@@ -39,10 +42,6 @@ public class Main {
                 }
             }
         }).start();
-        //ArrayList<Music> am=new ArrayList<>();
-        //am.add(AccountManagement.getActiveAccount().getMusics().get(0));
-        //AccountManagement.musicBarP.updateList(am);
-
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -50,19 +49,5 @@ public class Main {
             ex.printStackTrace();
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                //     new RootPanel().setVisible(true);
-            }
-        });
-
-
     }
-
-    public static void showPanel() {
-        RootPanel rootPanel = new RootPanel();
-    }
-
 }
