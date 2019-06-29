@@ -61,10 +61,11 @@ public class SocialNetwork {
                 updateFriendMusic(IP, message);
                 break;
             case "askMusic":
-                sendMusic(IP, message.split(",")[1]);
+                // Socket socket=new Socket(message.split(",")[2]);
+                // sendMusic(IP, message.split(",")[1],);
                 break;
             case "sendMusic":
-                getMusic(message);
+                //getMusic(,message);//TODO How to get DataInputStream
                 break;
             case "invitation":
                 answerInvitation(IP);
@@ -83,36 +84,47 @@ public class SocialNetwork {
         account.addFriend(newFriend);
     }
 
-    private Music getMusic(String message) throws Exception {
-        FileInputStream file = new FileInputStream(message.split(",")[1]+".mp3");
-        ObjectInputStream in = new ObjectInputStream(file);
-        Music music = null;
-        music = (Music) in.readObject();
-
-        in.close();
-        file.close();
-        return music;
+    private void getMusic(DataInputStream read, String message) throws Exception {
+        DataInputStream readHolder = read;
+        String fileName = readHolder.readLine();
+        int fileLength=Integer.parseInt(readHolder.readLine());
+        byte[] fileData =new byte[fileLength];
+        readHolder.readFully(fileData);
+        File file=new File("Files");
+        if (!file.exists())file.mkdir();//Make a Folder
+        File newFile=new File(file,fileName);
+        FileOutputStream fos=new FileOutputStream(newFile);
+        fos.write(fileData);
+        fos.flush();
+        fos.close();
     }
 
-    public ArrayList<Music> getNewMusics() {
-        return newMusics;
-    }
-
-    private void sendMusic(String IP, String nameMusic) throws Exception {
-        String sendMessage = "sendMusic"+","+nameMusic;
+    private void sendMusic(String IP, Socket socket, String nameMusic) throws Exception {
+        File file;
+        Long fileLength;
+        byte[] bytes;
+        int length;
         Socket client = new Socket(IP, 6666);
-        OutputStream output = client.getOutputStream();
-        output.write(sendMessage.getBytes());
-        output.flush();
+        OutputStream outputStream = client.getOutputStream();
+        PrintWriter writer = new PrintWriter(outputStream, true);
+        DataInputStream dataInputStream;
+        String str = "sendMusic";
+        outputStream.write(str.getBytes());
+        outputStream.flush();
+
+
         for (Music music : account.getMusics())
             if (music.getName().equals(newMusics)) {
-                FileOutputStream file = new FileOutputStream(music.getDirectory());
-                ObjectOutputStream out = new ObjectOutputStream(file);
-                out.writeObject(music);
-                out.close();
-                file.close();
-            }
+                file = new File(music.getDirectory());
+                fileLength = file.length();
+                length = fileLength.intValue();
+                dataInputStream = new DataInputStream(new FileInputStream(file));
+                bytes = new byte[length];
+                dataInputStream.readFully(bytes);
 
+                writer.println(newMusics);
+                writer.println(length);
+            }
     }
 
     private void updateFriendMusic(String ip, String message) throws Exception {
@@ -189,8 +201,9 @@ public class SocialNetwork {
     public void askForMusic(String IP, String name) {
         try {
             Socket client = new Socket(IP, 6666);
+            client.getRemoteSocketAddress();//TODO check
             OutputStream output = client.getOutputStream();
-            String message = "askMusic" + "," + name;
+            String message = "askMusic" + "," + name + "," + client.getRemoteSocketAddress();
             output.write(message.getBytes());
         } catch (Exception e) {
         }

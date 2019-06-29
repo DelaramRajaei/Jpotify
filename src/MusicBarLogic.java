@@ -1,21 +1,14 @@
-import java.beans.Encoder;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javazoom.jl.decoder.Bitstream;
-import javazoom.jl.decoder.BitstreamException;
-import javazoom.jl.decoder.Header;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioSystem;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 
@@ -100,14 +93,6 @@ public class MusicBarLogic {
         }
     }
 
-    public boolean getRepeat() {
-        return repeat;
-    }
-
-    public void setRepeat(boolean repeat) {
-        this.repeat = repeat;
-    }
-
     public void volume() {
 
     }
@@ -166,6 +151,8 @@ public class MusicBarLogic {
 
 
     /**
+     * Change the time of the each music by the time it played.
+     *
      * @param musicList
      * @param music
      */
@@ -179,6 +166,7 @@ public class MusicBarLogic {
     }
 
     /**
+     * Counts each sec of the music
      * @param labelTimeCounter
      */
     public void setLabelTimeCounter(JLabel labelTimeCounter) {
@@ -195,14 +183,13 @@ public class MusicBarLogic {
                     while (!player.isComplete()) {
                         if (min < 10) {
                             minutes = "0" + min;
-                        }
-                        else minutes = min + "";
+                        } else minutes = min + "";
                         if (sec < 10) {
                             second = "0" + sec;
-                        }
-                        else second = sec + "";
+                        } else second = sec + "";
                     }
-                    labelTimeCounter.setText(minutes+second);
+                    labelTimeCounter.setText(minutes + ":" + second);
+                    labelTimeCounter.paintImmediately(labelTimeCounter.getVisibleRect());
                     Thread.sleep(1000);
                     sec++;
                     if (sec >= 60) min++;
@@ -211,11 +198,10 @@ public class MusicBarLogic {
                         Exception e) {
                 }
             }
-        }).
-
-                start();
+        }).start();
 
     }
+
 }
 
 

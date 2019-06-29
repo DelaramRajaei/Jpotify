@@ -4,6 +4,9 @@
       <root url="jar://$PROJECT_DIR$/src/Libraries/jl1.0.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/src/Libraries/jl1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Libraries/jl1.0.jar!/javazoom" />
+    </SOURCES>
   </library>
 </component>
