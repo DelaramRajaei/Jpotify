@@ -37,11 +37,16 @@ public class SocialNetwork {
     private void communicate(Socket socket) throws Exception {
         try {
             String message = "";
+            String line = "";
             int i;
             InputStream input = socket.getInputStream();
             InputStreamReader sr = new InputStreamReader(input);
-            while ((i = sr.read()) != -1) {
-                message += (char) i;
+//            while ((i = sr.read()) != -1) {
+//                message += (char) i;
+//            }
+            BufferedReader br = new BufferedReader(sr);
+            while ((line = br.readLine()) != null) {
+                message += line;
             }
             analyzeCommand(message, socket.getInetAddress().getHostAddress());
         } catch (IOException e) {
@@ -61,11 +66,10 @@ public class SocialNetwork {
                 updateFriendMusic(IP, message);
                 break;
             case "askMusic":
-                // Socket socket=new Socket(message.split(",")[2]);
-                // sendMusic(IP, message.split(",")[1],);
+                sendMusic(IP, message.split(",")[1]);
                 break;
             case "sendMusic":
-                //getMusic(,message);//TODO How to get DataInputStream
+                getMusic(,message);
                 break;
             case "invitation":
                 answerInvitation(IP);
@@ -76,7 +80,7 @@ public class SocialNetwork {
         }
     }
 
-    private void addFriend(String IP, String message) throws Exception {
+    public void addFriend(String IP, String message) throws Exception {
         Friend newFriend = new Friend();
         newFriend.setIP(IP);
         newFriend.setName(message.split(",")[1]);
@@ -87,19 +91,19 @@ public class SocialNetwork {
     private void getMusic(DataInputStream read, String message) throws Exception {
         DataInputStream readHolder = read;
         String fileName = readHolder.readLine();
-        int fileLength=Integer.parseInt(readHolder.readLine());
-        byte[] fileData =new byte[fileLength];
+        int fileLength = Integer.parseInt(readHolder.readLine());
+        byte[] fileData = new byte[fileLength];
         readHolder.readFully(fileData);
-        File file=new File("Files");
-        if (!file.exists())file.mkdir();//Make a Folder
-        File newFile=new File(file,fileName);
-        FileOutputStream fos=new FileOutputStream(newFile);
+        File file = new File("Files");
+        if (!file.exists()) file.mkdir();//Make a Folder
+        File newFile = new File(file, fileName);
+        FileOutputStream fos = new FileOutputStream(newFile);
         fos.write(fileData);
         fos.flush();
         fos.close();
     }
 
-    private void sendMusic(String IP, Socket socket, String nameMusic) throws Exception {
+    private void sendMusic(String IP, String nameMusic) throws Exception {
         File file;
         Long fileLength;
         byte[] bytes;
@@ -108,7 +112,7 @@ public class SocialNetwork {
         OutputStream outputStream = client.getOutputStream();
         PrintWriter writer = new PrintWriter(outputStream, true);
         DataInputStream dataInputStream;
-        String str = "sendMusic";
+        String str = "sendMusic,"+nameMusic;
         outputStream.write(str.getBytes());
         outputStream.flush();
 
@@ -121,9 +125,9 @@ public class SocialNetwork {
                 dataInputStream = new DataInputStream(new FileInputStream(file));
                 bytes = new byte[length];
                 dataInputStream.readFully(bytes);
-
-                writer.println(newMusics);
-                writer.println(length);
+                outputStream.write(bytes);
+                outputStream.flush();
+                outputStream.close();
             }
     }
 
@@ -165,8 +169,12 @@ public class SocialNetwork {
         try {
             Socket client = new Socket(IP, 6666);
             OutputStream output = client.getOutputStream();
+            BufferedOutputStream writer = new BufferedOutputStream(output);
             String message = "Status," + us.toString() + "," + account.getName();
-            output.write(message.getBytes());
+            writer.write(message.getBytes());
+            writer.flush();
+            writer.close();
+            client.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -178,6 +186,9 @@ public class SocialNetwork {
             OutputStream output = client.getOutputStream();
             String message = "AskStatus";
             output.write(message.getBytes());
+            output.flush();
+            output.close();
+            client.close();
         } catch (Exception e) {
             for (Friend friend : friendsList) {
                 if (friend.getIP().equals(IP))
@@ -193,6 +204,9 @@ public class SocialNetwork {
             OutputStream output = client.getOutputStream();
             String message = "ListenInto" + music.getName() + "," + music.getArtist() + "," + music.getAlbum();
             output.write(message.getBytes());
+            output.flush();
+            output.close();
+            client.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -205,6 +219,9 @@ public class SocialNetwork {
             OutputStream output = client.getOutputStream();
             String message = "askMusic" + "," + name + "," + client.getRemoteSocketAddress();
             output.write(message.getBytes());
+            output.flush();
+            output.close();
+            client.close();
         } catch (Exception e) {
         }
     }
@@ -215,6 +232,9 @@ public class SocialNetwork {
             OutputStream output = client.getOutputStream();
             String message = "invitation" + "," + account.getName();
             output.write(message.getBytes());
+            output.flush();
+            output.close();
+            client.close();
         } catch (Exception e) {
         }
     }
@@ -225,11 +245,11 @@ public class SocialNetwork {
             OutputStream output = client.getOutputStream();
             String answer = null;
             String message;
-            //TODO get answer
-            if (answer.equals("accept")) {
-                message = "accept" + "," + account.getName();
-            } else message = "reject";
+            message = "accept" + "," + account.getName();
             output.write(message.getBytes());
+            output.flush();
+            output.close();
+            client.close();
         } catch (Exception e) {
         }
     }

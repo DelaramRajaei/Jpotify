@@ -23,6 +23,10 @@ public class MusicBarLogic {
     private ChangeListener listener;
     private long duration;
 
+    public Player getPlayer(){
+        return player;
+    }
+
     public void play(Music music, JSlider musicSlider) throws Exception {
         currentMusic = music;
         audioInputStream = new FileInputStream(music.getDirectory());
@@ -171,34 +175,6 @@ public class MusicBarLogic {
      */
     public void setLabelTimeCounter(JLabel labelTimeCounter) {
 
-        new Thread(new Runnable() {
-            int sec = 0;
-            int min = 0;
-            String minutes;
-            String second;
-
-            @Override
-            public void run() {
-                try {
-                    while (!player.isComplete()) {
-                        if (min < 10) {
-                            minutes = "0" + min;
-                        } else minutes = min + "";
-                        if (sec < 10) {
-                            second = "0" + sec;
-                        } else second = sec + "";
-                    }
-                    labelTimeCounter.setText(minutes + ":" + second);
-                    labelTimeCounter.paintImmediately(labelTimeCounter.getVisibleRect());
-                    Thread.sleep(1000);
-                    sec++;
-                    if (sec >= 60) min++;
-
-                } catch (
-                        Exception e) {
-                }
-            }
-        }).start();
 
     }
 

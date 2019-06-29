@@ -1,0 +1,21 @@
+<component name="libraryTable">
+  <library name="browserstack-local-java-1.0.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/src/Libraries/browserstack-local-java-1.0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Libraries/commons-io-1.3.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Libraries/jaudiotagger-2.0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Libraries/jl1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Libraries/jmf-2.1.1e.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Libraries/junit-4.13-beta-3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/src/Libraries/mp3agic-0.8.1.jar!/" />
+      <root url="file://$PROJECT_DIR$/src/Libraries/JLayer1.0.1" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="file://$PROJECT_DIR$/src/Libraries/JLayer1.0.1/doc" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/src/Libraries/JLayer1.0.1/src" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/src/Libraries/JLayer1.0.1" recursive="false" />
+  </library>
+</component>

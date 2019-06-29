@@ -16,7 +16,7 @@ public class ToolBarPanel extends JPanel {
         user.setBackground(new java.awt.Color(0, 0, 102));
         user.setFont(new java.awt.Font("Yu Gothic", 1, 18)); // NOI18N
         user.setForeground(new java.awt.Color(153, 153, 255));
-        user.setText(AccountManagement.getActiveAccount().getName() +"/  IP  :"+ AccountManagement.getActiveAccount().getIP());
+        user.setText(AccountManagement.getActiveAccount().getName() + "/  IP  :" + AccountManagement.getActiveAccount().getIP());
 
         jButton1.setBackground(new java.awt.Color(25, 16, 17));
         jButton1.setForeground(new java.awt.Color(204, 204, 255));
@@ -53,19 +53,15 @@ public class ToolBarPanel extends JPanel {
                                         .addComponent(user))
                                 .addContainerGap(19, Short.MAX_VALUE))
         );
-
     }
-public void setUser(String n){
+
+    public void setUser(String n) {
         this.user.setText(n);
-}
+    }
 
 
-
-    public void setUserUame( ) {
-
-        ToolBarPanel t =new ToolBarPanel();
-        t.setUser(AccountManagement.getActiveAccount().getName());
-        AccountManagement.toolBarPanel=t;
+    public void setUserName() {
+        setUser(AccountManagement.getActiveAccount().getName());
 
 //        System.out.println("setUser");
 //        this.setBackground(new Color(200,200,200));
