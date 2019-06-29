@@ -48,13 +48,14 @@ public class SocialNetwork {
             while ((line = br.readLine()) != null) {
                 message += line;
             }
-            analyzeCommand(message, socket.getInetAddress().getHostAddress());
+            analyzeCommand(message, socket);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    public void analyzeCommand(String message, String IP) throws Exception {
+    public void analyzeCommand(String message, Socket socket) throws Exception {
+        String IP = socket.getInetAddress().getHostAddress();
         switch (message.split(",")[0].toLowerCase()) {
             case "status":
                 updateFriendStatus(IP, message);
@@ -65,11 +66,11 @@ public class SocialNetwork {
             case "listeninto":
                 updateFriendMusic(IP, message);
                 break;
-            case "askMusic":
+            case "askmusic":
                 sendMusic(IP, message.split(",")[1]);
                 break;
-            case "sendMusic":
-                getMusic(,message);
+            case "sendmusic":
+                getMusic(message,socket);
                 break;
             case "invitation":
                 answerInvitation(IP);
@@ -88,16 +89,15 @@ public class SocialNetwork {
         account.addFriend(newFriend);
     }
 
-    private void getMusic(DataInputStream read, String message) throws Exception {
-        DataInputStream readHolder = read;
-        String fileName = readHolder.readLine();
-        int fileLength = Integer.parseInt(readHolder.readLine());
-        byte[] fileData = new byte[fileLength];
-        readHolder.readFully(fileData);
+    private void getMusic( String message, Socket socket) throws Exception {
+        String fileName =  message.split(",")[1];
         File file = new File("Files");
         if (!file.exists()) file.mkdir();//Make a Folder
-        File newFile = new File(file, fileName);
+        File newFile = new File(file, fileName+".mp3");
         FileOutputStream fos = new FileOutputStream(newFile);
+        InputStream stream = socket.getInputStream();
+        byte[] fileData=new byte[stream.available()];
+        stream.read(fileData);
         fos.write(fileData);
         fos.flush();
         fos.close();
@@ -110,11 +110,11 @@ public class SocialNetwork {
         int length;
         Socket client = new Socket(IP, 6666);
         OutputStream outputStream = client.getOutputStream();
-        PrintWriter writer = new PrintWriter(outputStream, true);
+        BufferedOutputStream writer = new BufferedOutputStream(outputStream);
+        String message = "sendMusic,"+nameMusic;
+        writer.write(message.getBytes());
+        writer.flush();
         DataInputStream dataInputStream;
-        String str = "sendMusic,"+nameMusic;
-        outputStream.write(str.getBytes());
-        outputStream.flush();
 
 
         for (Music music : account.getMusics())
@@ -125,9 +125,9 @@ public class SocialNetwork {
                 dataInputStream = new DataInputStream(new FileInputStream(file));
                 bytes = new byte[length];
                 dataInputStream.readFully(bytes);
-                outputStream.write(bytes);
-                outputStream.flush();
-                outputStream.close();
+                writer.write(bytes);
+                writer.flush();
+                writer.close();
             }
     }
 
