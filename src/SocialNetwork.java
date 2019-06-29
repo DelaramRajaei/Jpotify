@@ -110,11 +110,11 @@ public class SocialNetwork {
         int length;
         Socket client = new Socket(IP, 6666);
         OutputStream outputStream = client.getOutputStream();
-        PrintWriter writer = new PrintWriter(outputStream, true);
+        BufferedOutputStream writer = new BufferedOutputStream(outputStream);
+        String message = "sendMusic,"+nameMusic;
+        writer.write(message.getBytes());
+        writer.flush();
         DataInputStream dataInputStream;
-        String str = "sendMusic,"+nameMusic;
-        outputStream.write(str.getBytes());
-        outputStream.flush();
 
 
         for (Music music : account.getMusics())
@@ -125,9 +125,9 @@ public class SocialNetwork {
                 dataInputStream = new DataInputStream(new FileInputStream(file));
                 bytes = new byte[length];
                 dataInputStream.readFully(bytes);
-                outputStream.write(bytes);
-                outputStream.flush();
-                outputStream.close();
+                writer.write(bytes);
+                writer.flush();
+                writer.close();
             }
     }
 
