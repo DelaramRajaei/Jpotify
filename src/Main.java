@@ -30,7 +30,7 @@ public class Main {
         socialNetwork.startServer();
         //socialNetwork.addFriend("192.168.1.7",",Deli");
         socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);
-        //socialNetwork.sendInvitation("192.168.1.7");
+        socialNetwork.sendInvitation("192.168.1.7");
         new Thread(new Runnable() {
             @Override
             public void run() {

@@ -215,6 +215,8 @@ public class SocialNetwork {
             OutputStream output = client.getOutputStream();
             String message = "askMusic" + "," + name + "," + client.getRemoteSocketAddress();
             output.write(message.getBytes());
+            output.flush();
+            output.close();
             client.close();
         } catch (Exception e) {
         }
