@@ -37,11 +37,17 @@ public class SocialNetwork {
     private void communicate(Socket socket) throws Exception {
         try {
             String message = "";
+            String line ="";
             int i;
             InputStream input = socket.getInputStream();
             InputStreamReader sr = new InputStreamReader(input);
-            while ((i = sr.read()) != -1) {
-                message += (char) i;
+//            while ((i = sr.read()) != -1) {
+//                message += (char) i;
+//            }
+            BufferedReader br = new BufferedReader(sr);
+            while ((line =br.readLine()) != null)
+            {
+                message += line;
             }
             analyzeCommand(message, socket.getInetAddress().getHostAddress());
         } catch (IOException e) {
