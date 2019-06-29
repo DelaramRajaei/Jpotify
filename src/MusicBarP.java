@@ -11,6 +11,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.FloatControl;
+import javax.sound.sampled.Mixer;
+import javax.sound.sampled.Port;
+import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 
 /**
  * @author Darya
@@ -26,6 +34,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
     private int songNumber = 0;
     MusicBarLogic player;
 
+    private float sleepSense;
     private JPanel buttonsPanel;
     private JPanel songDetail;
     private JPanel currentMusic;
@@ -69,6 +78,7 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
 
     public MusicBarP() {
+
         player = new MusicBarLogic();
         initComponents();
         musicList = new ArrayList<>();
@@ -186,7 +196,21 @@ if(musicList.size()!=0){
         rePlay = new javax.swing.JButton();
         powerVoice = new javax.swing.JPanel();
         powerVoicLable = new javax.swing.JLabel();
-        powerVoiceSlider = new javax.swing.JSlider();
+
+
+         powerVoiceSlider= new JSlider();
+        mySlider.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                sleepSense = mySlider.getValue();
+                setGain(sleepSense);
+
+            }
+        });
+
+
+
+
 
         setMinimumSize(new java.awt.Dimension(719, 159));
         setPreferredSize(new java.awt.Dimension(800, 159));
@@ -316,6 +340,48 @@ if(musicList.size()!=0){
 
     //Logic
 
+        public void setGain(float ctrl)
+        {
+            try {
+                Mixer.Info[] infos = AudioSystem.getMixerInfo();
+                for (Mixer.Info info : infos) {
+                    Mixer mixer = AudioSystem.getMixer(info);
+                    if (mixer.isLineSupported(Port.Info.SPEAKER)) {
+                        Port port = (Port) mixer.getLine(Port.Info.SPEAKER);
+                        port.open();
+                        if (port.isControlSupported(FloatControl.Type.VOLUME)) {
+                            FloatControl volume = (FloatControl) port.getControl(FloatControl.Type.VOLUME);
+                            volume.setValue(ctrl);
+                        }
+                        port.close();
+                    }
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Erro\n" + e);
+            }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     public void updateList(ArrayList<Music> musics) throws Exception {
         musicList = musics;
@@ -434,7 +500,6 @@ if(musicList.size()!=0){
         musicPublishYear.setText( m.getYear()+"");
         musicImage.paintImmediately(musicImage.getVisibleRect());
         labelDuration.setText(m.getTimeDuration());
-
 
     }
 
