@@ -1,6 +1,5 @@
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
-import sun.util.calendar.BaseCalendar;
 
 import javax.swing.*;
 import java.io.FileInputStream;
@@ -17,40 +16,34 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        Account account=Core.initialLoad();
-        ServerSocket serverSocket=new ServerSocket(6666);
-        Socket socket=new Socket(InetAddress.getLocalHost(),6666);
-        socket.getLocalPort();
-        socket.getPort();
-        /*SocialNetwork socialNetwork = new SocialNetwork(account.getFriends(),account);
+        Core.initialLoad();
+
+    }
+
+    public static void showPanel() {
+        RootPanel rootPanel = new RootPanel();
+    }
+
+    public static void networkInitial()throws Exception {
+
+        SocialNetwork socialNetwork = new SocialNetwork(AccountManagement.getActiveAccount().getFriends(), AccountManagement.getActiveAccount());
         socialNetwork.startServer();
-        socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);*/
-       /* new Thread(new Runnable() {
+        //socialNetwork.addFriend("192.168.1.7",",Deli");
+        socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);
+        //socialNetwork.sendInvitation("192.168.1.7");
+        new Thread(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 try {
                     while (true) {
-                        for (Friend friend : a.getFriends())
-                            //Period.between(LocalDate.now(),friend.getLastCommunicationDate())
-                           // if ((new BaseCalendar.Date()) - friend.getLastCommunicationDate() >)
-                                socialNetwork.askStatus(friend.getIP());
+                        for (Friend friend : AccountManagement.getActiveAccount().getFriends())
+                            socialNetwork.askStatus(friend.getIP());
+                        Thread.sleep(30000);
                     }
-                    Thread.sleep(30000);
-                }catch(Exception err)
-                {}
+                } catch (Exception err) {
+                }
             }
-        }).start();*/
-        RootPanel rootPanel = new RootPanel();
-        System.out.println(AccountManagement.getActiveAccount().getMusics().size());
-        //   AccountManagement.toolBarPanel.setUserUame();
-
-
-        //ArrayList<Music> am=new ArrayList<>();
-        //am.add(AccountManagement.getActiveAccount().getMusics().get(0));
-        //AccountManagement.musicBarP.updateList(am);
-        Core.savePlaylistFileName();
-
-
+        }).start();
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -58,15 +51,5 @@ public class Main {
             ex.printStackTrace();
         }
 
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                //     new RootPanel().setVisible(true);
-            }
-        });
-
-
     }
-
 }

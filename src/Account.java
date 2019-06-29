@@ -40,6 +40,10 @@ public class Account {
      */
     public void addMusic(String directory) throws Exception {
         Music music = new Music(directory);
+        if (musics.size()==0){
+            musics.add(music);
+            Core.addSong(music, albums);
+        }
         for (Music eachMusic : musics) {
             if (!(eachMusic.getDirectory().equals(directory))) {
                 musics.add(music);

@@ -1,24 +1,20 @@
 import com.mpatric.mp3agic.ID3v2;
-import com.mpatric.mp3agic.InvalidDataException;
+
 import com.mpatric.mp3agic.Mp3File;
-import com.mpatric.mp3agic.UnsupportedTagException;
-import javazoom.*;
-import javazoom.jl.decoder.Header;
+
 
 import javax.imageio.ImageIO;
 import javax.sound.sampled.AudioFileFormat;
 import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.UnsupportedAudioFileException;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.lang.reflect.Array;
+
 import java.util.ArrayList;
-import java.util.Base64;
+
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
 public class Music {
@@ -34,7 +30,7 @@ public class Music {
     private String timeDuration;
 
     public Music(String directory) throws Exception {
-        lastTimePlayed=0;
+        lastTimePlayed = 0;
         playLists = new ArrayList<PlayList>();
         try {
             file = new File(directory);
@@ -62,44 +58,16 @@ public class Music {
 
         AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(file);
 
-            Map<?, ?> properties = ( fileFormat).properties();
-            String key = "duration";
-            Long microseconds = (Long) properties.get(key);
-            int mili = (int) (microseconds / 1000);
-            int sec = (mili / 1000) % 60;
-            int min = (mili / 1000) / 60;
+        Map<?, ?> properties = (fileFormat).properties();
+        String key = "duration";
+        Long microseconds = (Long) properties.get(key);
+        int mili = (int) (microseconds / 1000);
+        int sec = (mili / 1000) % 60;
+        int min = (mili / 1000) / 60;
 
         System.out.println("time = " + min + ":" + sec);
-        timeDuration=("time = " + min + ":" + sec);
+        timeDuration = ("time = " + min + ":" + sec);
         System.out.println(timeDuration);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
     }
@@ -136,16 +104,16 @@ public class Music {
         return icon;
     }
 
-    public void setImage( ) throws Exception{
-        Mp3File song=new Mp3File(directory);
-        if (song.hasId3v2Tag()){
+    public void setImage() throws Exception {
+        Mp3File song = new Mp3File(directory);
+        if (song.hasId3v2Tag()) {
             ID3v2 id3v2tag = song.getId3v2Tag();
             byte[] imageData = id3v2tag.getAlbumImage();
-            if (imageData!=null){
+            if (imageData != null) {
                 System.out.println("debug:: imageData is not null");
                 BufferedImage img = ImageIO.read(new ByteArrayInputStream(imageData));
-                icon=new ImageIcon(img);
-                icon.getImage().getScaledInstance(5,5,Image.SCALE_DEFAULT);
+                icon = new ImageIcon(img);
+                icon.getImage().getScaledInstance(5, 5, Image.SCALE_DEFAULT);
 
 
             }

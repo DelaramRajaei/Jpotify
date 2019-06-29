@@ -199,10 +199,10 @@ if(musicList.size()!=0){
 
 
          powerVoiceSlider= new JSlider();
-        mySlider.addChangeListener(new ChangeListener() {
+        powerVoiceSlider.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                sleepSense = mySlider.getValue();
+                sleepSense = powerVoiceSlider.getValue();
                 setGain(sleepSense);
 
             }

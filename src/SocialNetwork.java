@@ -103,7 +103,7 @@ public class SocialNetwork {
         fos.close();
     }
 
-    private void sendMusic(String IP, String nameMusic) throws Exception {
+    public void sendMusic(String IP, String nameMusic) throws Exception {
         File file;
         Long fileLength;
         byte[] bytes;
@@ -118,7 +118,7 @@ public class SocialNetwork {
 
 
         for (Music music : account.getMusics())
-            if (music.getName().equals(newMusics)) {
+            if (music.getName().trim().equals(nameMusic.trim())) {
                 file = new File(music.getDirectory());
                 fileLength = file.length();
                 length = fileLength.intValue();
