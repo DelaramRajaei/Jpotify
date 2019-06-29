@@ -53,7 +53,7 @@ public class ToolBarPanel extends JPanel {
                                         .addComponent(user))
                                 .addContainerGap(19, Short.MAX_VALUE))
         );
-
+        setUserName();
     }
 public void setUser(String n){
         this.user.setText(n);
@@ -61,7 +61,7 @@ public void setUser(String n){
 
 
 
-    public void setUserUame( ) {
+    public void setUserName( ) {
 
         ToolBarPanel t =new ToolBarPanel();
         t.setUser(AccountManagement.getActiveAccount().getName());

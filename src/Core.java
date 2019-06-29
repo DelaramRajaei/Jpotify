@@ -340,8 +340,7 @@ public class Core {
 
             account = new Account(line);
             account.setIP(IP.getHostAddress());
-            AccountManagement accountManagement = new AccountManagement(account);
-            AccountManagement.toolBarPanel.setUserUame();
+            AccountManagement.setActiveAccount(account);
             initialLoadSongs(account.getMusics(), account.getAlbums());
             initialLoadPlaylistsFileName();
             initialLoadClientsPlaylist(account.getPlayLists(), account.getMusics());
@@ -350,6 +349,7 @@ public class Core {
 
         } catch (
                 Exception e) {
+            System.out.println(e);
         } finally {
 
 

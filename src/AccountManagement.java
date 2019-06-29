@@ -10,15 +10,6 @@ public class AccountManagement {
     protected static ShowPanels showPanels;
     protected static ToolBarPanel toolBarPanel;
 
-    public AccountManagement(Account active) {
-
-        activeAccount = active;
-
-
-        //rootPanel=new RootPanel();
-        //rootPanel=new RootPanel( activeAccount, accounts);
-
-    }
 
     public static Account getActiveAccount() {
         return activeAccount;
