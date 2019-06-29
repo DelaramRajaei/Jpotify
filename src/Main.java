@@ -17,11 +17,10 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
 
-        Account account=Core.initialLoad();
-        ServerSocket serverSocket=new ServerSocket(6666);
+       /* ServerSocket serverSocket=new ServerSocket(6666);
         Socket socket=new Socket(InetAddress.getLocalHost(),6666);
         socket.getLocalPort();
-        socket.getPort();
+        socket.getPort();*/
         /*SocialNetwork socialNetwork = new SocialNetwork(account.getFriends(),account);
         socialNetwork.startServer();
         socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);*/
@@ -40,8 +39,9 @@ public class Main {
                 {}
             }
         }).start();*/
-     //   RootPanel rootPanel = new RootPanel();
-     //   AccountManagement.toolBarPanel.setUserUame();
+        Account account=Core.initialLoad();
+        RootPanel rootPanel = new RootPanel();
+        AccountManagement.toolBarPanel.setUserUame();
 
 
         //ArrayList<Music> am=new ArrayList<>();

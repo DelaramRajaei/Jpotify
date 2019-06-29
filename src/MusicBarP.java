@@ -141,11 +141,11 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
         currentMusic.add(songDetail, BorderLayout.EAST);
 
-        musicImage.setIcon(musicList.get(songNumber).getImage());
-        musicName.setText(musicList.get(songNumber).getName());
+       // musicImage.setIcon();
+       /* musicName.setText(musicList.get(songNumber).getName());
         musicArtist.setText(musicList.get(songNumber).getArtist());
         musicAlbum.setText(musicList.get(songNumber).getAlbum());
-        musicPublishYear.setText(musicList.get(songNumber).getYear() + "");
+        musicPublishYear.setText(musicList.get(songNumber).getYear() + "");*/
         musicName.setForeground(new Color(234, 251, 255));
         musicArtist.setForeground(new Color(234, 251, 255));
         musicAlbum.setForeground(new Color(234, 251, 255));
@@ -359,8 +359,12 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
             musicList.sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
             AccountManagement.getActiveAccount().getMusics().sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
 
-            player.setLabelTimeCounter(labelTimeCounter);
-
+            labelTimeCounter.setText("00:00");
+            musicImage.setIcon(musicList.get(songNumber).getImage());
+            musicName.setText(musicList.get(songNumber).getName());
+            musicArtist.setText(musicList.get(songNumber).getArtist());
+            musicAlbum.setText(musicList.get(songNumber).getAlbum());
+            musicPublishYear.setText(musicList.get(songNumber).getYear() + "");
 
         }
     }
@@ -411,6 +415,38 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
                 }
             }
+
+
+            new Thread(new Runnable() {
+                int sec = 0;
+                int min = 0;
+                String minutes;
+                String second;
+
+                @Override
+                public void run() {
+                    try {
+                        while (!player.getPlayer().isComplete()) {
+                            if (min < 10) {
+                                minutes = "0" + min;
+                            } else minutes = min + "";
+                            if (sec < 10) {
+                                second = "0" + sec;
+                            } else second = sec + "";
+                        }
+                        labelTimeCounter.setText(minutes + ":" + second);
+                        labelTimeCounter.paintImmediately(labelTimeCounter.getVisibleRect());
+                        Thread.sleep(1000);
+                        sec++;
+                        if (sec >= 60) min++;
+
+                    } catch (
+                            Exception e) {
+                    }
+                }
+            }).start();
+
+
 
         } catch (Exception e) {
         }
