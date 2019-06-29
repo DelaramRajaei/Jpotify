@@ -41,7 +41,8 @@ public class Main {
             }
         }).start();*/
         RootPanel rootPanel = new RootPanel();
-     //   AccountManagement.toolBarPanel.setUserUame();
+        System.out.println(AccountManagement.getActiveAccount().getMusics().size());
+        //   AccountManagement.toolBarPanel.setUserUame();
 
 
         //ArrayList<Music> am=new ArrayList<>();
@@ -55,7 +56,7 @@ public class Main {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
             ex.printStackTrace();
-       }
+        }
 
         SwingUtilities.invokeLater(new Runnable() {
 

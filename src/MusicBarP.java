@@ -423,7 +423,7 @@ if(musicList.size()!=0){
 
 
     public void artWork(Music m){
-        System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+        System.out.println("music artwork");
         ImageIcon u=new ImageIcon();
         u.setImage(m.getImage().getImage().getScaledInstance(150,150 ,Image.SCALE_DEFAULT));
 
@@ -433,6 +433,8 @@ if(musicList.size()!=0){
         musicAlbum.setText(m.getAlbum());
         musicPublishYear.setText( m.getYear()+"");
         musicImage.paintImmediately(musicImage.getVisibleRect());
+        labelDuration.setText(m.getTimeDuration());
+
 
     }
 

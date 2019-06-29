@@ -2,8 +2,13 @@ import com.mpatric.mp3agic.ID3v2;
 import com.mpatric.mp3agic.InvalidDataException;
 import com.mpatric.mp3agic.Mp3File;
 import com.mpatric.mp3agic.UnsupportedTagException;
+import javazoom.*;
+import javazoom.jl.decoder.Header;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioFileFormat;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -11,6 +16,9 @@ import java.io.*;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Music {
@@ -23,6 +31,7 @@ public class Music {
     private ArrayList<PlayList> playLists;
     private File file;
     private int lastTimePlayed;
+    private String timeDuration;
 
     public Music(String directory) throws Exception {
         lastTimePlayed=0;
@@ -41,7 +50,7 @@ public class Music {
                 name = metaTag.substring(3, 33);
                 artist = metaTag.substring(33, 63);
                 album = metaTag.substring(63, 93);
-                // year = Integer.parseInt(metaTag.substring(93, 97));
+                year = Integer.parseInt(metaTag.substring(93, 97));
             } else {
                 throw new Exception("Not a ID3v1 TAG");
             }
@@ -50,6 +59,47 @@ public class Music {
         }
 
         this.setImage();
+
+        AudioFileFormat fileFormat = AudioSystem.getAudioFileFormat(file);
+
+            Map<?, ?> properties = ( fileFormat).properties();
+            String key = "duration";
+            Long microseconds = (Long) properties.get(key);
+            int mili = (int) (microseconds / 1000);
+            int sec = (mili / 1000) % 60;
+            int min = (mili / 1000) / 60;
+
+        System.out.println("time = " + min + ":" + sec);
+        timeDuration=("time = " + min + ":" + sec);
+        System.out.println(timeDuration);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
@@ -108,6 +158,15 @@ public class Music {
 
     public void setLastTimePlayed(int lastTimePlayed) {
         this.lastTimePlayed = lastTimePlayed;
+    }
+
+    public String getTimeDuration() {
+        return timeDuration;
+    }
+
+    public void setTimeDuration(String timeDuration) {
+
+        this.timeDuration = timeDuration;
     }
 }
 

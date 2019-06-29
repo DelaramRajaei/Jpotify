@@ -16,5 +16,7 @@
     <orderEntry type="library" name="jmf-2.1.1e" level="project" />
     <orderEntry type="library" name="mp3agic-0.8.1" level="project" />
     <orderEntry type="library" name="mp3agic-0.8.11" level="project" />
+    <orderEntry type="library" name="mp3spi1.9.5" level="project" />
+    <orderEntry type="library" name="mp3spi1.9.51" level="project" />
   </component>
 </module>
