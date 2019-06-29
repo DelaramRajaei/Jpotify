@@ -341,6 +341,9 @@ public class Core {
             account = new Account(line);
             account.setIP(IP.getHostAddress());
             AccountManagement.setActiveAccount(account);
+            ToolBarPanel t =new ToolBarPanel();
+            t.setUserName();
+            AccountManagement.toolBarPanel=t;
             initialLoadSongs(account.getMusics(), account.getAlbums());
             initialLoadPlaylistsFileName();
             initialLoadClientsPlaylist(account.getPlayLists(), account.getMusics());
