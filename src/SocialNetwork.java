@@ -225,11 +225,9 @@ public class SocialNetwork {
             OutputStream output = client.getOutputStream();
             String answer = null;
             String message;
-            //TODO get answer
-            if (answer.equals("accept")) {
-                message = "accept" + "," + account.getName();
-            } else message = "reject";
+            message = "accept" + "," + account.getName();
             output.write(message.getBytes());
+            client.close();
         } catch (Exception e) {
         }
     }
