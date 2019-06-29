@@ -241,6 +241,8 @@ public class SocialNetwork {
             String message;
             message = "accept" + "," + account.getName();
             output.write(message.getBytes());
+            output.flush();
+            output.close();
             client.close();
         } catch (Exception e) {
         }
