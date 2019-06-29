@@ -66,10 +66,10 @@ public class SocialNetwork {
             case "listeninto":
                 updateFriendMusic(IP, message);
                 break;
-            case "askMusic":
+            case "askmusic":
                 sendMusic(IP, message.split(",")[1]);
                 break;
-            case "sendMusic":
+            case "sendmusic":
                 getMusic(message,socket);
                 break;
             case "invitation":
