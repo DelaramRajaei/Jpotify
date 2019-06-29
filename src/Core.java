@@ -95,6 +95,14 @@ public class Core {
             String fileName = "P" + (playLists.size() - 2);
             newClientPlayList.setFileName(fileName);
             file_client_playlists.add(fileName + ".txt");
+            playListFile = new File(fileName);
+            playListFile.createNewFile();
+            fileWriter = new BufferedWriter(new FileWriter(playListFile, true));
+            fileWriter.write(fileName);
+            fileWriter.newLine();
+
+            fileWriter.flush();
+            fileWriter.close();
         } catch (Exception e) {
         }
     }
@@ -127,7 +135,7 @@ public class Core {
         BufferedReader reader = null;
         String line;
         try {
-            songsFile = new File( FILE_PATH_OF_SONGS);
+            songsFile = new File(FILE_PATH_OF_SONGS);
             if (!songsFile.createNewFile()) {//If the file exists.
                 input = new FileReader(songsFile);
                 reader = new BufferedReader(input);
@@ -201,35 +209,46 @@ public class Core {
         }
     }
 
-    public static void saveAll(Account account) {
-        savePlaylistFileName();
-        saveAccount(account);
-    }
 
-    public static void savePlaylistFileName() {
-        try {
-            playListFile = new File(FILE_PATH_OF_PLAYLIST);
-            playListFile.delete();
-            playListFile.createNewFile();
-            fileWriter = new BufferedWriter(new FileWriter(playListFile, true));
-            for (String fileName : file_client_playlists) {
-                fileWriter.write(fileName);
-                fileWriter.newLine();
-            }
-            fileWriter.flush();
-            fileWriter.close();
-        } catch (Exception e) {
+
+    public static void initialLoad() throws Exception {
+        boolean flag = checkAccount();
+        if (flag) {
+            Account account = loadAccount();
+            Main.showPanel();
+        } else {
+            InetAddress IP = null;
+            IP = InetAddress.getLocalHost();
+            UserOpenFrame UOF = new UserOpenFrame(IP.getHostAddress());
         }
+
     }
 
-    public static Account initialLoad() throws Exception {
-        Account account = loadAccount();
-        initialLoadSongs(account.getMusics(), account.getAlbums());
-        initialLoadPlaylistsFileName();
-        initialLoadClientsPlaylist(account.getPlayLists(), account.getMusics());
-        initialFriend(account.getFriends());
-        return account;
+    private static boolean checkAccount() {
+        FileReader input = null;
+        boolean flag = false;
+        BufferedReader reader = null;
+        String line = null;
+
+        try {
+
+            accountFile = new File(FILE_PATH_OF_ACCOUNT);
+            accountFile.createNewFile();
+            input = new FileReader(accountFile);
+            reader = new BufferedReader(input);
+            line = reader.readLine();
+            if (line != null) {
+                flag = true;
+            }
+        } catch (Exception e) {
+
+        } finally {
+            closeReader(input);
+            closeReader(reader);
+        }
+        return flag;
     }
+
 
     /**
      * This method will close the Readers you opened earlier.
@@ -305,7 +324,7 @@ public class Core {
     }
 
     public static Account loadAccount() throws Exception {
-        Account account;
+        Account account = null;
         FileReader input = null;
         BufferedReader reader = null;
         String line = null;
@@ -318,20 +337,20 @@ public class Core {
             reader = new BufferedReader(input);
             line = reader.readLine();
             IP = InetAddress.getLocalHost();
-            if (line == null) {
-                UOF = new UserOpenFrame(IP.getHostAddress());
-                while (!UOF.finish) {
-                }
-                line = UOF.getUserNAme();
 
+            account = new Account(line);
+            account.setIP(IP.getHostAddress());
+            AccountManagement accountManagement = new AccountManagement(account);
+            AccountManagement.toolBarPanel.setUserUame();
+            initialLoadSongs(account.getMusics(), account.getAlbums());
+            initialLoadPlaylistsFileName();
+            initialLoadClientsPlaylist(account.getPlayLists(), account.getMusics());
+            initialFriend(account.getFriends());
 
-            }
         } catch (
                 Exception e) {
         } finally {
-            account = new Account(line);
-            account.setIP(IP.getHostAddress());
-            AccountManagement accountManagement=new AccountManagement(account);
+
 
             //File accountFolder = new File(line);
             //accountFolder.mkdir();
@@ -342,7 +361,7 @@ public class Core {
         return account;
     }
 
-    public static void saveAccount(Account account) {
+    public static void saveAccount(String name) {
         FileReader input = null;
         BufferedReader reader = null;
         String line;
@@ -353,7 +372,7 @@ public class Core {
             line = reader.readLine();
             if (line == null) {
                 fileWriter = new BufferedWriter(new FileWriter(accountFile, true));
-                fileWriter.write(account.getName());
+                fileWriter.write(name);
                 fileWriter.flush();
                 fileWriter.close();
             }

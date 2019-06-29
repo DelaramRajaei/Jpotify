@@ -3,22 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- *
  * @author Darya
  */
 public class UserOpenFrame extends JFrame implements ActionListener {
 
 
     public UserOpenFrame(String IP) {
-        this.IP=IP;
-
-
-
+        this.IP = IP;
+        System.out.printf("Hi");
         initComponents();
     }
 
@@ -58,7 +56,7 @@ public class UserOpenFrame extends JFrame implements ActionListener {
         jLabel2.setBackground(new java.awt.Color(0, 0, 0));
         jLabel2.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(153, 153, 255));
-        jLabel2.setText("  your IP code : "+ IP);
+        jLabel2.setText("  your IP code : " + IP);
         jLabel2.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(102, 102, 255), 1, true));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
@@ -167,9 +165,8 @@ public class UserOpenFrame extends JFrame implements ActionListener {
     private javax.swing.JTextField jTextField1;
     private String userName;
     private String IP;
-    boolean finish=false;
+    boolean finish = false;
     private RootPanel rootPanel;
-
 
 
     public String getUserNAme() {
@@ -190,22 +187,20 @@ public class UserOpenFrame extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
-        if(e.getSource()==jButton1){
-            System.out.println("resid inja");
-            if(jTextField1.getText()!=null){
-                userName=jTextField1.getText();
-                System.out.println(jTextField1.getText());
-                this.setVisible(false);
-                finish=true;
-
-
-
-            }
-            else{
+        try {
+            if (e.getSource() == jButton1) {
+                System.out.println("Hello!");
+                if (jTextField1.getText() != null) {
+                    userName = jTextField1.getText();
+                    System.out.println(jTextField1.getText());
+                    this.setVisible(false);
+                    Core.saveAccount(userName);
+                    Core.loadAccount();
+                    Main.showPanel();
+                }
 
             }
-
+        } catch (Exception exception) {
         }
     }
 

@@ -1,6 +1,5 @@
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
-import sun.util.calendar.BaseCalendar;
 
 import javax.swing.*;
 import java.io.FileInputStream;
@@ -39,15 +38,10 @@ public class Main {
                 {}
             }
         }).start();*/
-        Account account=Core.initialLoad();
-        RootPanel rootPanel = new RootPanel();
-        AccountManagement.toolBarPanel.setUserUame();
-
-
+       Core.initialLoad();
         //ArrayList<Music> am=new ArrayList<>();
         //am.add(AccountManagement.getActiveAccount().getMusics().get(0));
         //AccountManagement.musicBarP.updateList(am);
-        Core.savePlaylistFileName();
 
 
 
@@ -66,6 +60,9 @@ public class Main {
         });
 
 
+    }
+    public static void showPanel(){
+        RootPanel rootPanel = new RootPanel();
     }
 
 }

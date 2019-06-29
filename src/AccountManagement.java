@@ -19,7 +19,6 @@ public class AccountManagement {
         //rootPanel=new RootPanel( activeAccount, accounts);
 
     }
-    //TODO IP
 
     public static Account getActiveAccount() {
         return activeAccount;
