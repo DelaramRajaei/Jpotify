@@ -66,11 +66,10 @@ public class SocialNetwork {
                 updateFriendMusic(IP, message);
                 break;
             case "askMusic":
-                // Socket socket=new Socket(message.split(",")[2]);
                 sendMusic(IP, message.split(",")[1]);
                 break;
             case "sendMusic":
-                //getMusic(,message);//TODO How to get DataInputStream
+                getMusic(,message);
                 break;
             case "invitation":
                 answerInvitation(IP);
