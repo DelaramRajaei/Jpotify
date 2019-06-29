@@ -145,18 +145,15 @@ this.setBackground(new Color(22,5,33));
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==delete){
             AccountManagement.getActiveAccount().removePlaylist(playList);
-            //int index = AccountManagement.leftPanel.jplaylist.getSelectedIndex();
-            AccountManagement.leftPanel.setJlistPlayList();
 
         }
         else if(e.getSource()==rename){
             String name =jTextField.getText();
 
             for (ClientPlayList cpl:AccountManagement.getActiveAccount().getClientPlayLists()){
-                if (cpl==playList){cpl.editName(name);break;}
+                if (cpl.getName()==playList.getName()){cpl.editName(name);break;}
             }
-            AccountManagement.getActiveAccount().removePlaylist(playList);
-            AccountManagement.leftPanel.setJlistPlayList();
+            jTextField.setText("");
         }
 
         else if(e.getSource()==playTotalArrayButton){

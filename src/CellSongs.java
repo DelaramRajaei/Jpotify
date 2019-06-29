@@ -7,14 +7,15 @@ import java.util.ArrayList;
 
 public class CellSongs extends CellShowJpanel implements ActionListener {
     private JButton play;
-    private  JPopupMenu addToPlaylist;
-    ArrayList<JMenuItem> elementPlaylists;
+    private JButton addtoPlaylistButton;
+
     Music song;
 
     public  CellSongs(Music songi){
 
         super();
         play=new JButton("play");
+        addtoPlaylistButton=new JButton("Add TO Playlist");
 
         this.song=songi;
 
@@ -44,23 +45,24 @@ public class CellSongs extends CellShowJpanel implements ActionListener {
 //            item.addActionListener(menuListener);
 //        }
 
-        addToPlaylist=new JPopupMenu("Add to playlist");
+       /* addToPlaylist=new JPopupMenu("Add to playlist");
         for(PlayList p : AccountManagement.getActiveAccount().getPlayLists()){
             p.addsongActionListenerItemOfMenuHelloWorld(song);
             addToPlaylist.add(p.getjMenuItem());
 
 
-        }
+        }*/
 
-        addToPlaylist.addSeparator();
-        JMenuItem j=new JMenuItem("new playlist");
-//        elementPlaylists.add(j);
+        //addToPlaylist.addSeparator();
+        //JMenuItem j=new JMenuItem("new playlist");
+        // elementPlaylists.add(j);
+        addtoPlaylistButton.addActionListener(this);
         play.addActionListener(this);
-
         buttonsPanel.add(play);
-        addToPlaylist.setPopupSize(new Dimension(100,100));
-        addToPlaylist.setBackground(new Color(122,133,200));
-        buttonsPanel.add(addToPlaylist);
+        buttonsPanel.add(addtoPlaylistButton);
+       // addToPlaylist.setPopupSize(new Dimension(100,100));
+       // addToPlaylist.setBackground(new Color(122,133,200));
+       // buttonsPanel.add(addToPlaylist);
 
 
     }
@@ -71,15 +73,20 @@ public class CellSongs extends CellShowJpanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent eve)
     {
-        if(eve.getSource()=="new playlist"){
-            NewPlayList npl=new NewPlayList();
+        if(eve.getSource()==addtoPlaylistButton){
+            AddToPlaylist addToPlaylistFrame=new AddToPlaylist(song);
+           //while (!addToPlaylistFrame.isFinish){}
+
+
+
+            /*NewPlayList npl=new NewPlayList();
             AccountManagement.getActiveAccount().createPlayList(npl.getPlaylistName());
             for(PlayList p : AccountManagement.getActiveAccount().getPlayLists()){
                 if(npl.getPlaylistName()== p.getName()){
                     AccountManagement.getActiveAccount().addSongToPlayList(p,song);
                     break;
                 }
-            }
+            }*/
         }
 
         if(eve.getSource()==play){

@@ -140,12 +140,12 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
         currentMusic.add(musicImage, BorderLayout.WEST);
 
         currentMusic.add(songDetail, BorderLayout.EAST);
-
-        musicImage.setIcon(musicList.get(songNumber).getImage());
-        musicName.setText(musicList.get(songNumber).getName());
-        musicArtist.setText(musicList.get(songNumber).getArtist());
-        musicAlbum.setText(musicList.get(songNumber).getAlbum());
-        musicPublishYear.setText(musicList.get(songNumber).getYear() + "");
+if(musicList.size()!=0){
+        musicImage.setIcon(cover);
+        musicName.setText("f");
+        musicArtist.setText("f");
+        musicAlbum.setText("f");}
+        musicPublishYear.setText( "f");
         musicName.setForeground(new Color(234, 251, 255));
         musicArtist.setForeground(new Color(234, 251, 255));
         musicAlbum.setForeground(new Color(234, 251, 255));
@@ -340,13 +340,14 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
                     }
                 }
             }
-
-            if (songNumber > musics.size()) {
+//=====================================
+            if (songNumber >= musics.size()) {
                 songNumber--;
             } else if (songNumber < 0) {
                 songNumber++;
             }
             play.setIcon(pauseIcon);
+            artWork(musicList.get(songNumber));
             isPlaying = true;
             player.play(musicList.get(songNumber), musicSlider);
             player.changeTimePlayed(AccountManagement.getActiveAccount().getMusics(), musicList.get(songNumber));
@@ -354,7 +355,11 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
             String duration = player.convertDuration(player.getDuration(musicList.get(songNumber)));
             labelDuration.setText(duration);
+            //labelDuration.revalidate();
+            //-----????
+
             labelDuration.paintImmediately(labelDuration.getVisibleRect());
+
 
             musicList.sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
             AccountManagement.getActiveAccount().getMusics().sort((o1, o2) -> o1.getLastTimePlayed() - o2.getLastTimePlayed());
@@ -414,6 +419,21 @@ public class MusicBarP extends javax.swing.JPanel implements ActionListener {
 
         } catch (Exception e) {
         }
+    }
+
+
+    public void artWork(Music m){
+        System.out.println("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+        ImageIcon u=new ImageIcon();
+        u.setImage(m.getImage().getImage().getScaledInstance(150,150 ,Image.SCALE_DEFAULT));
+
+        musicImage.setIcon(u);
+        musicName.setText(m.getName());
+        musicArtist.setText(m.getArtist());
+        musicAlbum.setText(m.getAlbum());
+        musicPublishYear.setText( m.getYear()+"");
+        musicImage.paintImmediately(musicImage.getVisibleRect());
+
     }
 
 }

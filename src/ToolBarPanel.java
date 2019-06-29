@@ -40,7 +40,7 @@ public class ToolBarPanel extends JPanel {
                                 .addGap(18, 18, 18)
                                 .addComponent(searchText, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 406, Short.MAX_VALUE)
-                                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(user, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(39, 39, 39))
         );
         layout.setVerticalGroup(

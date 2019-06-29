@@ -23,8 +23,8 @@ public class CellPlaylist extends CellShowJpanel implements ActionListener {
 
 
         ImageIcon c=song.getImage() ;
-        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(150,150, Image.SCALE_DEFAULT));
-        image.setPreferredSize(new Dimension(150,150));
+        ImageIcon i=new ImageIcon(c.getImage().getScaledInstance(400,400, Image.SCALE_DEFAULT));
+        image.setPreferredSize(new Dimension(400,400));
 
         image.setIcon(i);
         l1.setText(song.getName());
@@ -33,14 +33,15 @@ public class CellPlaylist extends CellShowJpanel implements ActionListener {
 
 
         next= new JButton("|>");
-        previous= new JButton("|>");
-        play= new JButton("Play");
+        previous= new JButton("<|");
+        play= new JButton("Playi");
         remove=new JButton("Remove");
 
-        buttonsPanel.add(previous);
+        if(!(playList.getMusic().get(0)==song))buttonsPanel.add(previous);
         buttonsPanel.add(play);
         buttonsPanel.add(remove);
-        buttonsPanel.add(next);
+        if(!(playList.getMusic().get((playList.getMusic().size())-1)==song))buttonsPanel.add(next);
+
 
         setAction();
 
@@ -62,7 +63,13 @@ public class CellPlaylist extends CellShowJpanel implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource()==play){
-            //TODO send to accountManager.musicbar playlist.getMusics and song
+            ArrayList<Music> musicArray = new ArrayList();
+            musicArray.add(song);
+            try {
+                AccountManagement.musicBarP.updateList(musicArray);
+            } catch (Exception ee) {
+                ee.printStackTrace();
+            }
         }
         else if(e.getSource()==next){
             int i=0;

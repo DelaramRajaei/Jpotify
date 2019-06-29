@@ -177,10 +177,8 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         Object source=e.getSource();
         if(source==addPlaylist){
 
-          //  NewPlayList newPlaylistPanel=new NewPlayList();
-//
-            String n=JOptionPane.showInputDialog("playlist name : ");
-            AccountManagement.getActiveAccount().createPlayList(n);
+
+            //  NewPlayList newPlaylistPanel=new NewPlayList();
           //  for(int i=0;i<1000000;i++){
           //      System.out.println(i);
           //  }
@@ -188,11 +186,22 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
                 System.out.println("new Playlist: ");
 
-                 int x= AccountManagement.getActiveAccount().getPlayLists().size();
+                 /*int x= AccountManagement.getActiveAccount().getPlayLists().size();
                 model.addElement(AccountManagement.getActiveAccount().getPlayLists().get(x - 1));
                 System.out.println(AccountManagement.getActiveAccount().getPlayLists().get(x - 1).getName());
                 jplaylist.setVisible(false);
                 jplaylist.setVisible(true);
+*/
+
+            String n=JOptionPane.showInputDialog("playlist name : ");
+            AccountManagement.getActiveAccount().createPlayList(n);
+            model.removeAllElements();
+            for (PlayList p : AccountManagement.getActiveAccount().getPlayLists()){
+                model.addElement(p);
+            }
+            jplaylist.setModel(model);
+
+
 
 
 
@@ -202,6 +211,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
 
             if(source==addMusic){
+
                 try {
                     openFile();
                 } catch (Exception ex) {
@@ -219,6 +229,7 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
             }
             else if(source==songsButton){
+                AccountManagement.leftPanel.refreshPlaylist();
                 ArrayList<CellSongs> acs=new ArrayList<>();
                 for(Music m:AccountManagement.getActiveAccount().getMusics()){
                     CellSongs cs =new CellSongs(m);
@@ -227,6 +238,8 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
                 AccountManagement.showPanels.showSongCellMethod(acs);
             }else
                 if(source==albumsButton){
+                    AccountManagement.leftPanel.refreshPlaylist();
+
 
                     ArrayList<CallAlbums> aca = new ArrayList<>();
                     for(Album a:AccountManagement.getActiveAccount().getAlbums()){
@@ -256,16 +269,24 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
         AccountManagement.getActiveAccount().addMusic(audioFilePath);
 
     }
+    public void refreshPlaylist(){
+        model.removeAllElements();
+        for(PlayList p:AccountManagement.getActiveAccount().getPlayLists()){
+            model.addElement(p);
+        }
+        jplaylist.setModel(model);
+    }
+
+
 
     protected void setJlistPlayList(){
 
 
-        jplaylist.setModel(model);
-
+        model.removeAllElements();
         for(PlayList p:AccountManagement.getActiveAccount().getPlayLists()){
             model.addElement(p);
         }
-
+        jplaylist.setModel(model);
 
         jplaylist.getSelectionModel().addListSelectionListener(e -> {
             System.out.println("darya action");
@@ -284,10 +305,11 @@ public class LeftPanel extends javax.swing.JPanel implements ActionListener{
 
     private ArrayList<CellPlaylist> actionJlistPlaylist(PlayList p){
         ArrayList<CellPlaylist>cshp=new ArrayList<>();
+        if(p.getMusic().size()!=0){
         for (Music m:p.getMusic()){
             CellPlaylist cp=new CellPlaylist(p,m);
             cshp.add(cp);
-        }
+        }}
         return cshp;
     }
 

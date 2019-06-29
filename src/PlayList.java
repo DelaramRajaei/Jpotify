@@ -13,18 +13,10 @@ public abstract class PlayList {
 
         musics=new ArrayList<Music>();
     }
-    public void addsongActionListenerItemOfMenuHelloWorld(Music m){
-        jMenuItem=new JMenuItem(new AbstractAction() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addSong(m);
-            }
-        });
 
-    }
     public void addSong(Music selectedMusic) {
         musics.add(selectedMusic);
-        Core.addSongToPlayList(this,selectedMusic);
+         Core.addSongToPlayList(this,selectedMusic);
     }
 
     /**
