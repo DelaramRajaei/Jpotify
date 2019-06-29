@@ -15,41 +15,40 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
 
+        //Core.initialLoad();
+        ServerSocket serverSocket = new ServerSocket(6666);
+        Socket socket = new Socket("192.168.1.8", 6666);
 
-       /* ServerSocket serverSocket=new ServerSocket(6666);
-        Socket socket=new Socket(InetAddress.getLocalHost(),6666);
         socket.getLocalPort();
-        socket.getPort();*/
-        /*SocialNetwork socialNetwork = new SocialNetwork(account.getFriends(),account);
+        socket.getPort();
+        SocialNetwork socialNetwork = new SocialNetwork(AccountManagement.getActiveAccount().getFriends(), AccountManagement.getActiveAccount());
         socialNetwork.startServer();
-        socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);*/
-       /* new Thread(new Runnable() {
+        socialNetwork.sendStatusToAll(SocialNetwork.UserStatus.Online);
+        new Thread(new Runnable() {
             @Override
-            public void run(){
+            public void run() {
                 try {
                     while (true) {
-                        for (Friend friend : a.getFriends())
+                        for (Friend friend : AccountManagement.getActiveAccount().getFriends())
                             //Period.between(LocalDate.now(),friend.getLastCommunicationDate())
-                           // if ((new BaseCalendar.Date()) - friend.getLastCommunicationDate() >)
-                                socialNetwork.askStatus(friend.getIP());
+                            // if ((new BaseCalendar.Date()) - friend.getLastCommunicationDate() >)
+                            socialNetwork.askStatus(friend.getIP());
+                        Thread.sleep(30000);
                     }
-                    Thread.sleep(30000);
-                }catch(Exception err)
-                {}
+                } catch (Exception err) {
+                }
             }
-        }).start();*/
-       Core.initialLoad();
+        }).start();
         //ArrayList<Music> am=new ArrayList<>();
         //am.add(AccountManagement.getActiveAccount().getMusics().get(0));
         //AccountManagement.musicBarP.updateList(am);
-
 
 
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (Exception ex) {
             ex.printStackTrace();
-       }
+        }
 
         SwingUtilities.invokeLater(new Runnable() {
 
@@ -61,7 +60,8 @@ public class Main {
 
 
     }
-    public static void showPanel(){
+
+    public static void showPanel() {
         RootPanel rootPanel = new RootPanel();
     }
 
