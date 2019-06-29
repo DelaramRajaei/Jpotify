@@ -76,7 +76,7 @@ public class SocialNetwork {
         }
     }
 
-    private void addFriend(String IP, String message) throws Exception {
+    public void addFriend(String IP, String message) throws Exception {
         Friend newFriend = new Friend();
         newFriend.setIP(IP);
         newFriend.setName(message.split(",")[1]);
@@ -165,8 +165,12 @@ public class SocialNetwork {
         try {
             Socket client = new Socket(IP, 6666);
             OutputStream output = client.getOutputStream();
+            BufferedOutputStream writer=new BufferedOutputStream(output);
             String message = "Status," + us.toString() + "," + account.getName();
-            output.write(message.getBytes());
+            writer.write(message.getBytes());
+            writer.flush();
+            writer.close();
+            client.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -178,6 +182,9 @@ public class SocialNetwork {
             OutputStream output = client.getOutputStream();
             String message = "AskStatus";
             output.write(message.getBytes());
+            output.flush();
+            output.close();
+            client.close();
         } catch (Exception e) {
             for (Friend friend : friendsList) {
                 if (friend.getIP().equals(IP))
@@ -193,6 +200,9 @@ public class SocialNetwork {
             OutputStream output = client.getOutputStream();
             String message = "ListenInto" + music.getName() + "," + music.getArtist() + "," + music.getAlbum();
             output.write(message.getBytes());
+            output.flush();
+            output.close();
+            client.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -205,6 +215,7 @@ public class SocialNetwork {
             OutputStream output = client.getOutputStream();
             String message = "askMusic" + "," + name + "," + client.getRemoteSocketAddress();
             output.write(message.getBytes());
+            client.close();
         } catch (Exception e) {
         }
     }
@@ -215,6 +226,9 @@ public class SocialNetwork {
             OutputStream output = client.getOutputStream();
             String message = "invitation" + "," + account.getName();
             output.write(message.getBytes());
+            output.flush();
+            output.close();
+            client.close();
         } catch (Exception e) {
         }
     }
