@@ -93,7 +93,7 @@ public class SocialNetwork {
         String fileName =  message.split(",")[1];
         File file = new File("Files");
         if (!file.exists()) file.mkdir();//Make a Folder
-        File newFile = new File(file, fileName);
+        File newFile = new File(file, fileName+".mp3");
         FileOutputStream fos = new FileOutputStream(newFile);
         InputStream stream = socket.getInputStream();
         byte[] fileData=new byte[stream.available()];
