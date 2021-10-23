@@ -6,4 +6,5 @@
 /.idea/encodings.xml  
 /.idea/libraries  
 .idea  
+.env
 libraries  
